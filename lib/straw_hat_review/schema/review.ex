@@ -59,6 +59,7 @@ defmodule StrawHat.Review.Schema.Review do
       on_delete: :delete_all,
       unique: true
     )
+
     many_to_many(
       :accomplishments,
       Accomplishment,

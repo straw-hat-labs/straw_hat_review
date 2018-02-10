@@ -8,7 +8,7 @@ defmodule StrawHat.Review.Test.ReviewTest do
   end
 
   test "get review with invalid id" do
-    assert {:error, _reason} = Review.find_review(836747)
+    assert {:error, _reason} = Review.find_review(836_747)
   end
 
   test "list per page" do
