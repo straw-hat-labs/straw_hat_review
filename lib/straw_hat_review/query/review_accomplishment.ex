@@ -8,7 +8,7 @@ defmodule StrawHat.Review.Query.ReviewAccomplishmentQuery do
     from(
       review_accomplishmen in query,
       where: review_accomplishmen.review_id == ^review_id,
-      where: review_accomplishmen.accomplishmen_id in ^accomplishment_ids
+      where: review_accomplishmen.accomplishment_id in ^accomplishment_ids
     )
   end
 end
