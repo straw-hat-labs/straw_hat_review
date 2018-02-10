@@ -8,7 +8,7 @@ defmodule StrawHat.Review.Test.AccomplishmentTest do
   end
 
   test "get accomplishment with invalid id" do
-    assert {:error, _reason} = Accomplishment.find_accomplishment(836747)
+    assert {:error, _reason} = Accomplishment.find_accomplishment(836_747)
   end
 
   test "list per page" do
@@ -24,7 +24,10 @@ defmodule StrawHat.Review.Test.AccomplishmentTest do
 
   test "update accomplishment" do
     accomplishment = insert(:accomplishment)
-    {:ok, accomplishment} = Accomplishment.update_accomplishment(accomplishment, %{name: "Professional"})
+
+    {:ok, accomplishment} =
+      Accomplishment.update_accomplishment(accomplishment, %{name: "Professional"})
+
     assert accomplishment.name == "Professional"
   end
 

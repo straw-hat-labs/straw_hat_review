@@ -8,7 +8,7 @@ defmodule StrawHat.Review.Test.TagTest do
   end
 
   test "get tag with invalid id" do
-    assert {:error, _reason} = Tag.find_tag(836747)
+    assert {:error, _reason} = Tag.find_tag(836_747)
   end
 
   test "list per page" do

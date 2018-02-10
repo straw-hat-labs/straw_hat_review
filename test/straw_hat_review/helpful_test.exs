@@ -8,7 +8,7 @@ defmodule StrawHat.Review.Test.HelpfulTest do
   end
 
   test "get helpful with invalid id" do
-    assert {:error, _reason} = Helpful.find_helpful(836747)
+    assert {:error, _reason} = Helpful.find_helpful(836_747)
   end
 
   test "list per page" do
