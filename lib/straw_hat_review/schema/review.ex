@@ -35,7 +35,8 @@ defmodule StrawHat.Review.Schema.Review do
           reviewer_id: String.t(),
           type: String.t(),
           comment: String.t(),
-          review_id: Integer.t(),name: String.t()
+          review_id: Integer.t(),
+          name: String.t()
         }
 
   @required_fields ~w(date score reviewee_id reviewer_id comment)a

@@ -16,7 +16,8 @@ defmodule StrawHat.Review.Helpful do
   @doc """
   Create a helpful.
   """
-  @spec create_helpful(Helpful.helpful_attrs()) :: {:ok, Helpful.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_helpful(Helpful.helpful_attrs()) ::
+          {:ok, Helpful.t()} | {:error, Ecto.Changeset.t()}
   def create_helpful(helpful_attrs) do
     %Helpful{}
     |> Helpful.changeset(helpful_attrs)
@@ -26,7 +27,8 @@ defmodule StrawHat.Review.Helpful do
   @doc """
   Update a helpful.
   """
-  @spec update_helpful(Helpful.t(), Helpful.helpful_attrs()) :: {:ok, Helpful.t()} | {:error, Ecto.Changeset.t()}
+  @spec update_helpful(Helpful.t(), Helpful.helpful_attrs()) ::
+          {:ok, Helpful.t()} | {:error, Ecto.Changeset.t()}
   def update_helpful(%Helpful{} = helpful, helpful_attrs) do
     helpful
     |> Helpful.changeset(helpful_attrs)
@@ -46,7 +48,9 @@ defmodule StrawHat.Review.Helpful do
   def find_helpful(helpful_id) do
     case get_helpful(helpful_id) do
       nil ->
-        error = Error.new("straw_hat_review.helpful.not_found", metadata: [helpful_id: helpful_id])
+        error =
+          Error.new("straw_hat_review.helpful.not_found", metadata: [helpful_id: helpful_id])
+
         {:error, error}
 
       helpful ->

@@ -26,7 +26,8 @@ defmodule StrawHat.Review.Review do
   @doc """
   Update a review.
   """
-  @spec update_review(Review.t(), Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
+  @spec update_review(Review.t(), Review.review_attrs()) ::
+          {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
     review
     |> Review.changeset(review_attrs)
