@@ -9,6 +9,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateHelpfulTable do
       add(:comment, :string, null: false)
     end
 
-    create(index(:helpful, [:reviews_id, :user_id], unique: true))
+    create(index(:helpful, [:review_id, :user_id], unique: true))
   end
 end

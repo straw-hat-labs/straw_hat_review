@@ -6,6 +6,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateTagsTable do
       add(:name, :string, null: false)
     end
 
-    create(index(:tags, [:name], unique: true))
+    create (unique_index(:tags, [:name], name: :tags_name_index))
   end
 end

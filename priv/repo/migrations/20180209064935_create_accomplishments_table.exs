@@ -6,6 +6,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAccomplishmentsTable do
       add(:name, :string, null: false)
     end
 
-    create(index(:accomplishments, [:name], unique: true))
+    create (unique_index(:accomplishments, [:name], name: :accomplishments_name_index))
   end
 end

@@ -16,7 +16,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateReviewsTable do
       add(:type, :string)
 
       add(:comment, :string, null: false)
-      add(:review_id, references(:reviews), null: false, on_delete: :delete_all)
+      add(:review_id, references(:reviews), on_delete: :delete_all)
     end
   end
 end
