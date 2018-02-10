@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Schema.ReviewTags do
+defmodule StrawHat.Review.Schema.ReviewTag do
   @moduledoc """
   Represents a Review Tags Ecto Schema relation.
   """
