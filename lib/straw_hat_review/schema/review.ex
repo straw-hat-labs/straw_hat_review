@@ -4,7 +4,7 @@ defmodule StrawHat.Review.Schema.Review do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.Review
+  alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Accomplishment, ReviewAccomplishment}
 
   @typedoc """
   - ***date:*** The write date of review.
@@ -40,7 +40,7 @@ defmodule StrawHat.Review.Schema.Review do
         }
 
   @required_fields ~w(date score reviewee_id reviewer_id comment)a
-  @optional_fields ~w(type reviews_id)a
+  @optional_fields ~w(type review_id)a
 
   schema "reviews" do
     field(:date, :utc_datetime)
@@ -50,6 +50,23 @@ defmodule StrawHat.Review.Schema.Review do
     field(:type, :string)
     field(:comment, :string)
     belongs_to(:review, Review)
+
+    many_to_many(
+      :tags,
+      Tag,
+      join_through: ReviewTag,
+      on_replace: :delete,
+      on_delete: :delete_all,
+      unique: true
+    )
+    many_to_many(
+      :accomplishments,
+      Accomplishment,
+      join_through: ReviewAccomplishment,
+      on_replace: :delete,
+      on_delete: :delete_all,
+      unique: true
+    )
   end
 
   @doc """
