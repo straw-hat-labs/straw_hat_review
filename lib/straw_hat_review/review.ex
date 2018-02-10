@@ -5,7 +5,8 @@ defmodule StrawHat.Review.Review do
 
   use StrawHat.Review.Interactor
 
-  alias StrawHat.Review.Schema.Review
+  alias StrawHat.Review.Schema.{Review, ReviewTag, ReviewAccomplishment}
+  alias StrawHat.Review.Query.{ReviewTagQuery, ReviewAccomplishmentQuery}
 
   @doc """
   Get the list of reviews.
@@ -60,4 +61,50 @@ defmodule StrawHat.Review.Review do
   """
   @spec get_review(String.t()) :: Review.t() | nil | no_return
   def get_review(review_id), do: Repo.get(Review, review_id)
+
+  @doc """
+  Add tags to review.
+  """
+  @spec add_tags(Review.t(), [Tag.t()]) ::
+          {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
+  def add_tags(review, tags) do
+    review
+    |> Repo.preload(:tags)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:tags, tags)
+    |> Repo.update()
+  end
+
+  @doc """
+  Remove tags from review.
+  """
+  @spec remove_tags(Review.t(), [Integer.t()]) :: {integer, nil | [term]} | no_return
+  def remove_tags(review, tags) do
+    ReviewTag
+    |> ReviewTagQuery.get_by(review.id, tags)
+    |> Repo.delete_all()
+  end
+
+  @doc """
+  Add accomplishments to review.
+  """
+  @spec add_accomplishments(Review.t(), [Accomplishment.t()]) ::
+          {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
+  def add_accomplishments(review, accomplishments) do
+    review
+    |> Repo.preload(:accomplishments)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:accomplishments, accomplishments)
+    |> Repo.update()
+  end
+
+  @doc """
+  Remove accomplishments from review.
+  """
+  @spec remove_accomplishments(Review.t(), [Integer.t()]) :: {integer, nil | [term]} | no_return
+  def remove_accomplishments(review, accomplishments) do
+    ReviewAccomplishment
+    |> ReviewAccomplishmentQuery.get_by(review.id, accomplishments)
+    |> Repo.delete_all()
+  end
 end
