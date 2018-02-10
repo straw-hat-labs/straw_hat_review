@@ -28,3 +28,15 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :straw_hat_review, ecto_repos: [StrawHat.Review.Repo]
+
+config :straw_hat_review, StrawHat.Review.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "straw_hat_review_test",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
+
+config :straw_hat_review, StrawHat.Review, adapter: Swoosh.Adapters.Local
