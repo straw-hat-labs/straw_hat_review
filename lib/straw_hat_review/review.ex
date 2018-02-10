@@ -65,8 +65,7 @@ defmodule StrawHat.Review.Review do
   @doc """
   Add tags to review.
   """
-  @spec add_tags(Review.t(), [Tag.t()]) ::
-          {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
+  @spec add_tags(Review.t(), [Tag.t()]) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def add_tags(review, tags) do
     review
     |> Repo.preload(:tags)
