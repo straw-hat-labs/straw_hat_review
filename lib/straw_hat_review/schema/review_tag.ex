@@ -23,7 +23,7 @@ defmodule StrawHat.Review.Schema.ReviewTag do
           tag_id: Integer.t()
         }
 
-  @required_fields ~w(template_id tag_id)a
+  @required_fields ~w(review_id tag_id)a
 
   @primary_key false
   schema "review_tags" do

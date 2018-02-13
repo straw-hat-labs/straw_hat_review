@@ -23,7 +23,7 @@ defmodule StrawHat.Review.Schema.ReviewAccomplishment do
           partial_id: Integer.t()
         }
 
-  @required_fields ~w(template_id partial_id)a
+  @required_fields ~w(review_id partial_id)a
 
   @primary_key false
   schema "review_accomplishments" do
