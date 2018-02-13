@@ -1,7 +1,7 @@
 defmodule StrawHat.Review.Test.Factory do
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
-  alias StrawHat.Review.Schema.{Tag, Accomplishment, Helpful, Review}
+  alias StrawHat.Review.Schema.{Tag, Accomplishment, Recommendation, Review}
 
   def tag_factory do
     %Tag{
@@ -15,9 +15,9 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def helpful_factory do
-    %Helpful{
-      classification: Faker.Pokemon.name(),
+  def recommendation_factory do
+    %Recommendation{
+      type: Faker.Pokemon.name(),
       review: build(:review),
       user_id: Faker.String.base64(),
       comment: Faker.Lorem.Shakespeare.hamlet()
