@@ -1,6 +1,6 @@
-defmodule StrawHat.Review.Schema.Recommendation do
+defmodule StrawHat.Review.Schema.Feedback do
   @moduledoc """
-  Represents a Recommendation Ecto Schema.
+  Represents a Feedback Ecto Schema.
   """
 
   use StrawHat.Review.Schema
@@ -9,9 +9,9 @@ defmodule StrawHat.Review.Schema.Recommendation do
   @typedoc """
   - ***type:*** The `type` field can use for mark the comment is useful or
   not. The value can be (YES, NO, RECOMMENDED, LOW_INTUITIVE).
-  - ***reviews_id:*** The review used for the recommendation comment.
-  - ***user_id:*** The `user` that make the recommendation comment.
-  - ***comment:*** The text write in the recommendation comment.
+  - ***reviews_id:*** The review used for the feedback comment.
+  - ***user_id:*** The `user` that make the feedback comment.
+  - ***comment:*** The text write in the feedback comment.
   """
   @type t :: %__MODULE__{
           type: String.t(),
@@ -23,7 +23,7 @@ defmodule StrawHat.Review.Schema.Recommendation do
   @typedoc """
   Check `t:t/0` type for more information about the keys.
   """
-  @type recommendation_attrs :: %{
+  @type feedback_attrs :: %{
           type: String.t(),
           review_id: Integer.t(),
           user_id: String.t(),
@@ -32,7 +32,7 @@ defmodule StrawHat.Review.Schema.Recommendation do
 
   @required_fields ~w(type review_id user_id comment)a
 
-  schema "recommendations" do
+  schema "feedbacks" do
     field(:type, :string)
     belongs_to(:review, Review)
     field(:user_id, :string)
@@ -40,12 +40,12 @@ defmodule StrawHat.Review.Schema.Recommendation do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Recommendation.
+  Validate the attributes and return a Ecto.Changeset for the current Feedback.
   """
-  @spec changeset(t, recommendation_attrs) :: Ecto.Changeset.t()
-  def changeset(recommendation, recommendation_attrs) do
-    recommendation
-    |> cast(recommendation_attrs, @required_fields)
+  @spec changeset(t, feedback_attrs) :: Ecto.Changeset.t()
+  def changeset(feedback, feedback_attrs) do
+    feedback
+    |> cast(feedback_attrs, @required_fields)
     |> validate_required(@required_fields)
     |> assoc_constraint(:review)
   end
