@@ -64,6 +64,15 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
+  def review_aspect do
+    %ReviewAspect{
+      aspect_id: build(:aspect),
+      review_id: build(:review),
+      comment: Faker.Lorem.Shakespeare.hamlet(),
+      score: get_score()
+    }
+  end
+
   defp get_score() do
     Enum.take_random(1..5, 1) |> List.first()
   end
