@@ -4,7 +4,7 @@ defmodule StrawHat.Review.Schema.Review do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Accomplishment, ReviewAccomplishment}
+  alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Aspect, ReviewAspect}
 
   @typedoc """
   - ***date:*** The write date of review.
@@ -61,9 +61,9 @@ defmodule StrawHat.Review.Schema.Review do
     )
 
     many_to_many(
-      :accomplishments,
-      Accomplishment,
-      join_through: ReviewAccomplishment,
+      :aspects,
+      Aspect,
+      join_through: ReviewAspect,
       on_replace: :delete,
       on_delete: :delete_all,
       unique: true
