@@ -47,19 +47,4 @@ defmodule StrawHat.Review.Test.ReviewTest do
     assert {count, _} = Review.remove_tags(review, [tag.id])
     assert count == 1
   end
-
-  test "add accomplishments to review" do
-    review = insert(:review)
-    accomplishments = insert_list(10, :accomplishment)
-    assert {:ok, review} = Review.add_accomplishments(review, accomplishments)
-    assert Enum.count(review.accomplishments) == 10
-  end
-
-  test "remove accomplishments from review" do
-    review = insert(:review)
-    accomplishment = insert(:accomplishment)
-    assert {:ok, review} = Review.add_accomplishments(review, [accomplishment])
-    assert {count, _} = Review.remove_accomplishments(review, [accomplishment.id])
-    assert count == 1
-  end
 end
