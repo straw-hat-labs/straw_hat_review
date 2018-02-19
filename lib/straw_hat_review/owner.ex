@@ -5,16 +5,18 @@ defmodule StrawHat.Review.Owner do
 
   use StrawHat.Review.Interactor
 
-  alias StrawHat.Review.Schema.{AchievementBadge, Achievements}
-  alias StrawHat.Review.Query.{AchievementQuery}
+  alias StrawHat.Review.Schema.Achievement
+  alias StrawHat.Review.Query.AchievementQuery
 
 
   @doc """
   Add achievement badge to owner.
   """
-  @spec add_achievement_badges(String.t(), [AchievementBadge.t()]) :: {:ok, AchievementBadge.t()} | {:error, Ecto.Changeset.t()}
-  def add_achievement_badges(owner_id, achievement_badges) do
-    # @ Todo consultar con yordis
+  @spec add_achievement_badge(Achievement.achievement_attrs()) :: {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
+  def add_achievement_badge(achievement_attrs) do
+    %Achievement{}
+    |> Achievement.changeset(achievement_attrs)
+    |> Repo.insert()
   end
 
   @doc """
