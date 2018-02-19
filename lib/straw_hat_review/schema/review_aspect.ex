@@ -31,7 +31,6 @@ defmodule StrawHat.Review.Schema.ReviewAspect do
 
   @required_fields ~w(review_id aspect_id comment score)a
 
-  @primary_key false
   schema "review_aspects" do
     belongs_to(:review, Review)
     belongs_to(:aspect, Aspect)
