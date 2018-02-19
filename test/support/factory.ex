@@ -64,10 +64,10 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def review_aspect do
+  def review_aspect_factory do
     %ReviewAspect{
-      aspect_id: build(:aspect),
-      review_id: build(:review),
+      aspect: build(:aspect),
+      review: build(:review),
       comment: Faker.Lorem.Shakespeare.hamlet(),
       score: get_score()
     }
