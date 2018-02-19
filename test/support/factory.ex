@@ -1,7 +1,7 @@
 defmodule StrawHat.Review.Test.Factory do
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
-  alias StrawHat.Review.Schema.{Tag, Aspect, Feedback, Review, ReviewAspect}
+  alias StrawHat.Review.Schema.{Tag, Aspect, AchievementBadge, Achievement, Feedback, Review, ReviewAspect}
 
   def tag_factory do
     %Tag{
@@ -12,6 +12,19 @@ defmodule StrawHat.Review.Test.Factory do
   def aspect_factory do
     %Aspect{
       name: Faker.String.base64()
+    }
+  end
+
+  def achievement_badge_factory do
+    %AchievementBadge{
+      name: Faker.String.base64()
+    }
+  end
+
+  def achievement_factory do
+    %Achievement{
+      owner_id: Faker.String.base64(),
+      achievement_badge: build(:achievement_badge),
     }
   end
 
@@ -34,10 +47,10 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def review_aspect do
+  def review_aspect_factory do
     %ReviewAspect{
-      aspect_id: build(:aspect),
-      review_id: build(:review),
+      aspect: build(:aspect),
+      review: build(:review),
       comment: Faker.Lorem.Shakespeare.hamlet(),
       score: get_score()
     }
