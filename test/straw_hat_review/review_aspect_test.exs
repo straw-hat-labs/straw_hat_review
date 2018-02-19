@@ -19,7 +19,8 @@ defmodule StrawHat.Review.Test.ReviewAspectTest do
 
   test "create review aspect" do
     review = insert(:review)
-    params = params_for(:review_aspect, %{review_id: review.id})
+    aspect = insert(:aspect)
+    params = params_for(:review_aspect,%{aspect_id: aspect.id, review_id: review.id})
     assert {:ok, _review_aspect} = ReviewAspect.create_review_aspect(params)
   end
 
