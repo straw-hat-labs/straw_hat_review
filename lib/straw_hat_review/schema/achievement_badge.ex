@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Schema.AchievementBadge do
   use StrawHat.Review.Schema
 
   @typedoc """
-  - ***name:*** The achievement_badge identificator above another achievement_badges.
+  - `name`: The achievement_badge identificator above another achievement_badges.
   """
   @type t :: %__MODULE__{
           name: String.t()

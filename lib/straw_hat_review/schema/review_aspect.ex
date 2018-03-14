@@ -7,13 +7,17 @@ defmodule StrawHat.Review.Schema.ReviewAspect do
   alias StrawHat.Review.Schema.{Review, Aspect}
 
   @typedoc """
-  - ***review_id:*** The `review_id` is a reference to Review schema.
-  - ***aspect_id:*** The `accomplistment_id` is a reference to Aspect schema.
-  - ***comment:*** The user `comment` or appreciation above the aspect.
-  - ***score:*** The punctuation received for the aspect in the range of 1 to 5.
+  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current review aspect.
+  - `review_id`: The `review_id` is a reference to Review schema.
+  - `aspect`: `t:StrawHat.Review.Schema.Aspect.t/0` associated with the current review aspect.
+  - `aspect_id`: The `accomplistment_id` is a reference to Aspect schema.
+  - `comment`: The user `comment` or appreciation above the aspect.
+  - `score`: The punctuation received for the aspect in the range of 1 to 5.
   """
   @type t :: %__MODULE__{
+          review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t(),
+          aspect: Aspect.t() | Ecto.Association.NotLoaded.t(),
           aspect_id: Integer.t(),
           comment: String.t(),
           score: Integer.t()

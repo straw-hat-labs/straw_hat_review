@@ -7,14 +7,16 @@ defmodule StrawHat.Review.Schema.Feedback do
   alias StrawHat.Review.Schema.Review
 
   @typedoc """
-  - ***type:*** The `type` field can use for mark the comment is useful or
+  - `type`: The `type` field can use for mark the comment is useful or
   not. The value can be (YES, NO, RECOMMENDED, LOW_INTUITIVE).
-  - ***reviews_id:*** The review used for the feedback comment.
-  - ***user_id:*** The `user` that make the feedback comment.
-  - ***comment:*** The text write in the feedback comment.
+  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current feedback.
+  - `review_id`: The review used for the feedback comment.
+  - `user_id`: The `user` that make the feedback comment.
+  - `comment`: The text write in the feedback comment.
   """
   @type t :: %__MODULE__{
           type: String.t(),
+          review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t(),
           user_id: String.t(),
           comment: String.t()

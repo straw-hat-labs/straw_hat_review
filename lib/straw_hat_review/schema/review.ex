@@ -7,13 +7,18 @@ defmodule StrawHat.Review.Schema.Review do
   alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Aspect, ReviewAspect}
 
   @typedoc """
-  - ***date:*** The write date of review.
-  - ***score:*** The punctuation received for the reviewer in the range of 1 to 5.
-  - ***reviewee_id:*** The object or user that receive the review.
-  - ***reviewer_id:*** The user that make the comment.
-  - ***type:*** The tag for mark the review for example customer, performer.
-  - ***comment:*** The user comment or appreciation above the reviewee.
-  - ***reviews_id:*** Represent the relation betwwen review from reviews.
+  - `date`: The write date of review.
+  - `score`: The punctuation received for the reviewer in the range of 1 to 5.
+  - `reviewee_id`: The object or user that receive the review.
+  - `reviewer_id`: The user that make the comment.
+  - `type`: The tag for mark the review for example customer, performer.
+  - `comment`: The user comment or appreciation above the reviewee.
+  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current review.
+  - `review_id`: Represent the relation betwwen review from reviews.
+  - `tags`: List of `t:StrawHat.Review.Schema.Tag.t/0` associated with the
+  current review.
+  - `aspects`: List of `t:StrawHat.Review.Schema.Aspect.t/0` associated with the
+  current review.
   """
   @type t :: %__MODULE__{
           date: DateTime.t(),
@@ -22,7 +27,10 @@ defmodule StrawHat.Review.Schema.Review do
           reviewer_id: String.t(),
           type: String.t(),
           comment: String.t(),
-          review_id: Integer.t()
+          review: Review.t() | Ecto.Association.NotLoaded.t(),
+          review_id: Integer.t(),
+          tags: [Tag.t()] | Ecto.Association.NotLoaded.t(),
+          aspects: [Aspect.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """

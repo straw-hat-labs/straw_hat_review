@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Schema.Aspect do
   use StrawHat.Review.Schema
 
   @typedoc """
-  - ***name:*** The aspect identificator above another aspects.
+  - `name`: The aspect identificator above another aspects.
   """
   @type t :: %__MODULE__{
           name: String.t()

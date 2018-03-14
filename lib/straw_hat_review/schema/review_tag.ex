@@ -7,11 +7,15 @@ defmodule StrawHat.Review.Schema.ReviewTag do
   alias StrawHat.Review.Schema.{Review, Tag}
 
   @typedoc """
-  - ***review_id:*** The `review_id` is a reference to Review schema.
-  - ***tag_id:*** The `tag_id` is a reference to Tag schema.
+  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current review tag.
+  - `review_id`: The `review_id` is a reference to Review schema.
+  - `tag`: `t:StrawHat.Review.Schema.Tag.t/0` associated with the current review tag.
+  - `tag_id`: The `tag_id` is a reference to Tag schema.
   """
   @type t :: %__MODULE__{
+          review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t(),
+          tag: Tag.t() | Ecto.Association.NotLoaded.t(),
           tag_id: Integer.t()
         }
 

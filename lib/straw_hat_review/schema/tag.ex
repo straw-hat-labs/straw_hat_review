@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Schema.Tag do
   use StrawHat.Review.Schema
 
   @typedoc """
-  - ***name:*** The tag identificator above another tags.
+  - `name`: The tag identificator above another tags.
   """
   @type t :: %__MODULE__{
           name: String.t()
