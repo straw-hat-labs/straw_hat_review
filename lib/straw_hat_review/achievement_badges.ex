@@ -5,8 +5,7 @@ defmodule StrawHat.Review.AchievementBadge do
 
   use StrawHat.Review.Interactor
 
-  alias StrawHat.Review.Schema.{AchievementBadge, Achievements}
-  alias StrawHat.Review.Query.{AchievementQuery}
+  alias StrawHat.Review.Schema.AchievementBadge
 
   @doc """
   Get the list of achievement badges.
