@@ -44,7 +44,7 @@ defmodule StrawHat.Review.Review do
   @doc """
   Find a review by `id`.
   """
-  @spec find_review(String.t()) :: {:ok, Review.t()} | {:error, Error.t()}
+  @spec find_review(Integer.t()) :: {:ok, Review.t()} | {:error, Error.t()}
   def find_review(review_id) do
     case get_review(review_id) do
       nil ->
@@ -59,7 +59,7 @@ defmodule StrawHat.Review.Review do
   @doc """
   Get a review by `id`.
   """
-  @spec get_review(String.t()) :: Review.t() | nil | no_return
+  @spec get_review(Integer.t()) :: Review.t() | nil | no_return
   def get_review(review_id), do: Repo.get(Review, review_id)
 
   @doc """

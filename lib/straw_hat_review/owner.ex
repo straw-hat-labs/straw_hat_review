@@ -22,7 +22,7 @@ defmodule StrawHat.Review.Owner do
   @doc """
   Remove achievement badge from owner.
   """
-  @spec remove_achievement_badges(String.t(), [Integer.t()]) :: {integer, nil | [term]} | no_return
+  @spec remove_achievement_badges(Integer.t(), [Integer.t()]) :: {integer, nil | [term]} | no_return
   def remove_achievement_badges(owner_id, achievement_badges) do
     Achievement
     |> AchievementQuery.get_by(owner_id, achievement_badges)

@@ -44,7 +44,7 @@ defmodule StrawHat.Review.ReviewAspect do
   @doc """
   Find a review_aspect by `id`.
   """
-  @spec find_review_aspect(String.t()) :: {:ok, ReviewAspect.t()} | {:error, Error.t()}
+  @spec find_review_aspect(Integer.t()) :: {:ok, ReviewAspect.t()} | {:error, Error.t()}
   def find_review_aspect(review_aspect_id) do
     case get_review_aspect(review_aspect_id) do
       nil ->
@@ -61,6 +61,6 @@ defmodule StrawHat.Review.ReviewAspect do
   @doc """
   Get a review_aspect by `id`.
   """
-  @spec get_review_aspect(String.t()) :: ReviewAspect.t() | nil | no_return
+  @spec get_review_aspect(Integer.t()) :: ReviewAspect.t() | nil | no_return
   def get_review_aspect(review_aspect_id), do: Repo.get(ReviewAspect, review_aspect_id)
 end

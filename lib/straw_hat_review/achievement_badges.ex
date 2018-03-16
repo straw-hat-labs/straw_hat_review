@@ -43,7 +43,7 @@ defmodule StrawHat.Review.AchievementBadge do
   @doc """
   Find a achievement badge by `id`.
   """
-  @spec find_achievement_badge(String.t()) :: {:ok, AchievementBadge.t()} | {:error, Error.t()}
+  @spec find_achievement_badge(Integer.t()) :: {:ok, AchievementBadge.t()} | {:error, Error.t()}
   def find_achievement_badge(achievement_badge_id) do
     case get_achievement_badge(achievement_badge_id) do
       nil ->
@@ -58,6 +58,6 @@ defmodule StrawHat.Review.AchievementBadge do
   @doc """
   Get a achievement badge by `id`.
   """
-  @spec get_achievement_badge(String.t()) :: AchievementBadge.t() | nil | no_return
+  @spec get_achievement_badge(Integer.t()) :: AchievementBadge.t() | nil | no_return
   def get_achievement_badge(achievement_badge_id), do: Repo.get(AchievementBadge, achievement_badge_id)
 end
