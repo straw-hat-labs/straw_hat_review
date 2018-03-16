@@ -3,7 +3,7 @@ defmodule StrawHat.Review.Query.AchievementQuery do
 
   import Ecto.Query, only: [from: 2]
 
-  @spec get_by(Achievement.t(), String.t(), [Integer.t()]) :: Ecto.Query.t()
+  @spec get_by(Achievement.t(), Integer.t(), [Integer.t()]) :: Ecto.Query.t()
   def get_by(query, owner_id, achievement_badge_ids) do
     from(
       achievement in query,

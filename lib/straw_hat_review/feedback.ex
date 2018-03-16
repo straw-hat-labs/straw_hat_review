@@ -44,7 +44,7 @@ defmodule StrawHat.Review.Feedback do
   @doc """
   Find a feedback by `id`.
   """
-  @spec find_feedback(String.t()) :: {:ok, Feedback.t()} | {:error, Error.t()}
+  @spec find_feedback(Integer.t()) :: {:ok, Feedback.t()} | {:error, Error.t()}
   def find_feedback(feedback_id) do
     case get_feedback(feedback_id) do
       nil ->
@@ -61,6 +61,6 @@ defmodule StrawHat.Review.Feedback do
   @doc """
   Get a feedback by `id`.
   """
-  @spec get_feedback(String.t()) :: Feedback.t() | nil | no_return
+  @spec get_feedback(Integer.t()) :: Feedback.t() | nil | no_return
   def get_feedback(feedback_id), do: Repo.get(Feedback, feedback_id)
 end
