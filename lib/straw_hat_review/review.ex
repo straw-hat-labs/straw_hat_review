@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Review do
   use StrawHat.Review.Interactor
 
   alias StrawHat.Review.Schema.{Review, ReviewTag}
-  alias StrawHat.Review.Query.{ReviewTagQuery}
+  alias StrawHat.Review.Query.{ReviewQuery, ReviewTagQuery}
 
   @doc """
   Get the list of reviews.
@@ -82,5 +82,45 @@ defmodule StrawHat.Review.Review do
     ReviewTag
     |> ReviewTagQuery.get_by(review.id, tags)
     |> Repo.delete_all()
+  end
+
+  @doc """
+  Get list of review by ids.
+  """
+  @spec review_by_ids([Integer.t()]) :: [Review.t()] | no_return
+  def review_by_ids(review_ids) do
+    Review
+    |> ReviewQuery.by_ids(review_ids)
+    |> Repo.all()
+  end
+
+  @doc """
+  Get list of tag by review ids.
+  """
+  @spec get_tags([Integer.t()]) :: [Review.t()] | no_return
+  def get_tags(review_ids) do
+    Review
+    |> ReviewQuery.get_tags(review_ids)
+    |> Repo.all()
+  end
+
+  @doc """
+  Get list of feedbacks by review ids.
+  """
+  @spec get_feedbacks([Integer.t()]) :: [Review.t()] | no_return
+  def get_feedbacks(review_ids) do
+    Review
+    |> ReviewQuery.get_feedbacks(review_ids)
+    |> Repo.all()
+  end
+
+  @doc """
+  Get list of review aspects by review ids.
+  """
+  @spec get_review_aspects([Integer.t()]) :: [Review.t()] | no_return
+  def get_review_aspects(review_ids) do
+    Review
+    |> ReviewQuery.get_review_aspects(review_ids)
+    |> Repo.all()
   end
 end
