@@ -6,6 +6,7 @@ defmodule StrawHat.Review.ReviewAspect do
   use StrawHat.Review.Interactor
 
   alias StrawHat.Review.Schema.ReviewAspect
+  alias StrawHat.Review.Query.ReviewAspectQuery
 
   @doc """
   Get the list of review_aspects.
@@ -63,4 +64,24 @@ defmodule StrawHat.Review.ReviewAspect do
   """
   @spec get_review_aspect(Integer.t()) :: ReviewAspect.t() | nil | no_return
   def get_review_aspect(review_aspect_id), do: Repo.get(ReviewAspect, review_aspect_id)
+
+  @doc """
+  Get list of aspects by review aspect ids.
+  """
+  @spec get_aspects([Integer.t()]) :: [Review.t()] | no_return
+  def get_aspects(review_aspect_ids) do
+    ReviewAspect
+    |> ReviewAspectQuery.get_aspects(review_aspect_ids)
+    |> Repo.all()
+  end
+
+  @doc """
+  Get list of review by review aspect ids.
+  """
+  @spec get_reviews([Integer.t()]) :: [Review.t()] | no_return
+  def get_reviews(review_aspect_ids) do
+    ReviewAspect
+    |> ReviewAspectQuery.get_reviews(review_aspect_ids)
+    |> Repo.all()
+  end
 end
