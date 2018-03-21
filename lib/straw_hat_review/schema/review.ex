@@ -4,7 +4,7 @@ defmodule StrawHat.Review.Schema.Review do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Aspect, ReviewAspect}
+  alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
 
   @typedoc """
   - `date`: The write date of review.
@@ -15,10 +15,10 @@ defmodule StrawHat.Review.Schema.Review do
   - `comment`: The user comment or appreciation above the reviewee.
   - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current review.
   - `review_id`: Represent the relation betwwen review from reviews.
-  - `tags`: List of `t:StrawHat.Review.Schema.Tag.t/0` associated with the
-  current review.
-  - `aspects`: List of `t:StrawHat.Review.Schema.Aspect.t/0` associated with the
-  current review.
+  - `tags`: List of `t:StrawHat.Review.Schema.Tag.t/0` associated with the current review.
+  - `reviews`: List of `t:StrawHat.Review.Schema.Review.t/0` associated with the current review.
+  - `feedbacks`: List of `t:StrawHat.Review.Schema.Feedback.t/0` associated with the current review.
+  - `review_aspects`: List of `t:StrawHat.Review.Schema.ReviewAspect.t/0` associated with the current review.
   """
   @type t :: %__MODULE__{
           date: DateTime.t(),
@@ -30,7 +30,9 @@ defmodule StrawHat.Review.Schema.Review do
           review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t(),
           tags: [Tag.t()] | Ecto.Association.NotLoaded.t(),
-          aspects: [Aspect.t()] | Ecto.Association.NotLoaded.t()
+          reviews: [Review.t()] | Ecto.Association.NotLoaded.t(),
+          feedbacks: [Feedback.t()] | Ecto.Association.NotLoaded.t(),
+          review_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """
@@ -59,19 +61,14 @@ defmodule StrawHat.Review.Schema.Review do
     field(:comment, :string)
     belongs_to(:review, Review)
 
+    has_many(:reviews, Review)
+    has_many(:feedbacks, Feedback)
+    has_many(:review_aspects, ReviewAspect)
+
     many_to_many(
       :tags,
       Tag,
       join_through: ReviewTag,
-      on_replace: :delete,
-      on_delete: :delete_all,
-      unique: true
-    )
-
-    many_to_many(
-      :aspects,
-      Aspect,
-      join_through: ReviewAspect,
       on_replace: :delete,
       on_delete: :delete_all,
       unique: true
