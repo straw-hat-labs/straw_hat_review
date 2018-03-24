@@ -4,12 +4,15 @@ defmodule StrawHat.Review.Aspect do
   """
 
   use StrawHat.Review.Schema
+  alias StrawHat.Review.Schema.ReviewAspect
 
   @typedoc """
   - `name`: The aspect identificator above another aspects.
+  - `review_aspects`: List of `t:StrawHat.Review.Schema.ReviewAspect.t/0` associated with the current aspect.
   """
   @type t :: %__MODULE__{
-          name: String.t()
+          name: String.t(),
+          review_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """
