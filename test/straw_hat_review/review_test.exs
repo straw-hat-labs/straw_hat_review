@@ -22,6 +22,16 @@ defmodule StrawHat.Review.Test.ReviewTest do
     assert {:ok, _review} = Review.create_review(params)
   end
 
+  test "create review with tags" do
+    params = 
+      :review
+      |> params_for()
+      |> Map.put(:tags, "Nails,Thumb,Blesser")
+
+    assert {:ok, review} = Review.create_review(params)
+    assert length(review.tags) == 3
+  end
+
   test "update review" do
     review = insert(:review)
     {:ok, review} = Review.update_review(review, %{score: 4})
