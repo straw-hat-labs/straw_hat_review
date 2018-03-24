@@ -5,7 +5,7 @@ defmodule StrawHat.Review.Review do
 
   use StrawHat.Review.Interactor
 
-  alias StrawHat.Review.Schema.{Review, ReviewTag}
+  alias StrawHat.Review.Schema.{Review, ReviewTag, Tag}
   alias StrawHat.Review.Query.{ReviewQuery, ReviewTagQuery}
 
   @doc """
@@ -13,6 +13,17 @@ defmodule StrawHat.Review.Review do
   """
   @spec get_reviews(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_reviews(pagination \\ []), do: Repo.paginate(Review, pagination)
+
+  @doc """
+  Create a review.
+  """
+  @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
+  def create_review(review_attrs) do
+    %Review{}
+    |> Review.changeset(review_attrs)
+    |> Ecto.Changeset.put_assoc(:tags, parse_tags(review_attrs))
+    |> Repo.insert()
+  end
 
   @doc """
   Create a review.
@@ -122,5 +133,18 @@ defmodule StrawHat.Review.Review do
     Review
     |> ReviewQuery.get_review_aspects(review_ids)
     |> Repo.all()
+  end
+
+  defp parse_tags(params) do
+    (params[:tags] || "")
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.reject(& &1 == "")
+    |> Enum.map(&get_or_insert_tag/1)
+  end
+
+  defp get_or_insert_tag(name) do
+    Repo.get_by(Tag, name: name) ||
+    Repo.insert!(%Tag{name: name})
   end
 end
