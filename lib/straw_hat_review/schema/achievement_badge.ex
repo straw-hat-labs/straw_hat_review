@@ -4,12 +4,15 @@ defmodule StrawHat.Review.Schema.AchievementBadge do
   """
 
   use StrawHat.Review.Schema
+  alias StrawHat.Review.Schema.Achievement
 
   @typedoc """
-  - `name`: The achievement_badge identificator above another achievement_badges.
+  - `name`: The achievement_badge identificator above another achievement badges.
+  - `achievements`: List of `t:StrawHat.Review.Schema.Achievement.t/0` associated with the current achievement badge.
   """
   @type t :: %__MODULE__{
-          name: String.t()
+          name: String.t(),
+          achievements: [Achievement.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """
@@ -23,6 +26,13 @@ defmodule StrawHat.Review.Schema.AchievementBadge do
 
   schema "achievement_badges" do
     field(:name, :string)
+
+    has_many(
+      :achievements,
+      Achievement,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
   end
 
   @doc """

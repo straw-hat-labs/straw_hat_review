@@ -27,7 +27,6 @@ defmodule StrawHat.Review.Schema.Achievement do
 
   @required_fields ~w(owner_id achievement_badge_id)a
 
-  @primary_key false
   schema "achievements" do
     field(:owner_id, :string)
     belongs_to(:achievement_badge, AchievementBadge)

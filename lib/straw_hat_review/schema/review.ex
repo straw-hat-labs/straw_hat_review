@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Schema.Review do
   """
 
   use StrawHat.Review.Schema
+  alias StrawHat.Review.Repo
   alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
 
   @typedoc """
@@ -46,7 +47,8 @@ defmodule StrawHat.Review.Schema.Review do
           type: String.t(),
           comment: String.t(),
           review_id: Integer.t(),
-          name: String.t()
+          name: String.t(),
+          tags: String.t()
         }
 
   @required_fields ~w(date score reviewee_id reviewer_id comment)a
@@ -61,9 +63,26 @@ defmodule StrawHat.Review.Schema.Review do
     field(:comment, :string)
     belongs_to(:review, Review)
 
-    has_many(:reviews, Review)
-    has_many(:feedbacks, Feedback)
-    has_many(:review_aspects, ReviewAspect)
+    has_many(
+      :reviews,
+      Review,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
+
+    has_many(
+      :feedbacks,
+      Feedback,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
+
+    has_many(
+      :review_aspects,
+      ReviewAspect,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
 
     many_to_many(
       :tags,

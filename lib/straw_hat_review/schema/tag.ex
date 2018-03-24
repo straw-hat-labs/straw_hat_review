@@ -4,12 +4,15 @@ defmodule StrawHat.Review.Schema.Tag do
   """
 
   use StrawHat.Review.Schema
+  alias StrawHat.Review.Schema.ReviewTag
 
   @typedoc """
   - `name`: The tag identificator above another tags.
+  - `review_tags`: List of `t:StrawHat.Review.Schema.ReviewTag.t/0` associated with the current tag.
   """
   @type t :: %__MODULE__{
-          name: String.t()
+          name: String.t(),
+          review_tags: [ReviewTag.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """
@@ -23,6 +26,13 @@ defmodule StrawHat.Review.Schema.Tag do
 
   schema "tags" do
     field(:name, :string)
+
+    has_many(
+      :review_tags,
+      ReviewTag,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
   end
 
   @doc """
