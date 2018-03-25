@@ -102,7 +102,10 @@ defmodule StrawHat.Review.MixProject do
       source_ref: "v#{@version}",
       source_url: @source_url,
       extras: ["README.md"],
-      groups_for_modules: []
+      groups_for_modules: [
+        Interactors: [],
+        Schemas: []
+      ]
     ]
   end
 end
