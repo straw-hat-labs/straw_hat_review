@@ -48,7 +48,7 @@ defmodule StrawHat.Review.MixProject do
 
   defp deps do
     [
-      {:straw_hat, "~> 0.2"},
+      {:straw_hat, "~> 0.4"},
       {:postgrex, "~> 0.13.2"},
       {:ecto, "~> 2.2"},
       {:scrivener_ecto, "~> 1.2"},
@@ -63,7 +63,8 @@ defmodule StrawHat.Review.MixProject do
       {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},
       {:benchee, ">= 0.0.0", only: [:dev], runtime: false},
       {:benchee_html, ">= 0.0.0", only: [:dev], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false}
+      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
+      {:inch_ex, ">= 0.0.0", only: [:dev], runtime: false}
     ]
   end
 
@@ -101,7 +102,10 @@ defmodule StrawHat.Review.MixProject do
       source_ref: "v#{@version}",
       source_url: @source_url,
       extras: ["README.md"],
-      groups_for_modules: []
+      groups_for_modules: [
+        Interactors: [],
+        Schemas: []
+      ]
     ]
   end
 end
