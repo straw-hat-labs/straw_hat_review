@@ -4,11 +4,11 @@ defmodule StrawHat.Review.Aspect do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.ReviewAspect
+  alias StrawHat.Review.ReviewAspect
 
   @typedoc """
   - `name`: The aspect identificator above another aspects.
-  - `review_aspects`: List of `t:StrawHat.Review.Schema.ReviewAspect.t/0` associated with the current aspect.
+  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current aspect.
   """
   @type t :: %__MODULE__{
           name: String.t(),
