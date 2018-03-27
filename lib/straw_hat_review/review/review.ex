@@ -4,72 +4,93 @@ defmodule StrawHat.Review.Review do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.{Comment, Media, ReviewAspect, ReviewReaction}
+  alias StrawHat.Review.Repo
+  alias StrawHat.Review.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
 
   @typedoc """
+  - `date`: The write date of review.
+  - `score`: The punctuation received for the reviewer in the range of 1 to 5.
   - `reviewee_id`: The object or user that receive the review.
   - `reviewer_id`: The user that make the comment.
+  - `type`: The tag for mark the review for example customer, performer.
   - `comment`: The user comment or appreciation above the reviewee.
-  - `comments`: List of `t:StrawHat.Review.Comment.t/0` associated with the current review.
-  - `medias`: List of `t:StrawHat.Review.Media.t/0` associated with the current review.
-  - `reviews_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
-  - `reviews_reactions`: List of `t:StrawHat.Review.ReviewReaction.t/0` associated with the current review.
+  - `review`: `t:StrawHat.Review.Review.t/0` associated with the current review.
+  - `review_id`: Represent the relation betwwen review from reviews.
+  - `tags`: List of `t:StrawHat.Review.Tag.t/0` associated with the current review.
+  - `reviews`: List of `t:StrawHat.Review.Review.t/0` associated with the current review.
+  - `feedbacks`: List of `t:StrawHat.Review.Feedback.t/0` associated with the current review.
+  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
   """
   @type t :: %__MODULE__{
+          date: DateTime.t(),
+          score: Integer.t(),
           reviewee_id: String.t(),
           reviewer_id: String.t(),
+          type: String.t(),
           comment: String.t(),
-          comments: [Comment.t()] | Ecto.Association.NotLoaded.t(),
-          medias: [Media.t()] | Ecto.Association.NotLoaded.t(),
-          reviews_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t(),
-          reviews_reactions: [ReviewReaction.t()] | Ecto.Association.NotLoaded.t()
+          review: Review.t() | Ecto.Association.NotLoaded.t(),
+          review_id: Integer.t(),
+          tags: [Tag.t()] | Ecto.Association.NotLoaded.t(),
+          reviews: [Review.t()] | Ecto.Association.NotLoaded.t(),
+          feedbacks: [Feedback.t()] | Ecto.Association.NotLoaded.t(),
+          review_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """
   Check `t:t/0` type for more information about the keys.
   """
   @type review_attrs :: %{
+          date: DateTime.t(),
+          score: Integer.t(),
           reviewee_id: String.t(),
           reviewer_id: String.t(),
+          type: String.t(),
           comment: String.t(),
-          reviews_aspects: [ReviewAspect.t()]
+          review_id: Integer.t(),
+          name: String.t(),
+          tags: String.t()
         }
 
-  @required_fields ~w(reviewee_id reviewer_id comment)a
+  @required_fields ~w(date score reviewee_id reviewer_id comment)a
+  @optional_fields ~w(type review_id)a
 
   schema "reviews" do
+    field(:date, :utc_datetime)
+    field(:score, :integer)
     field(:reviewee_id, :string)
     field(:reviewer_id, :string)
+    field(:type, :string)
     field(:comment, :string)
-
-    timestamps()
+    belongs_to(:review, Review)
 
     has_many(
-      :comments,
-      Comment,
+      :reviews,
+      Review,
       on_replace: :delete,
       on_delete: :delete_all
     )
 
     has_many(
-      :medias,
-      Media,
+      :feedbacks,
+      Feedback,
       on_replace: :delete,
       on_delete: :delete_all
     )
 
     has_many(
-      :reviews_aspects,
+      :review_aspects,
       ReviewAspect,
       on_replace: :delete,
       on_delete: :delete_all
     )
 
-    has_many(
-      :reviews_reactions,
-      ReviewReaction,
+    many_to_many(
+      :tags,
+      Tag,
+      join_through: ReviewTag,
       on_replace: :delete,
-      on_delete: :delete_all
+      on_delete: :delete_all,
+      unique: true
     )
   end
 
@@ -80,7 +101,36 @@ defmodule StrawHat.Review.Review do
   @spec changeset(t, review_attrs) :: Ecto.Changeset.t()
   def changeset(review, review_attrs) do
     review
-    |> cast(review_attrs, @required_fields)
+    |> cast(review_attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> assoc_constraint(:review)
+    |> validate_tags(review_attrs)
+  end
+
+  defp validate_tags(changeset, review_attrs) do
+    case Map.has_key?(review_attrs, :tags) do
+      true ->
+        tags = parse_tags(review_attrs)
+        put_assoc(changeset, :tags, tags)
+      _ -> changeset
+    end
+  end
+
+  @since "1.0.0"
+  @spec parse_tags(Review.review_attrs()) :: [Tag.t()]
+  defp parse_tags(params) do
+    params
+    |> Map.get(:tags, "")
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.reject(& &1 == "")
+    |> Enum.map(&get_or_insert_tag/1)
+  end
+
+  @since "1.0.0"
+  @spec get_or_insert_tag(String.t()) :: Tag.t()
+  defp get_or_insert_tag(name) do
+    Repo.get_by(Tag, name: name) ||
+    Repo.insert!(%Tag{name: name})
   end
 end
