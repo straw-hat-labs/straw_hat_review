@@ -1,14 +1,14 @@
-defmodule StrawHat.Review.Schema.Achievement do
+defmodule StrawHat.Review.Achievement do
   @moduledoc """
   Represents a Achievement Ecto Schema relation.
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.{AchievementBadge}
+  alias StrawHat.Review.{AchievementBadge}
 
   @typedoc """
   - `owner_id`: The `owner_id` is a reference to achievement owner.
-  - `achievement_badge`: `t:StrawHat.Review.Schema.AchievementBadge.t/0` associated with the current achievement.
+  - `achievement_badge`: `t:StrawHat.Review.AchievementBadge.t/0` associated with the current achievement.
   - `achievement_badge_id`: The `achievement_badge_id` is a reference to AchievementBadge schema.
   """
   @type t :: %__MODULE__{
@@ -35,6 +35,7 @@ defmodule StrawHat.Review.Schema.Achievement do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Achievement.
   """
+  @since "1.0.0"
   @spec changeset(t, achievement_attrs) :: Ecto.Changeset.t()
   def changeset(achievement, achievement_attrs) do
     achievement
