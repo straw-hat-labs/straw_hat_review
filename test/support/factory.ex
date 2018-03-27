@@ -1,7 +1,7 @@
 defmodule StrawHat.Review.Test.Factory do
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
-  alias StrawHat.Review.Schema.{Tag, Aspect, AchievementBadge, Achievement, Feedback, Review, ReviewAspect}
+  alias StrawHat.Review.{Tag, Aspect, AchievementBadge, Achievement, Feedback, Review, ReviewTag, ReviewAspect}
 
   def tag_factory do
     %Tag{
@@ -53,6 +53,13 @@ defmodule StrawHat.Review.Test.Factory do
       review: build(:review),
       comment: Faker.Lorem.Shakespeare.hamlet(),
       score: get_score()
+    }
+  end
+
+  def review_tag_factory do
+    %ReviewTag{
+      tag: build(:tag),
+      review: build(:review)
     }
   end
 
