@@ -1,11 +1,11 @@
-defmodule StrawHat.Review.Schema.Review do
+defmodule StrawHat.Review.Review do
   @moduledoc """
   Represents a Review Ecto Schema.
   """
 
   use StrawHat.Review.Schema
   alias StrawHat.Review.Repo
-  alias StrawHat.Review.Schema.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
+  alias StrawHat.Review.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
 
   @typedoc """
   - `date`: The write date of review.
@@ -14,12 +14,12 @@ defmodule StrawHat.Review.Schema.Review do
   - `reviewer_id`: The user that make the comment.
   - `type`: The tag for mark the review for example customer, performer.
   - `comment`: The user comment or appreciation above the reviewee.
-  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current review.
+  - `review`: `t:StrawHat.Review.Review.t/0` associated with the current review.
   - `review_id`: Represent the relation betwwen review from reviews.
-  - `tags`: List of `t:StrawHat.Review.Schema.Tag.t/0` associated with the current review.
-  - `reviews`: List of `t:StrawHat.Review.Schema.Review.t/0` associated with the current review.
-  - `feedbacks`: List of `t:StrawHat.Review.Schema.Feedback.t/0` associated with the current review.
-  - `review_aspects`: List of `t:StrawHat.Review.Schema.ReviewAspect.t/0` associated with the current review.
+  - `tags`: List of `t:StrawHat.Review.Tag.t/0` associated with the current review.
+  - `reviews`: List of `t:StrawHat.Review.Review.t/0` associated with the current review.
+  - `feedbacks`: List of `t:StrawHat.Review.Feedback.t/0` associated with the current review.
+  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
   """
   @type t :: %__MODULE__{
           date: DateTime.t(),
@@ -97,11 +97,40 @@ defmodule StrawHat.Review.Schema.Review do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Review.
   """
+  @since "1.0.0"
   @spec changeset(t, review_attrs) :: Ecto.Changeset.t()
   def changeset(review, review_attrs) do
     review
     |> cast(review_attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> assoc_constraint(:review)
+    |> validate_tags(review_attrs)
+  end
+
+  defp validate_tags(changeset, review_attrs) do
+    case Map.has_key?(review_attrs, :tags) do
+      true ->
+        tags = parse_tags(review_attrs)
+        put_assoc(changeset, :tags, tags)
+      _ -> changeset
+    end
+  end
+
+  @since "1.0.0"
+  @spec parse_tags(Review.review_attrs()) :: [Tag.t()]
+  defp parse_tags(params) do
+    params
+    |> Map.get(:tags, "")
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.reject(& &1 == "")
+    |> Enum.map(&get_or_insert_tag/1)
+  end
+
+  @since "1.0.0"
+  @spec get_or_insert_tag(String.t()) :: Tag.t()
+  defp get_or_insert_tag(name) do
+    Repo.get_by(Tag, name: name) ||
+    Repo.insert!(%Tag{name: name})
   end
 end
