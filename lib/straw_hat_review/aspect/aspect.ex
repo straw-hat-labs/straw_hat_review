@@ -1,14 +1,14 @@
-defmodule StrawHat.Review.Schema.Aspect do
+defmodule StrawHat.Review.Aspect do
   @moduledoc """
   Represents a Aspect Ecto Schema.
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.ReviewAspect
+  alias StrawHat.Review.ReviewAspect
 
   @typedoc """
   - `name`: The aspect identificator above another aspects.
-  - `review_aspects`: List of `t:StrawHat.Review.Schema.ReviewAspect.t/0` associated with the current aspect.
+  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current aspect.
   """
   @type t :: %__MODULE__{
           name: String.t(),
@@ -38,6 +38,7 @@ defmodule StrawHat.Review.Schema.Aspect do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Aspect.
   """
+  @since "1.0.0"
   @spec changeset(t, aspect_attrs) :: Ecto.Changeset.t()
   def changeset(aspect, aspect_attrs) do
     aspect
