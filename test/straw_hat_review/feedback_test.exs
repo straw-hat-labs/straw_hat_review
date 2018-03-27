@@ -1,36 +1,43 @@
-defmodule StrawHat.Review.Test.FeedbackTest do
+defmodule StrawHat.Review.Test.FeedbacksTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Feedback
+  alias StrawHat.Review.Feedbacks
 
-  test "get feedback by id" do
-    feedback = insert(:feedback)
-    assert Feedback.get_feedback(feedback.id) != nil
+  describe "find_feedback/1" do
+    test "with valid id" do
+      feedback = insert(:feedback)
+
+      assert {:ok, _feedback} = Feedbacks.find_feedback(feedback.id)
+    end
+
+    test "with invalid id shouldn't find the feedback" do
+      assert {:error, _reason} = Feedbacks.find_feedback(8347)
+    end
   end
 
-  test "get feedback with invalid id" do
-    assert {:error, _reason} = Feedback.find_feedback(836_747)
-  end
-
-  test "list per page" do
+  test "get_feedbacks/1 list the feedbacks per page" do
     insert_list(10, :feedback)
-    feedback = Feedback.get_feedbacks(%{page: 2, page_size: 5})
+    feedback = Feedbacks.get_feedbacks(%{page: 2, page_size: 5})
+
     assert feedback.total_entries == 10
   end
 
-  test "create feedback" do
+  test "create_feedback/1 with valid inputs creates a feedback" do
     review = insert(:review)
     params = params_for(:feedback, %{review_id: review.id})
-    assert {:ok, _feedback} = Feedback.create_feedback(params)
+
+    assert {:ok, _feedback} = Feedbacks.create_feedback(params)
   end
 
-  test "update feedback" do
+  test "update_feedback/2 with valid inputs updates a feedback" do
     feedback = insert(:feedback)
-    {:ok, feedback} = Feedback.update_feedback(feedback, %{type: "Recommended"})
-    assert feedback.type == "Recommended"
+    {:ok, feedback} = Feedbacks.update_feedback(feedback, %{user_id: "user:4589"})
+
+    assert feedback.user_id == "user:4589"
   end
 
-  test "delete feedback" do
+  test "destroy_feedback/1 with a found review destroys the feedback" do
     feedback = insert(:feedback)
-    assert {:ok, _} = Feedback.destroy_feedback(feedback)
+
+    assert {:ok, _} = Feedbacks.destroy_feedback(feedback)
   end
 end

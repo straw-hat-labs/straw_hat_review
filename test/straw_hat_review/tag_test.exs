@@ -1,35 +1,42 @@
-defmodule StrawHat.Review.Test.TagTest do
+defmodule StrawHat.Review.Test.TagsTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Tag
+  alias StrawHat.Review.Tags
 
-  test "get tag by id" do
-    tag = insert(:tag)
-    assert Tag.get_tag(tag.id) != nil
+  describe "find_tag/1" do
+    test "with valid id" do
+      tag = insert(:tag)
+
+      assert {:ok, _tag} = Tags.find_tag(tag.id)
+    end
+
+    test "with invalid id shouldn't find the tag" do
+      assert {:error, _reason} = Tags.find_tag(8347)
+    end
   end
 
-  test "get tag with invalid id" do
-    assert {:error, _reason} = Tag.find_tag(836_747)
-  end
-
-  test "list per page" do
+  test "get_tags/1 list the tags per page" do
     insert_list(10, :tag)
-    tag = Tag.get_tags(%{page: 2, page_size: 5})
+    tag = Tags.get_tags(%{page: 2, page_size: 5})
+
     assert tag.total_entries == 10
   end
 
-  test "create tag" do
+  test "create_tag/1 with valid inputs creates a tag" do
     params = params_for(:tag)
-    assert {:ok, _tag} = Tag.create_tag(params)
+
+    assert {:ok, _tag} = Tags.create_tag(params)
   end
 
-  test "update tag" do
+  test "update_tag/2 with valid inputs updates a tag" do
     tag = insert(:tag)
-    {:ok, tag} = Tag.update_tag(tag, %{name: "Friendly"})
-    assert tag.name == "Friendly"
+    {:ok, tag} = Tags.update_tag(tag, %{name: "Professional"})
+
+    assert tag.name == "Professional"
   end
 
-  test "delete tag" do
+  test "destroy_tag/1 with a found review destroys the tag" do
     tag = insert(:tag)
-    assert {:ok, _} = Tag.destroy_tag(tag)
+
+    assert {:ok, _} = Tags.destroy_tag(tag)
   end
 end
