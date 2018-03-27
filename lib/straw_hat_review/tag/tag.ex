@@ -1,14 +1,14 @@
-defmodule StrawHat.Review.Schema.Tag do
+defmodule StrawHat.Review.Tag do
   @moduledoc """
   Represents a Tag Ecto Schema.
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.ReviewTag
+  alias StrawHat.Review.ReviewTag
 
   @typedoc """
   - `name`: The tag identificator above another tags.
-  - `review_tags`: List of `t:StrawHat.Review.Schema.ReviewTag.t/0` associated with the current tag.
+  - `review_tags`: List of `t:StrawHat.Review.ReviewTag.t/0` associated with the current tag.
   """
   @type t :: %__MODULE__{
           name: String.t(),
@@ -38,6 +38,7 @@ defmodule StrawHat.Review.Schema.Tag do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Tag.
   """
+  @since "1.0.0"
   @spec changeset(t, tag_attrs) :: Ecto.Changeset.t()
   def changeset(tag, tag_attrs) do
     tag
