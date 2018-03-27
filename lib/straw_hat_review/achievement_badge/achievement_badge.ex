@@ -1,14 +1,14 @@
-defmodule StrawHat.Review.Schema.AchievementBadge do
+defmodule StrawHat.Review.AchievementBadge do
   @moduledoc """
   Represents a AchievementBadge Ecto Schema.
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.Achievement
+  alias StrawHat.Review.Achievement
 
   @typedoc """
   - `name`: The achievement_badge identificator above another achievement badges.
-  - `achievements`: List of `t:StrawHat.Review.Schema.Achievement.t/0` associated with the current achievement badge.
+  - `achievements`: List of `t:StrawHat.Review.Achievement.t/0` associated with the current achievement badge.
   """
   @type t :: %__MODULE__{
           name: String.t(),
@@ -38,6 +38,7 @@ defmodule StrawHat.Review.Schema.AchievementBadge do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current AchievementBadge.
   """
+  @since "1.0.0"
   @spec changeset(t, achievement_badge_attrs) :: Ecto.Changeset.t()
   def changeset(achievement_badge, achievement_badge_attrs) do
     achievement_badge
