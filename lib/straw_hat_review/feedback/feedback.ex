@@ -1,15 +1,15 @@
-defmodule StrawHat.Review.Schema.Feedback do
+defmodule StrawHat.Review.Feedback do
   @moduledoc """
   Represents a Feedback Ecto Schema.
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.Review
+  alias StrawHat.Review.Review
 
   @typedoc """
   - `type`: The `type` field can use for mark the comment is useful or
   not. The value can be (YES, NO, RECOMMENDED, LOW_INTUITIVE).
-  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current feedback.
+  - `review`: `t:StrawHat.Review.Review.t/0` associated with the current feedback.
   - `review_id`: The review used for the feedback comment.
   - `user_id`: The `user` that make the feedback comment.
   - `comment`: The text write in the feedback comment.
@@ -44,6 +44,7 @@ defmodule StrawHat.Review.Schema.Feedback do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Feedback.
   """
+  @since "1.0.0"
   @spec changeset(t, feedback_attrs) :: Ecto.Changeset.t()
   def changeset(feedback, feedback_attrs) do
     feedback
