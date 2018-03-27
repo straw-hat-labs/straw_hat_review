@@ -73,6 +73,13 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
+  def review_tag_factory do
+    %ReviewTag{
+      tag: build(:tag),
+      review: build(:review)
+    }
+  end
+
   defp get_score() do
     Enum.take_random(1..5, 1) |> List.first()
   end
