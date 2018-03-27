@@ -1,15 +1,15 @@
-defmodule StrawHat.Review.Schema.ReviewAspect do
+defmodule StrawHat.Review.ReviewAspect do
   @moduledoc """
   Represents a Review Aspect Ecto Schema relation.
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Schema.{Review, Aspect}
+  alias StrawHat.Review.{Review, Aspect}
 
   @typedoc """
-  - `review`: `t:StrawHat.Review.Schema.Review.t/0` associated with the current review aspect.
+  - `review`: `t:StrawHat.Review.Review.t/0` associated with the current review aspect.
   - `review_id`: The `review_id` is a reference to Review schema.
-  - `aspect`: `t:StrawHat.Review.Schema.Aspect.t/0` associated with the current review aspect.
+  - `aspect`: `t:StrawHat.Review.Aspect.t/0` associated with the current review aspect.
   - `aspect_id`: The `accomplistment_id` is a reference to Aspect schema.
   - `comment`: The user `comment` or appreciation above the aspect.
   - `score`: The punctuation received for the aspect in the range of 1 to 5.
@@ -45,6 +45,7 @@ defmodule StrawHat.Review.Schema.ReviewAspect do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Review Aspect.
   """
+  @since "1.0.0"
   @spec changeset(t, review_aspect_attrs) :: Ecto.Changeset.t()
   def changeset(review_aspect, review_aspect_attrs) do
     review_aspect
