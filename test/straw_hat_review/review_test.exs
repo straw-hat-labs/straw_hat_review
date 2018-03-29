@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.ReviewTest do
+defmodule StrawHat.Review.ReviewTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.Reviews
 
@@ -29,7 +29,7 @@ defmodule StrawHat.Review.Test.ReviewTest do
     end
 
     test "with valid inputs creates a review with tags" do
-      params = 
+      params =
         :review
         |> params_for()
         |> Map.put(:tags, "Nails,Thumb,Blesser")
@@ -48,11 +48,11 @@ defmodule StrawHat.Review.Test.ReviewTest do
     end
 
     test "with valid inputs updates a review with tags" do
-      params = 
+      params =
         :review
         |> params_for()
         |> Map.put(:tags, "Nails,Thumb,Blesser")
-      
+
       assert {:ok, review} = Reviews.create_review(params)
       assert {:ok, review} = Reviews.update_review(review, %{tags: "Bummble"})
       assert length(review.tags) == 1
@@ -77,7 +77,7 @@ defmodule StrawHat.Review.Test.ReviewTest do
     reviews = Reviews.get_tags([review_tag.review_id])
     review = Enum.at(reviews, 0)
 
-    assert length(reviews) == 1  
+    assert length(reviews) == 1
     assert length(review.tags) == 1
   end
 
@@ -86,7 +86,7 @@ defmodule StrawHat.Review.Test.ReviewTest do
     reviews = Reviews.get_feedbacks([feedback.review_id])
     review = Enum.at(reviews, 0)
 
-    assert length(reviews) == 1  
+    assert length(reviews) == 1
     assert length(review.feedbacks) == 1
   end
 
@@ -95,7 +95,7 @@ defmodule StrawHat.Review.Test.ReviewTest do
     reviews = Reviews.get_review_aspects([review_aspect.review_id])
     review = Enum.at(reviews, 0)
 
-    assert length(reviews) == 1  
+    assert length(reviews) == 1
     assert length(review.review_aspects) == 1
   end
 end

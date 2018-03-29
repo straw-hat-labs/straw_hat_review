@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.TagsTest do
+defmodule StrawHat.Review.TagsTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.Tags
 

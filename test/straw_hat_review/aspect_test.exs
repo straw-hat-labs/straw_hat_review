@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.AspectsTest do
+defmodule StrawHat.Review.AspectsTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.Aspects
 

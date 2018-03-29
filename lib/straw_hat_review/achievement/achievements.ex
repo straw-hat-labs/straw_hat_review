@@ -18,7 +18,8 @@ defmodule StrawHat.Review.Achievements do
   Create achievement.
   """
   @since "1.0.0"
-  @spec create_achievement(Achievement.achievement_attrs()) :: {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_achievement(Achievement.achievement_attrs()) ::
+          {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
   def create_achievement(achievement_attrs) do
     %Achievement{}
     |> Achievement.changeset(achievement_attrs)
@@ -29,7 +30,8 @@ defmodule StrawHat.Review.Achievements do
   Update achievement.
   """
   @since "1.0.0"
-  @spec update_achievement(Achievement.t(), Achievement.achievement_attrs()) :: {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
+  @spec update_achievement(Achievement.t(), Achievement.achievement_attrs()) ::
+          {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
   def update_achievement(%Achievement{} = achievement, achievement_attrs) do
     achievement
     |> Achievement.changeset(achievement_attrs)
@@ -40,7 +42,8 @@ defmodule StrawHat.Review.Achievements do
   Destroy achievement.
   """
   @since "1.0.0"
-  @spec destroy_achievement(Achievement.t()) :: {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
+  @spec destroy_achievement(Achievement.t()) ::
+          {:ok, Achievement.t()} | {:error, Ecto.Changeset.t()}
   def destroy_achievement(%Achievement{} = achievement), do: Repo.delete(achievement)
 
   @doc """
@@ -51,7 +54,12 @@ defmodule StrawHat.Review.Achievements do
   def find_achievement(achievement_id) do
     case get_achievement(achievement_id) do
       nil ->
-        error = Error.new("straw_hat_review.achievement.not_found", metadata: [achievement_id: achievement_id])
+        error =
+          Error.new(
+            "straw_hat_review.achievement.not_found",
+            metadata: [achievement_id: achievement_id]
+          )
+
         {:error, error}
 
       achievement ->

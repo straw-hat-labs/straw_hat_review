@@ -6,6 +6,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAspectsTable do
       add(:name, :string, null: false)
     end
 
-    create (unique_index(:aspects, [:name], name: :aspects_name_index))
+    create(unique_index(:aspects, [:name], name: :aspects_name_index))
   end
 end

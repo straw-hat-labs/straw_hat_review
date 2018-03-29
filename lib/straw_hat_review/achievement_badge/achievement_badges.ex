@@ -18,7 +18,8 @@ defmodule StrawHat.Review.AchievementBadges do
   Create a achievement badge.
   """
   @since "1.0.0"
-  @spec create_achievement_badge(AchievementBadge.achievement_badge_attrs()) :: {:ok, AchievementBadge.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_achievement_badge(AchievementBadge.achievement_badge_attrs()) ::
+          {:ok, AchievementBadge.t()} | {:error, Ecto.Changeset.t()}
   def create_achievement_badge(achievement_badge_attrs) do
     %AchievementBadge{}
     |> AchievementBadge.changeset(achievement_badge_attrs)
@@ -41,8 +42,10 @@ defmodule StrawHat.Review.AchievementBadges do
   Destroy a achievement badge.
   """
   @since "1.0.0"
-  @spec destroy_achievement_badge(AchievementBadge.t()) :: {:ok, AchievementBadge.t()} | {:error, Ecto.Changeset.t()}
-  def destroy_achievement_badge(%AchievementBadge{} = achievement_badge), do: Repo.delete(achievement_badge)
+  @spec destroy_achievement_badge(AchievementBadge.t()) ::
+          {:ok, AchievementBadge.t()} | {:error, Ecto.Changeset.t()}
+  def destroy_achievement_badge(%AchievementBadge{} = achievement_badge),
+    do: Repo.delete(achievement_badge)
 
   @doc """
   Find a achievement badge by `id`.
@@ -52,7 +55,12 @@ defmodule StrawHat.Review.AchievementBadges do
   def find_achievement_badge(achievement_badge_id) do
     case get_achievement_badge(achievement_badge_id) do
       nil ->
-        error = Error.new("straw_hat_achievement_badge.achievement_badge.not_found", metadata: [achievement_badge_id: achievement_badge_id])
+        error =
+          Error.new(
+            "straw_hat_achievement_badge.achievement_badge.not_found",
+            metadata: [achievement_badge_id: achievement_badge_id]
+          )
+
         {:error, error}
 
       achievement_badge ->
@@ -65,5 +73,6 @@ defmodule StrawHat.Review.AchievementBadges do
   """
   @since "1.0.0"
   @spec get_achievement_badge(Integer.t()) :: AchievementBadge.t() | nil | no_return
-  def get_achievement_badge(achievement_badge_id), do: Repo.get(AchievementBadge, achievement_badge_id)
+  def get_achievement_badge(achievement_badge_id),
+    do: Repo.get(AchievementBadge, achievement_badge_id)
 end

@@ -111,6 +111,7 @@ defmodule StrawHat.Review.Review do
   defp validate_tags(changeset, %{tags: tags}) do
     put_assoc(changeset, :tags, tags)
   end
+
   defp validate_tags(changeset, _) do
     changeset
   end

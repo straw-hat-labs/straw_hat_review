@@ -36,6 +36,7 @@ defmodule StrawHat.Review.Reviews do
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
     review_attrs = put_tags_to_attributes(review_attrs)
+
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()
@@ -71,16 +72,13 @@ defmodule StrawHat.Review.Reviews do
   @spec get_review(Integer.t()) :: Review.t() | nil | no_return
   def get_review(review_id), do: Repo.get(Review, review_id)
 
-
   @doc """
   Get list of review by ids.
   """
   @since "1.0.0"
   @spec review_by_ids([Integer.t()]) :: [Review.t()] | no_return
   def review_by_ids(review_ids) do
-    query =
-      from(review in Review,
-        where: review.id in ^review_ids)
+    query = from(review in Review, where: review.id in ^review_ids)
 
     query
     |> Repo.all()
@@ -93,11 +91,13 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec get_tags([Integer.t()]) :: [Review.t()] | no_return
   def get_tags(review_ids) do
-    query = 
-      from(review in Review,
+    query =
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: tags in assoc(review, :tags),
-        preload: [tags: tags])
+        preload: [tags: tags]
+      )
 
     Repo.all(query)
   end
@@ -109,12 +109,14 @@ defmodule StrawHat.Review.Reviews do
   @spec get_feedbacks([Integer.t()]) :: [Review.t()] | no_return
   def get_feedbacks(review_ids) do
     query =
-      from(review in Review,
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: feedbacks in assoc(review, :feedbacks),
-        preload: [feedbacks: feedbacks])
+        preload: [feedbacks: feedbacks]
+      )
 
-     Repo.all(query)
+    Repo.all(query)
   end
 
   @doc """
@@ -124,12 +126,14 @@ defmodule StrawHat.Review.Reviews do
   @spec get_review_aspects([Integer.t()]) :: [Review.t()] | no_return
   def get_review_aspects(review_ids) do
     query =
-      from(review in Review,
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: review_aspects in assoc(review, :review_aspects),
-        preload: [review_aspects: review_aspects])
+        preload: [review_aspects: review_aspects]
+      )
 
-     Repo.all(query)
+    Repo.all(query)
   end
 
   @since "1.0.0"
@@ -139,10 +143,12 @@ defmodule StrawHat.Review.Reviews do
       tag_attributes
       |> String.split(",")
       |> Enum.map(&String.trim/1)
-      |> Enum.reject(& &1 == "")
+      |> Enum.reject(&(&1 == ""))
       |> Enum.map(&get_or_insert_tag/1)
+
     Map.put(review_attrs, :tags, tags)
   end
+
   defp put_tags_to_attributes(review_attrs) do
     review_attrs
   end
@@ -150,7 +156,6 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec get_or_insert_tag(String.t()) :: Tag.t()
   defp get_or_insert_tag(name) do
-    Repo.get_by(Tag, name: name) ||
-    Repo.insert!(%Tag{name: name})
+    Repo.get_by(Tag, name: name) || Repo.insert!(%Tag{name: name})
   end
 end

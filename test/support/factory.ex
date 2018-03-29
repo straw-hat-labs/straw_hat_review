@@ -1,7 +1,16 @@
 defmodule StrawHat.Review.Test.Factory do
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
-  alias StrawHat.Review.{Tag, Aspect, AchievementBadge, Achievement, Feedback, Review, ReviewTag, ReviewAspect}
+  alias StrawHat.Review.{
+    Tag,
+    Aspect,
+    AchievementBadge,
+    Achievement,
+    Feedback,
+    Review,
+    ReviewTag,
+    ReviewAspect
+  }
 
   def tag_factory do
     %Tag{
@@ -24,7 +33,7 @@ defmodule StrawHat.Review.Test.Factory do
   def achievement_factory do
     %Achievement{
       owner_id: Faker.String.base64(),
-      achievement_badge: build(:achievement_badge),
+      achievement_badge: build(:achievement_badge)
     }
   end
 

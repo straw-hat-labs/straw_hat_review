@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.AchievementBadgesTest do
+defmodule StrawHat.Review.AchievementBadgesTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.AchievementBadges
 
@@ -6,7 +6,8 @@ defmodule StrawHat.Review.Test.AchievementBadgesTest do
     test "with valid id return the relative achievement badge" do
       achievement_badge = insert(:achievement_badge)
 
-      assert {:ok, _achievement_badge} = AchievementBadges.find_achievement_badge(achievement_badge.id)
+      assert {:ok, _achievement_badge} =
+               AchievementBadges.find_achievement_badge(achievement_badge.id)
     end
 
     test "with invalid id shouldn't find the achievement badge" do
@@ -31,7 +32,9 @@ defmodule StrawHat.Review.Test.AchievementBadgesTest do
     achievement_badge = insert(:achievement_badge)
 
     {:ok, achievement_badge} =
-      AchievementBadges.update_achievement_badge(achievement_badge, %{name: "Five client in three hours"})
+      AchievementBadges.update_achievement_badge(achievement_badge, %{
+        name: "Five client in three hours"
+      })
 
     assert achievement_badge.name == "Five client in three hours"
   end
