@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Reviews do
   use StrawHat.Review.Interactor
 
   import Ecto.Query, only: [from: 2]
-  alias StrawHat.Review.Review
+  alias StrawHat.Review.{Tag, Review}
 
   @doc """
   Get the list of reviews.
@@ -21,6 +21,8 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def create_review(review_attrs) do
+    review_attrs = parse_tags(review_attrs)
+
     %Review{}
     |> Review.changeset(review_attrs)
     |> Repo.insert()
@@ -33,6 +35,7 @@ defmodule StrawHat.Review.Reviews do
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
+    review_attrs = parse_tags(review_attrs)
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()
@@ -127,5 +130,30 @@ defmodule StrawHat.Review.Reviews do
         preload: [review_aspects: review_aspects])
 
      Repo.all(query)
+  end
+
+  @since "1.0.0"
+  @spec parse_tags(Review.review_attrs()) :: [Tag.t()]
+  defp parse_tags(review_attrs) do
+    case Map.has_key?(review_attrs, :tags) do
+      true ->
+        tags =
+          review_attrs
+          |> Map.get(:tags, "")
+          |> String.split(",")
+          |> Enum.map(&String.trim/1)
+          |> Enum.reject(& &1 == "")
+          |> Enum.map(&get_or_insert_tag/1)
+
+        Map.put(review_attrs, :tags, tags)
+      _ -> review_attrs
+    end
+  end
+
+  @since "1.0.0"
+  @spec get_or_insert_tag(String.t()) :: Tag.t()
+  defp get_or_insert_tag(name) do
+    Repo.get_by(Tag, name: name) ||
+    Repo.insert!(%Tag{name: name})
   end
 end
