@@ -18,7 +18,7 @@ defmodule StrawHat.Review.Test.AchievementsTest do
     insert_list(10, :achievement)
     achievement = Achievements.get_achievements(%{page: 2, page_size: 5})
 
-    assert achievement.total_entries == 10
+    assert length(achievement.entries) == 5
   end
 
   test "create_achievement/1 with valid inputs creates a achievement" do

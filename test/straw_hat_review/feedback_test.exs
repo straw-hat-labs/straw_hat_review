@@ -18,7 +18,7 @@ defmodule StrawHat.Review.Test.FeedbacksTest do
     insert_list(10, :feedback)
     feedback = Feedbacks.get_feedbacks(%{page: 2, page_size: 5})
 
-    assert feedback.total_entries == 10
+    assert length(feedback.entries) == 5
   end
 
   test "create_feedback/1 with valid inputs creates a feedback" do
