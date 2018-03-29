@@ -18,7 +18,7 @@ defmodule StrawHat.Review.Test.AchievementBadgesTest do
     insert_list(10, :achievement_badge)
     achievement_badge = AchievementBadges.get_achievement_badges(%{page: 2, page_size: 5})
 
-    assert achievement_badge.total_entries == 10
+    assert length(achievement_badge.entries) == 5
   end
 
   test "create_achievement_badge/1 with valid inputs creates a achievement badge" do

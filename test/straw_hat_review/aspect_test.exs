@@ -18,7 +18,7 @@ defmodule StrawHat.Review.Test.AspectsTest do
     insert_list(10, :aspect)
     aspect = Aspects.get_aspects(%{page: 2, page_size: 5})
 
-    assert aspect.total_entries == 10
+    assert length(aspect.entries) == 5
   end
 
   test "create_aspect/1 with valid inputs creates a aspect" do

@@ -18,7 +18,7 @@ defmodule StrawHat.Review.Test.ReviewTest do
     insert_list(10, :review)
     review = Reviews.get_reviews(%{page: 2, page_size: 5})
 
-    assert review.total_entries == 10
+    assert length(review.entries) == 5
   end
 
   describe "create_review/1" do
