@@ -18,8 +18,7 @@ defmodule StrawHat.Review.Aspects do
   Create aspect.
   """
   @since "1.0.0"
-  @spec create_aspect(Aspect.aspect_attrs()) ::
-          {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_aspect(Aspect.aspect_attrs()) :: {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
   def create_aspect(aspect_attrs) do
     %Aspect{}
     |> Aspect.changeset(aspect_attrs)
@@ -42,8 +41,7 @@ defmodule StrawHat.Review.Aspects do
   Destroy aspect.
   """
   @since "1.0.0"
-  @spec destroy_aspect(Aspect.t()) ::
-          {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
+  @spec destroy_aspect(Aspect.t()) :: {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
   def destroy_aspect(%Aspect{} = aspect), do: Repo.delete(aspect)
 
   @doc """

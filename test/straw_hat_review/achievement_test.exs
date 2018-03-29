@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.AchievementsTest do
+defmodule StrawHat.Review.AchievementsTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.Achievements
 

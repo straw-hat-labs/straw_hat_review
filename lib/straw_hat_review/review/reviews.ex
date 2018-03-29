@@ -41,6 +41,7 @@ defmodule StrawHat.Review.Reviews do
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
     review_attrs = put_tags_to_attributes(review_attrs)
+
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()
@@ -82,9 +83,7 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec review_by_ids([Integer.t()]) :: [Review.t()] | no_return
   def review_by_ids(review_ids) do
-    query =
-      from(review in Review,
-        where: review.id in ^review_ids)
+    query = from(review in Review, where: review.id in ^review_ids)
 
     Repo.all(query)
   end
@@ -141,12 +140,13 @@ defmodule StrawHat.Review.Reviews do
   @spec get_reviews_reactions([Integer.t()]) :: [Review.t()] | no_return
   def get_reviews_reactions(review_ids) do
     query =
-      from(review in Review,
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: reviews_reactions in assoc(review, :reviews_reactions),
         preload: [reviews_reactions: reviews_reactions])
 
-     Repo.all(query)
+    Repo.all(query)
   end
 
   @since "1.0.0"

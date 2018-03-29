@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.ReviewAspectTest do
+defmodule StrawHat.Review.ReviewAspectTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.ReviewAspects
 
@@ -24,14 +24,16 @@ defmodule StrawHat.Review.Test.ReviewAspectTest do
   test "create_review_aspect/1 with valid inputs creates a review aspect" do
     review = insert(:review)
     aspect = insert(:aspect)
-    params = params_for(:review_aspect,%{aspect_id: aspect.id, review_id: review.id})
+    params = params_for(:review_aspect, %{aspect_id: aspect.id, review_id: review.id})
 
     assert {:ok, _review_aspect} = ReviewAspects.create_review_aspect(params)
   end
 
   test "update_review_aspect/2 with valid inputs updates a review aspect" do
     review_aspect = insert(:review_aspect)
-    {:ok, review_aspect} = ReviewAspects.update_review_aspect(review_aspect, %{comment: "Recommended"})
+
+    {:ok, review_aspect} =
+      ReviewAspects.update_review_aspect(review_aspect, %{comment: "Recommended"})
 
     assert review_aspect.comment == "Recommended"
   end

@@ -43,7 +43,8 @@ defmodule StrawHat.Review.ReviewAspects do
   Destroy a review_aspect.
   """
   @since "1.0.0"
-  @spec destroy_review_aspect(ReviewAspect.t()) :: {:ok, ReviewAspect.t()} | {:error, Ecto.Changeset.t()}
+  @spec destroy_review_aspect(ReviewAspect.t()) ::
+          {:ok, ReviewAspect.t()} | {:error, Ecto.Changeset.t()}
   def destroy_review_aspect(%ReviewAspect{} = review_aspect), do: Repo.delete(review_aspect)
 
   @doc """
@@ -55,7 +56,10 @@ defmodule StrawHat.Review.ReviewAspects do
     case get_review_aspect(review_aspect_id) do
       nil ->
         error =
-          Error.new("straw_hat_review.review_aspect.not_found", metadata: [review_aspect_id: review_aspect_id])
+          Error.new(
+            "straw_hat_review.review_aspect.not_found",
+            metadata: [review_aspect_id: review_aspect_id]
+          )
 
         {:error, error}
 
@@ -78,10 +82,12 @@ defmodule StrawHat.Review.ReviewAspects do
   @spec get_aspects([Integer.t()]) :: [Review.t()] | no_return
   def get_aspects(review_aspect_ids) do
     query =
-      from(review_aspect in ReviewAspect,
+      from(
+        review_aspect in ReviewAspect,
         where: review_aspect.id in ^review_aspect_ids,
         join: aspect in assoc(review_aspect, :aspect),
-        preload: [aspect: aspect])
+        preload: [aspect: aspect]
+      )
 
     Repo.all(query)
   end
@@ -93,10 +99,12 @@ defmodule StrawHat.Review.ReviewAspects do
   @spec get_reviews([Integer.t()]) :: [Review.t()] | no_return
   def get_reviews(review_aspect_ids) do
     query =
-      from(review_aspect in ReviewAspect,
+      from(
+        review_aspect in ReviewAspect,
         where: review_aspect.id in ^review_aspect_ids,
         join: review in assoc(review_aspect, :review),
-        preload: [review: review])
+        preload: [review: review]
+      )
 
     Repo.all(query)
   end
