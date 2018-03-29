@@ -40,6 +40,7 @@ defmodule StrawHat.Review.Reviews do
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
+    review_attrs = parse_tags(review_attrs)
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()

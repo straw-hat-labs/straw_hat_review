@@ -4,7 +4,6 @@ defmodule StrawHat.Review.Review do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.Repo
   alias StrawHat.Review.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
 
   @typedoc """
@@ -107,30 +106,12 @@ defmodule StrawHat.Review.Review do
     |> validate_tags(review_attrs)
   end
 
-  defp validate_tags(changeset, review_attrs) do
-    case Map.has_key?(review_attrs, :tags) do
-      true ->
-        tags = parse_tags(review_attrs)
-        put_assoc(changeset, :tags, tags)
-      _ -> changeset
-    end
-  end
-
   @since "1.0.0"
-  @spec parse_tags(Review.review_attrs()) :: [Tag.t()]
-  defp parse_tags(params) do
-    params
-    |> Map.get(:tags, "")
-    |> String.split(",")
-    |> Enum.map(&String.trim/1)
-    |> Enum.reject(& &1 == "")
-    |> Enum.map(&get_or_insert_tag/1)
+  @spec validate_tags(t, review_attrs) :: Ecto.Changeset.t()
+  defp validate_tags(changeset, %{tags: tags}) do
+    put_assoc(changeset, :tags, tags)
   end
-
-  @since "1.0.0"
-  @spec get_or_insert_tag(String.t()) :: Tag.t()
-  defp get_or_insert_tag(name) do
-    Repo.get_by(Tag, name: name) ||
-    Repo.insert!(%Tag{name: name})
+  defp validate_tags(changeset, _) do
+    changeset
   end
 end
