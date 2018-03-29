@@ -1,0 +1,22 @@
+language: elixir
+sudo: false
+
+elixir:
+  - 1.6.4
+otp_release:
+  - 20.2
+addons:
+  postgresql: 9.6
+
+before_script:
+  - psql -c 'create database straw_hat_review_test;' -U postgres
+script:
+  - make testing
+after_script:
+  - make docs
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  recipients:
+    - engineers@straw-hat-llc.com
