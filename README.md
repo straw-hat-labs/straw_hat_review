@@ -1,6 +1,8 @@
 # StrawHat.Review
 
-**TODO: Add description**
+[![Build Status](https://travis-ci.org/straw-hat-team/straw_hat_review.svg?branch=master)](https://travis-ci.org/straw-hat-team/straw_hat_review)
+[![codecov](https://codecov.io/gh/straw-hat-team/straw_hat_review/branch/master/graph/badge.svg)](https://codecov.io/gh/straw-hat-team/straw_hat_review)
+[![Inline docs](http://inch-ci.org/github/straw-hat-team/straw_hat_review.svg)](http://inch-ci.org/github/straw-hat-team/straw_hat_review)
 
 ## Installation
 
