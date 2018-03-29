@@ -21,7 +21,7 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def create_review(review_attrs) do
-    review_attrs = parse_tags(review_attrs)
+    review_attrs = put_tags_to_attributes(review_attrs)
 
     %Review{}
     |> Review.changeset(review_attrs)
@@ -35,7 +35,7 @@ defmodule StrawHat.Review.Reviews do
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
-    review_attrs = parse_tags(review_attrs)
+    review_attrs = put_tags_to_attributes(review_attrs)
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()
@@ -133,21 +133,18 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @since "1.0.0"
-  @spec parse_tags(Review.review_attrs()) :: [Tag.t()]
-  defp parse_tags(review_attrs) do
-    case Map.has_key?(review_attrs, :tags) do
-      true ->
-        tags =
-          review_attrs
-          |> Map.get(:tags, "")
-          |> String.split(",")
-          |> Enum.map(&String.trim/1)
-          |> Enum.reject(& &1 == "")
-          |> Enum.map(&get_or_insert_tag/1)
-
-        Map.put(review_attrs, :tags, tags)
-      _ -> review_attrs
-    end
+  @spec put_tags_to_attributes(Review.review_attrs()) :: [Tag.t()]
+  defp put_tags_to_attributes(%{tags: tag_attributes} = review_attrs) do
+    tags =
+      tag_attributes
+      |> String.split(",")
+      |> Enum.map(&String.trim/1)
+      |> Enum.reject(& &1 == "")
+      |> Enum.map(&get_or_insert_tag/1)
+    Map.put(review_attrs, :tags, tags)
+  end
+  defp put_tags_to_attributes(review_attrs) do
+    review_attrs
   end
 
   @since "1.0.0"
