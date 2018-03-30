@@ -7,8 +7,9 @@ defmodule StrawHat.Review.Aspect do
   alias StrawHat.Review.ReviewAspect
 
   @typedoc """
-  - `name`: The aspect identificator above another aspects.
-  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current aspect.
+  - `name`: The aspect name identificator.
+  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated
+  with the current aspect.
   """
   @type t :: %__MODULE__{
           name: String.t(),
@@ -36,7 +37,7 @@ defmodule StrawHat.Review.Aspect do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Aspect.
+  Validates the attributes and return a Ecto.Changeset for the current Aspect.
   """
   @since "1.0.0"
   @spec changeset(t, aspect_attrs) :: Ecto.Changeset.t()
