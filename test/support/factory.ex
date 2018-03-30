@@ -1,4 +1,6 @@
 defmodule StrawHat.Review.Test.Factory do
+  @moduledoc false
+
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
   alias StrawHat.Review.{
@@ -73,6 +75,6 @@ defmodule StrawHat.Review.Test.Factory do
   end
 
   defp get_score() do
-    Enum.take_random(1..5, 1) |> List.first()
+    1..5 |> Enum.take_random(1) |> List.first()
   end
 end
