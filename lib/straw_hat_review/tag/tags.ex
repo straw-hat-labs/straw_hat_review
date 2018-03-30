@@ -7,14 +7,14 @@ defmodule StrawHat.Review.Tags do
   alias StrawHat.Review.Tag
 
   @doc """
-  Get the list of tags.
+  Gets the list of tags.
   """
   @since "1.0.0"
   @spec get_tags(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_tags(pagination \\ []), do: Repo.paginate(Tag, pagination)
 
   @doc """
-  Create a tag.
+  Creates a tag.
   """
   @since "1.0.0"
   @spec create_tag(Tag.tag_attrs()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
@@ -25,7 +25,7 @@ defmodule StrawHat.Review.Tags do
   end
 
   @doc """
-  Update a tag.
+  Updates a tag.
   """
   @since "1.0.0"
   @spec update_tag(Tag.t(), Tag.tag_attrs()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
@@ -36,30 +36,27 @@ defmodule StrawHat.Review.Tags do
   end
 
   @doc """
-  Destroy a tag.
+  Destroys a tag.
   """
   @since "1.0.0"
   @spec destroy_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
   def destroy_tag(%Tag{} = tag), do: Repo.delete(tag)
 
   @doc """
-  Find a tag by `id`.
+  Finds a tag by `id`.
   """
   @since "1.0.0"
   @spec find_tag(String.t()) :: {:ok, Tag.t()} | {:error, Error.t()}
   def find_tag(tag_id) do
-    case get_tag(tag_id) do
-      nil ->
-        error = Error.new("straw_hat_review.tag.not_found", metadata: [tag_id: tag_id])
-        {:error, error}
-
-      tag ->
-        {:ok, tag}
-    end
+    tag_id
+    |> get_tag()
+    |> StrawHat.Response.from_value(
+      Error.new("straw_hat_review.tag.not_found", metadata: [tag_id: tag_id])
+    )
   end
 
   @doc """
-  Get a tag by `id`.
+  Gets a tag by `id`.
   """
   @since "1.0.0"
   @spec get_tag(String.t()) :: Tag.t() | nil | no_return

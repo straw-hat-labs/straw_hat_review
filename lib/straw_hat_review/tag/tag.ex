@@ -44,6 +44,6 @@ defmodule StrawHat.Review.Tag do
     tag
     |> cast(tag_attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:name, name: :tags_name_index)
+    |> unique_constraint(:name)
   end
 end
