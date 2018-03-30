@@ -12,5 +12,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAchievementsTable do
         on_delete: :delete_all
       )
     end
+
+    create(index(:achievements, [:owner_id, :achievement_badge_id], unique: true))
   end
 end
