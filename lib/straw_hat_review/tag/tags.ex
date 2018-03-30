@@ -4,7 +4,6 @@ defmodule StrawHat.Review.Tags do
   """
 
   use StrawHat.Review.Interactor
-
   alias StrawHat.Review.Tag
 
   @doc """

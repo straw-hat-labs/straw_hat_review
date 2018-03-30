@@ -4,7 +4,6 @@ defmodule StrawHat.Review.Feedbacks do
   """
 
   use StrawHat.Review.Interactor
-
   alias StrawHat.Review.Feedback
 
   @doc """

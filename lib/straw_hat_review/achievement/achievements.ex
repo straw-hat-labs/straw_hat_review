@@ -4,7 +4,6 @@ defmodule StrawHat.Review.Achievements do
   """
 
   use StrawHat.Review.Interactor
-
   alias StrawHat.Review.Achievement
 
   @doc """
