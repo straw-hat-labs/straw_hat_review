@@ -6,6 +6,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAchievementBadgesTable do
       add(:name, :string, null: false)
     end
 
-    create(unique_index(:achievement_badges, [:name], name: :achievement_badges_name_index))
+    create(index(:achievement_badges, :name, unique: true))
   end
 end
