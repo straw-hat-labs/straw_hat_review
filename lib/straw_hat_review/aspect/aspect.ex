@@ -10,6 +10,8 @@ defmodule StrawHat.Review.Aspect do
   - `name`: The aspect name identificator.
   - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated
   with the current aspect.
+  - `inserted_at`: When the record was inserted.
+  - `updated_at`: When was the last time the record was updated.
   """
   @type t :: %__MODULE__{
           name: String.t(),
