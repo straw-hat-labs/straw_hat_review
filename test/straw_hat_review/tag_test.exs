@@ -15,10 +15,10 @@ defmodule StrawHat.Review.TagsTest do
   end
 
   test "get_tags/1 list the tags per page" do
-    insert_list(10, :tag)
-    tags = Tags.get_tags(%{page: 2, page_size: 5})
+    insert_list(5, :tag)
+    tags = Tags.get_tags(%{page: 2, page_size: 2})
 
-    assert length(tags.entries) == 5
+    assert length(tags.entries) == 2
   end
 
   test "create_tag/1 with valid inputs creates a tag" do
