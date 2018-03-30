@@ -7,7 +7,7 @@ defmodule StrawHat.Review.AchievementBadge do
   alias StrawHat.Review.Achievement
 
   @typedoc """
-  - `name`: The achievement_badge identificator above another achievement badges.
+  - `name`: The achievement badge name identificator.
   - `achievements`: List of `t:StrawHat.Review.Achievement.t/0` associated with the current achievement badge.
   """
   @type t :: %__MODULE__{
@@ -36,7 +36,7 @@ defmodule StrawHat.Review.AchievementBadge do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current AchievementBadge.
+  Validates the attributes and return a Ecto.Changeset for the current AchievementBadge.
   """
   @since "1.0.0"
   @spec changeset(t, achievement_badge_attrs) :: Ecto.Changeset.t()
@@ -44,6 +44,6 @@ defmodule StrawHat.Review.AchievementBadge do
     achievement_badge
     |> cast(achievement_badge_attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:name, name: :achievement_badges_name_index)
+    |> unique_constraint(:name)
   end
 end

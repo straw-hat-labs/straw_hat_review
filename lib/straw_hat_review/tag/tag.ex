@@ -7,7 +7,7 @@ defmodule StrawHat.Review.Tag do
   alias StrawHat.Review.ReviewTag
 
   @typedoc """
-  - `name`: The tag identificator above another tags.
+  - `name`: The tag name identificator.
   - `review_tags`: List of `t:StrawHat.Review.ReviewTag.t/0` associated with the current tag.
   """
   @type t :: %__MODULE__{
@@ -36,7 +36,7 @@ defmodule StrawHat.Review.Tag do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Tag.
+  Validates the attributes and return a Ecto.Changeset for the current Tag.
   """
   @since "1.0.0"
   @spec changeset(t, tag_attrs) :: Ecto.Changeset.t()

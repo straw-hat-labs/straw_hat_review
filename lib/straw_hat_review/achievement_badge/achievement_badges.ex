@@ -7,14 +7,14 @@ defmodule StrawHat.Review.AchievementBadges do
   alias StrawHat.Review.AchievementBadge
 
   @doc """
-  Get the list of achievement badges.
+  Gets the list of achievement badges.
   """
   @since "1.0.0"
   @spec get_achievement_badges(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_achievement_badges(pagination \\ []), do: Repo.paginate(AchievementBadge, pagination)
 
   @doc """
-  Create a achievement badge.
+  Creates a achievement badge.
   """
   @since "1.0.0"
   @spec create_achievement_badge(AchievementBadge.achievement_badge_attrs()) ::
@@ -26,7 +26,7 @@ defmodule StrawHat.Review.AchievementBadges do
   end
 
   @doc """
-  Update a achievement badge.
+  Updates a achievement badge.
   """
   @since "1.0.0"
   @spec update_achievement_badge(AchievementBadge.t(), AchievementBadge.achievement_badge_attrs()) ::
@@ -38,7 +38,7 @@ defmodule StrawHat.Review.AchievementBadges do
   end
 
   @doc """
-  Destroy a achievement badge.
+  Destroys a achievement badge.
   """
   @since "1.0.0"
   @spec destroy_achievement_badge(AchievementBadge.t()) ::
@@ -47,28 +47,23 @@ defmodule StrawHat.Review.AchievementBadges do
     do: Repo.delete(achievement_badge)
 
   @doc """
-  Find a achievement badge by `id`.
+  Finds a achievement badge by `id`.
   """
   @since "1.0.0"
   @spec find_achievement_badge(Integer.t()) :: {:ok, AchievementBadge.t()} | {:error, Error.t()}
   def find_achievement_badge(achievement_badge_id) do
-    case get_achievement_badge(achievement_badge_id) do
-      nil ->
-        error =
-          Error.new(
-            "straw_hat_achievement_badge.achievement_badge.not_found",
-            metadata: [achievement_badge_id: achievement_badge_id]
-          )
-
-        {:error, error}
-
-      achievement_badge ->
-        {:ok, achievement_badge}
-    end
+    achievement_badge_id
+    |> get_achievement_badge()
+    |> StrawHat.Response.from_value(
+      Error.new(
+        "straw_hat_review.achievement_badge.not_found",
+        metadata: [achievement_badge_id: achievement_badge_id]
+      )
+    )
   end
 
   @doc """
-  Get a achievement badge by `id`.
+  Gets a achievement badge by `id`.
   """
   @since "1.0.0"
   @spec get_achievement_badge(Integer.t()) :: AchievementBadge.t() | nil | no_return
