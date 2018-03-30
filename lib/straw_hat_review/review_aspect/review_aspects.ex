@@ -4,8 +4,6 @@ defmodule StrawHat.Review.ReviewAspects do
   """
 
   use StrawHat.Review.Interactor
-
-  import Ecto.Query, only: [from: 2]
   alias StrawHat.Review.ReviewAspect
 
   @doc """
