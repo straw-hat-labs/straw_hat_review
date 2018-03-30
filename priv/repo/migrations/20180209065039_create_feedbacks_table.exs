@@ -7,6 +7,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateFeedbackTable do
       add(:review_id, references(:reviews), null: false)
       add(:user_id, :string, null: false)
       add(:comment, :string, null: false)
+      timestamps()
     end
 
     create(index(:feedbacks, [:review_id, :user_id], unique: true))

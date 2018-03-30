@@ -29,6 +29,7 @@ defmodule StrawHat.Review.Achievement do
 
   schema "achievements" do
     field(:owner_id, :string)
+    timestamps()
     belongs_to(:achievement_badge, AchievementBadge)
   end
 

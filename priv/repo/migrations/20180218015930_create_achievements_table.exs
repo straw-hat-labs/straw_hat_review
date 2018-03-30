@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAchievementsTable do
   def change do
     create table(:achievements) do
       add(:owner_id, :string, null: false)
+      timestamps()
 
       add(
         :achievement_badge_id,

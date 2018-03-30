@@ -26,6 +26,7 @@ defmodule StrawHat.Review.AchievementBadge do
 
   schema "achievement_badges" do
     field(:name, :string)
+    timestamps()
 
     has_many(
       :achievements,
