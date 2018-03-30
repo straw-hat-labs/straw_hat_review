@@ -27,6 +27,7 @@ defmodule StrawHat.Review.Aspect do
 
   schema "aspects" do
     field(:name, :string)
+    timestamps()
 
     timestamps()
   end
