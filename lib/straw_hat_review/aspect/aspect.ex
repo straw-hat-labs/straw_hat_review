@@ -27,6 +27,7 @@ defmodule StrawHat.Review.Aspect do
 
   schema "aspects" do
     field(:name, :string)
+    timestamps()
 
     has_many(
       :review_aspects,

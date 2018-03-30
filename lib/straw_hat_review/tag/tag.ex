@@ -26,6 +26,7 @@ defmodule StrawHat.Review.Tag do
 
   schema "tags" do
     field(:name, :string)
+    timestamps()
 
     has_many(
       :review_tags,

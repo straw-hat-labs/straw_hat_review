@@ -7,7 +7,6 @@ defmodule StrawHat.Review.Review do
   alias StrawHat.Review.{Review, Tag, ReviewTag, Feedback, ReviewAspect}
 
   @typedoc """
-  - `date`: The write date of review.
   - `score`: The punctuation received for the reviewer in the range of 1 to 5.
   - `reviewee_id`: The object or user that receive the review.
   - `reviewer_id`: The user that make the comment.
@@ -21,7 +20,6 @@ defmodule StrawHat.Review.Review do
   - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
   """
   @type t :: %__MODULE__{
-          date: DateTime.t(),
           score: Integer.t(),
           reviewee_id: String.t(),
           reviewer_id: String.t(),
@@ -39,7 +37,6 @@ defmodule StrawHat.Review.Review do
   Check `t:t/0` type for more information about the keys.
   """
   @type review_attrs :: %{
-          date: DateTime.t(),
           score: Integer.t(),
           reviewee_id: String.t(),
           reviewer_id: String.t(),
@@ -50,16 +47,17 @@ defmodule StrawHat.Review.Review do
           tags: String.t()
         }
 
-  @required_fields ~w(date score reviewee_id reviewer_id comment)a
-  @optional_fields ~w(type review_id)a
+  @required_fields ~w(score reviewee_id reviewer_id)a
+  @optional_fields ~w(comment type review_id)a
 
   schema "reviews" do
-    field(:date, :utc_datetime)
     field(:score, :integer)
     field(:reviewee_id, :string)
     field(:reviewer_id, :string)
     field(:type, :string)
     field(:comment, :string)
+    timestamps()
+
     belongs_to(:review, Review)
 
     has_many(
@@ -112,7 +110,6 @@ defmodule StrawHat.Review.Review do
     put_assoc(changeset, :tags, tags)
   end
 
-  defp validate_tags(changeset, _) do
-    changeset
-  end
+  @since "1.0.0"
+  defp validate_tags(changeset, _), do: changeset
 end

@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAspectsTable do
   def change do
     create table(:aspects) do
       add(:name, :string, null: false)
+      timestamps()
     end
 
     create(index(:aspects, :name, unique: true))

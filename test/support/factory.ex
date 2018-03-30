@@ -50,7 +50,6 @@ defmodule StrawHat.Review.Test.Factory do
 
   def review_factory do
     %Review{
-      date: DateTime.utc_now(),
       score: get_score(),
       reviewee_id: Faker.String.base64(),
       reviewer_id: Faker.String.base64(),
