@@ -12,7 +12,7 @@ defmodule StrawHat.Review.Achievement do
   - `achievement_badge_id`: The `achievement_badge_id` is a reference to AchievementBadge schema.
   """
   @type t :: %__MODULE__{
-          owner_id: Integer.t(),
+          owner_id: String.t(),
           achievement_badge: AchievementBadge.t() | Ecto.Association.NotLoaded.t(),
           achievement_badge_id: Integer.t()
         }
@@ -33,7 +33,7 @@ defmodule StrawHat.Review.Achievement do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Achievement.
+  Validates the attributes and return a Ecto.Changeset for the current Achievement.
   """
   @since "1.0.0"
   @spec changeset(t, achievement_attrs) :: Ecto.Changeset.t()
@@ -41,5 +41,10 @@ defmodule StrawHat.Review.Achievement do
     achievement
     |> cast(achievement_attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> assoc_constraint(:achievement_badge)
+    |> unique_constraint(
+      :achievement_badge,
+      name: :achievements_owner_id_achievement_badge_id_index
+    )
   end
 end

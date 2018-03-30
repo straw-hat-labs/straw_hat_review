@@ -15,17 +15,29 @@ defmodule StrawHat.Review.AchievementsTest do
   end
 
   test "get_achievements/1 list the achievements per page" do
-    insert_list(10, :achievement)
-    achievement = Achievements.get_achievements(%{page: 2, page_size: 5})
+    insert_list(5, :achievement)
+    achievement = Achievements.get_achievements(%{page: 2, page_size: 2})
 
-    assert length(achievement.entries) == 5
+    assert length(achievement.entries) == 2
   end
 
   test "create_achievement/1 with valid inputs creates a achievement" do
+    achievement = insert(:achievement)
+
+    params = %{
+      owner_id: achievement.owner_id,
+      achievement_badge_id: achievement.achievement_badge.id
+    }
+
+    assert {:error, _error} = Achievements.create_achievement(params)
+  end
+
+  test "create_achievement/1 shouldn't duplicate the achievement" do
     achievement_badge = insert(:achievement_badge)
     params = params_for(:achievement, achievement_badge_id: achievement_badge.id)
 
     assert {:ok, _achievement} = Achievements.create_achievement(params)
+    assert {:error, _achievement} = Achievements.create_achievement(params)
   end
 
   test "update_achievement/2 with valid inputs updates a achievement" do

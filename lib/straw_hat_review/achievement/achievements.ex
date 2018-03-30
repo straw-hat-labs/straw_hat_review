@@ -7,14 +7,14 @@ defmodule StrawHat.Review.Achievements do
   alias StrawHat.Review.Achievement
 
   @doc """
-  Get the list of achievements.
+  Gets the list of achievements.
   """
   @since "1.0.0"
   @spec get_achievements(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_achievements(pagination \\ []), do: Repo.paginate(Achievement, pagination)
 
   @doc """
-  Create achievement.
+  Creates achievement.
   """
   @since "1.0.0"
   @spec create_achievement(Achievement.achievement_attrs()) ::
@@ -26,7 +26,7 @@ defmodule StrawHat.Review.Achievements do
   end
 
   @doc """
-  Update achievement.
+  Updates achievement.
   """
   @since "1.0.0"
   @spec update_achievement(Achievement.t(), Achievement.achievement_attrs()) ::
@@ -38,7 +38,7 @@ defmodule StrawHat.Review.Achievements do
   end
 
   @doc """
-  Destroy achievement.
+  Destroys achievement.
   """
   @since "1.0.0"
   @spec destroy_achievement(Achievement.t()) ::
@@ -46,28 +46,23 @@ defmodule StrawHat.Review.Achievements do
   def destroy_achievement(%Achievement{} = achievement), do: Repo.delete(achievement)
 
   @doc """
-  Find achievement by `id`.
+  Finds achievement by `id`.
   """
   @since "1.0.0"
   @spec find_achievement(String.t()) :: {:ok, Achievement.t()} | {:error, Error.t()}
   def find_achievement(achievement_id) do
-    case get_achievement(achievement_id) do
-      nil ->
-        error =
-          Error.new(
-            "straw_hat_review.achievement.not_found",
-            metadata: [achievement_id: achievement_id]
-          )
-
-        {:error, error}
-
-      achievement ->
-        {:ok, achievement}
-    end
+    achievement_id
+    |> get_achievement()
+    |> StrawHat.Response.from_value(
+      Error.new(
+        "straw_hat_review.achievement.not_found",
+        metadata: [achievement_id: achievement_id]
+      )
+    )
   end
 
   @doc """
-  Get achievement by `id`.
+  Gets achievement by `id`.
   """
   @since "1.0.0"
   @spec get_achievement(String.t()) :: Achievement.t() | nil | no_return
