@@ -10,6 +10,8 @@ defmodule StrawHat.Review.Achievement do
   - `owner_id`: The `owner_id` is a reference to achievement owner.
   - `achievement_badge`: `t:StrawHat.Review.AchievementBadge.t/0` associated with the current achievement.
   - `achievement_badge_id`: The `achievement_badge_id` is a reference to AchievementBadge schema.
+  - `inserted_at`: When the record was inserted.
+  - `updated_at`: When was the last time the record was updated.
   """
   @type t :: %__MODULE__{
           owner_id: String.t(),

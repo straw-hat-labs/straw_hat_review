@@ -15,9 +15,14 @@ defmodule StrawHat.Review.Review do
   - `review`: `t:StrawHat.Review.Review.t/0` associated with the current review.
   - `review_id`: Represent the relation betwwen review from reviews.
   - `tags`: List of `t:StrawHat.Review.Tag.t/0` associated with the current review.
-  - `reviews`: List of `t:StrawHat.Review.Review.t/0` associated with the current review.
-  - `feedbacks`: List of `t:StrawHat.Review.Feedback.t/0` associated with the current review.
-  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
+  - `reviews`: List of `t:StrawHat.Review.Review.t/0` associated with the
+  current review.
+  - `feedbacks`: List of `t:StrawHat.Review.Feedback.t/0` associated with the
+  current review.
+  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated
+  with the current review.
+  - `inserted_at`: When the record was inserted.
+  - `updated_at`: When was the last time the record was updated.
   """
   @type t :: %__MODULE__{
           score: Integer.t(),

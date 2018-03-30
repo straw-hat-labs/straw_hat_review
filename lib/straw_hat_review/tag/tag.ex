@@ -8,7 +8,10 @@ defmodule StrawHat.Review.Tag do
 
   @typedoc """
   - `name`: The tag name identificator.
-  - `review_tags`: List of `t:StrawHat.Review.ReviewTag.t/0` associated with the current tag.
+  - `review_tags`: List of `t:StrawHat.Review.ReviewTag.t/0` associated with
+  the current tag.
+  - `inserted_at`: When the record was inserted.
+  - `updated_at`: When was the last time the record was updated.
   """
   @type t :: %__MODULE__{
           name: String.t(),

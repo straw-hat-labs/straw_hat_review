@@ -8,7 +8,10 @@ defmodule StrawHat.Review.AchievementBadge do
 
   @typedoc """
   - `name`: The achievement badge name identificator.
-  - `achievements`: List of `t:StrawHat.Review.Achievement.t/0` associated with the current achievement badge.
+  - `achievements`: List of `t:StrawHat.Review.Achievement.t/0` associated
+  with the current achievement badge.
+  - `inserted_at`: When the record was inserted.
+  - `updated_at`: When was the last time the record was updated.
   """
   @type t :: %__MODULE__{
           name: String.t(),
