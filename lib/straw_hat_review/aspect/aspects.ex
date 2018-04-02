@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Aspects do
   """
 
   use StrawHat.Review.Interactor
+
   alias StrawHat.Review.Aspect
 
   @doc """

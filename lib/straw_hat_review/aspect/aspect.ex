@@ -4,18 +4,12 @@ defmodule StrawHat.Review.Aspect do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.ReviewAspect
 
   @typedoc """
-  - `name`: The aspect name identificator.
-  - `review_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated
-  with the current aspect.
-  - `inserted_at`: When the record was inserted.
-  - `updated_at`: When was the last time the record was updated.
+  - `name`: The aspect identificator above another aspects.
   """
   @type t :: %__MODULE__{
-          name: String.t(),
-          review_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t()
+          name: String.t()
         }
 
   @typedoc """
@@ -29,7 +23,6 @@ defmodule StrawHat.Review.Aspect do
 
   schema "aspects" do
     field(:name, :string)
-    timestamps()
 
     timestamps()
   end
