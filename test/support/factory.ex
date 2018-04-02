@@ -40,7 +40,7 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def reviews_reactions do
+  def reviews_reactions_factory do
     %ReviewReaction{
       review: build(:review),
       reaction: build(:reaction),
