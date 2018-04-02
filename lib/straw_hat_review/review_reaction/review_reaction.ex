@@ -32,10 +32,12 @@ defmodule StrawHat.Review.ReviewReaction do
 
   @required_fields ~w(review_id reaction_id user_id)a
 
-  schema "review_reactions" do
+  schema "reviews_reactions" do
     belongs_to(:review, Review)
     belongs_to(:reaction, Reaction)
     field(:user_id, :string)
+
+    timestamps()
   end
 
   @doc """

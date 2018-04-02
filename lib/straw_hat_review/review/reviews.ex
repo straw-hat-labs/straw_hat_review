@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Reviews do
   use StrawHat.Review.Interactor
 
   import Ecto.Query, only: [from: 2]
-  alias StrawHat.Review.{Review, Attachment}
+  alias StrawHat.Review.{Review, Attachment, ReviewAspect}
 
   @doc """
   Get the list of reviews.
@@ -21,11 +21,14 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def create_review(review_attrs) do
-    review_attrs = put_reviews_aspects_to_attributes(review_attrs)
+    result =
+      %Review{}
+      |> Review.changeset(review_attrs)
+      |> Repo.insert()
 
-    %Review{}
-    |> Review.changeset(review_attrs)
-    |> Repo.insert()
+    with {:ok, review} <- result do
+      put_aspects(review, review_attrs)
+    end
   end
 
   @doc """
@@ -35,7 +38,6 @@ defmodule StrawHat.Review.Reviews do
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
-    review_attrs = put_reviews_aspects_to_attributes(review_attrs)
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()
@@ -150,24 +152,28 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @since "1.0.0"
-  @spec put_reviews_aspects_to_attributes(Review.review_attrs()) :: [Tag.t()]
-  # defp put_reviews_aspects_to_attributes(%{reviews_aspects: reviews_aspects} = review_attrs) do
-  #   tags =
-  #     reviews_aspects
-  #     |> String.split(",")
-  #     |> Enum.map(&String.trim/1)
-  #     |> Enum.reject(& &1 == "")
-  #     |> Enum.map(&get_or_insert_tag/1)
-  #   Map.put(review_attrs, :tags, tags)
-  # end
-  defp put_reviews_aspects_to_attributes(review_attrs) do
-    review_attrs
+  @spec put_aspects(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
+  defp put_aspects(review, %{aspects: aspects}) do    
+    reviews_aspects =
+      Enum.reduce(aspects, [], fn(aspect, acc) ->
+        {_, aspect} = create_review_aspect(review.id, aspect)
+        [aspect | acc]
+      end)
+
+    review = Map.put(review, :reviews_aspects, reviews_aspects)
+    {:ok, review}
+  end
+  defp put_aspects(review, _) do
+    {:ok, review}
   end
 
-  # @since "1.0.0"
-  # @spec get_or_insert_tag(String.t()) :: Tag.t()
-  # defp get_or_insert_tag(name) do
-  #   Repo.get_by(Tag, name: name) ||
-  #   Repo.insert!(%Tag{name: name})
-  # end
+  @since "1.0.0"
+  @spec create_review_aspect(Integer.t(), Map.t()) :: {:ok, ReviewAspect.t()} | {:error, Ecto.Changeset.t()}
+  defp create_review_aspect(review_id, review_aspect_attrs) do
+    review_aspect_attrs = Map.put(review_aspect_attrs, :review_id, review_id)
+
+    %ReviewAspect{}
+    |> ReviewAspect.changeset(review_aspect_attrs)
+    |> Repo.insert()
+  end
 end

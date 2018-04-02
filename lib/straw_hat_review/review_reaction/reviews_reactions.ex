@@ -8,69 +8,69 @@ defmodule StrawHat.Review.ReviewsReactions do
   alias StrawHat.Review.ReviewReaction
 
   @doc """
-  Get the list of reviews_reactions.
+  Get the list of reviews reactions.
   """
   @since "1.0.0"
   @spec get_reviews_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_reviews_reactions(pagination \\ []), do: Repo.paginate(ReviewReaction, pagination)
 
   @doc """
-  Create reviews_reaction.
+  Create reviews reaction.
   """
   @since "1.0.0"
-  @spec create_reviews_reaction(ReviewReaction.reviews_reaction_attrs()) ::
+  @spec create_reviews_reactions(ReviewReaction.reviews_reactions_attrs()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
-  def create_reviews_reaction(reviews_reaction_attrs) do
+  def create_reviews_reactions(reviews_reactions_attrs) do
     %ReviewReaction{}
-    |> ReviewReaction.changeset(reviews_reaction_attrs)
+    |> ReviewReaction.changeset(reviews_reactions_attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Update reviews_reaction.
+  Update reviews reactions.
   """
   @since "1.0.0"
-  @spec update_reviews_reaction(ReviewReaction.t(), ReviewReaction.reviews_reaction_attrs()) ::
+  @spec update_reviews_reactions(ReviewReaction.t(), ReviewReaction.reviews_reactions_attrs()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
-  def update_reviews_reaction(%ReviewReaction{} = reviews_reaction, reviews_reaction_attrs) do
-    reviews_reaction
-    |> ReviewReaction.changeset(reviews_reaction_attrs)
+  def update_reviews_reactions(%ReviewReaction{} = reviews_reactions, reviews_reactions_attrs) do
+    reviews_reactions
+    |> ReviewReaction.changeset(reviews_reactions_attrs)
     |> Repo.update()
   end
 
   @doc """
-  Destroy reviews_reaction.
+  Destroy reviews reactions.
   """
   @since "1.0.0"
-  @spec destroy_reviews_reaction(ReviewReaction.t()) ::
+  @spec destroy_reviews_reactions(ReviewReaction.t()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
-  def destroy_reviews_reaction(%ReviewReaction{} = reviews_reaction), do: Repo.delete(reviews_reaction)
+  def destroy_reviews_reactions(%ReviewReaction{} = reviews_reactions), do: Repo.delete(reviews_reactions)
 
   @doc """
-  Find reviews_reaction by `id`.
+  Find reviews reactions by `id`.
   """
   @since "1.0.0"
-  @spec find_reviews_reaction(Integer.t()) :: {:ok, ReviewReaction.t()} | {:error, Error.t()}
-  def find_reviews_reaction(reviews_reaction_id) do
-    case get_reviews_reaction(reviews_reaction_id) do
+  @spec find_review_reaction(Integer.t()) :: {:ok, ReviewReaction.t()} | {:error, Error.t()}
+  def find_review_reaction(review_reaction_id) do
+    case get_review_reaction(review_reaction_id) do
       nil ->
         error =
           Error.new(
-            "straw_hat_review.reviews_reaction.not_found",
-            metadata: [reviews_reaction_id: reviews_reaction_id]
+            "straw_hat_review.review_reaction.not_found",
+            metadata: [review_reaction_id: review_reaction_id]
           )
 
         {:error, error}
 
-      reviews_reaction ->
-        {:ok, reviews_reaction}
+      review_reaction ->
+        {:ok, review_reaction}
     end
   end
 
   @doc """
-  Get reviews_reaction by `id`.
+  Get reviews reactions by `id`.
   """
   @since "1.0.0"
-  @spec get_reviews_reaction(Integer.t()) :: ReviewReaction.t() | nil | no_return
-  def get_reviews_reaction(reviews_reaction_id), do: Repo.get(ReviewReaction, reviews_reaction_id)
+  @spec get_review_reaction(Integer.t()) :: ReviewReaction.t() | nil | no_return
+  def get_review_reaction(review_reaction_id), do: Repo.get(ReviewReaction, review_reaction_id)
 end

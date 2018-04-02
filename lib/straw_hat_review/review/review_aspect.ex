@@ -32,10 +32,12 @@ defmodule StrawHat.Review.ReviewAspect do
 
   @required_fields ~w(review_id aspect_id score)a
 
-  schema "review_aspects" do
+  schema "reviews_aspects" do
     belongs_to(:review, Review)
     belongs_to(:aspect, Aspect)
     field(:score, :integer)
+
+    timestamps()
   end
 
   @doc """
