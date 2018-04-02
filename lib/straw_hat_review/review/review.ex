@@ -1,0 +1,97 @@
+defmodule StrawHat.Review.Review do
+  @moduledoc """
+  Represents a Review Ecto Schema.
+  """
+
+  use StrawHat.Review.Schema
+  alias StrawHat.Review.{Comment, Attachment, ReviewAspect, ReviewReaction}
+
+  @typedoc """
+  - `reviewee_id`: The object or user that receive the review.
+  - `reviewer_id`: The user that make the comment.
+  - `comment`: The user comment or appreciation above the reviewee.
+  - `comments`: List of `t:StrawHat.Review.Comment.t/0` associated with the current review.
+  - `attachments`: List of `t:StrawHat.Review.Attachment.t/0` associated with the current review.
+  - `reviews_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
+  - `reviews_reactions`: List of `t:StrawHat.Review.ReviewReaction.t/0` associated with the current review.
+  """
+  @type t :: %__MODULE__{
+          reviewee_id: String.t(),
+          reviewer_id: String.t(),
+          comment: String.t(),
+          comments: [Comment.t()] | Ecto.Association.NotLoaded.t(),
+          attachments: [Attachment.t()] | Ecto.Association.NotLoaded.t(),
+          reviews_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t(),
+          reviews_reactions: [ReviewReaction.t()] | Ecto.Association.NotLoaded.t()
+        }
+
+  @typedoc """
+  Check `t:t/0` type for more information about the keys.
+  """
+  @type review_attrs :: %{
+          reviewee_id: String.t(),
+          reviewer_id: String.t(),
+          comment: String.t(),
+          reviews_aspects: [ReviewAspect.t()]
+        }
+
+  @required_fields ~w(reviewee_id reviewer_id comment)a
+
+  schema "reviews" do
+    field(:reviewee_id, :string)
+    field(:reviewer_id, :string)
+    field(:comment, :string)
+
+    timestamps()
+
+    has_many(
+      :comments,
+      Comment,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
+
+    has_many(
+      :attachments,
+      Attachment,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
+
+    has_many(
+      :reviews_aspects,
+      ReviewAspect,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
+
+    has_many(
+      :reviews_reactions,
+      ReviewReaction,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
+  end
+
+  @doc """
+  Validate the attributes and return a Ecto.Changeset for the current Review.
+  """
+  @since "1.0.0"
+  @spec changeset(t, review_attrs) :: Ecto.Changeset.t()
+  def changeset(review, review_attrs) do
+    review
+    |> cast(review_attrs, @required_fields)
+    |> validate_required(@required_fields)
+    |> assoc_constraint(:review)
+    |> validate_reviews_aspects(review_attrs)
+  end
+
+  @since "1.0.0"
+  @spec validate_reviews_aspects(t, review_attrs) :: Ecto.Changeset.t()
+  defp validate_reviews_aspects(changeset, %{reviews_aspects: reviews_aspects}) do
+    put_assoc(changeset, :reviews_aspects, reviews_aspects)
+  end
+  defp validate_reviews_aspects(changeset, _) do
+    add_error(changeset, :review_aspects, "empty")
+  end
+end
