@@ -58,6 +58,22 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
+  def reviews_reactions do
+    %ReviewReaction{
+      review: build(:review),
+      reaction: build(:reaction),
+      user_id: Faker.String.base64()
+    }
+  end
+
+  def reviews_aspects do
+    %ReviewAspect{
+      review: build(:review),
+      aspect: build(:aspect),
+      score: get_score()
+    }
+  end
+
   def review_factory do
     %Review{
       reviewee_id: Faker.String.base64(),
@@ -66,24 +82,8 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def review_aspect_factory do
-    %ReviewAspect{
-      aspect: build(:aspect),
-      review: build(:review),
-      comment: Faker.Lorem.Shakespeare.hamlet(),
-      score: get_score()
-    }
-  end
-
-  def review_tag_factory do
-    %ReviewTag{
-      tag: build(:tag),
-      review: build(:review)
-    }
-  end
-
   defp get_score() do
-    1..5 |> Enum.take_random(1) |> List.first()
+    Enum.take_random(1..5, 1) |> List.first()
   end
 
   defp get_file() do
