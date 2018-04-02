@@ -24,7 +24,7 @@ defmodule StrawHat.Review.Test.ReviewsReactionsTest do
   test "create_reviews_reactions/1 with valid inputs creates a reviews_reactions" do
     review = insert(:review)
     reaction = insert(:reaction)
-    params = params_for(:reviews_reactions, review: review, reaction: reaction)
+    params = params_for(:reviews_reactions, review_id: review.id, reaction_id: reaction.id)
 
     assert {:ok, _reviews_reactions} = ReviewsReactions.create_reviews_reactions(params)
   end

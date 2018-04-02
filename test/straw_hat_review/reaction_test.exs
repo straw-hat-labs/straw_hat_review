@@ -22,7 +22,7 @@ defmodule StrawHat.Review.Test.ReactionsTest do
   end
 
   test "create_reaction/1 with valid inputs creates a reaction" do
-    params = params_for(:reaction)
+    params = params_for(:reaction, name: "Professional")
 
     assert {:ok, _reaction} = Reactions.create_reaction(params)
   end
@@ -31,7 +31,7 @@ defmodule StrawHat.Review.Test.ReactionsTest do
     reaction = insert(:reaction)
     {:ok, reaction} = Reactions.update_reaction(reaction, %{name: "Professional"})
 
-    assert reaction.name == "Professional"
+    assert reaction.name == "professional"
   end
 
   test "destroy_reaction/1 with a found review destroys the reaction" do
