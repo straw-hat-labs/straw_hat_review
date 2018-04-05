@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Attachment do
   """
 
   use StrawHat.Review.Schema
+  use Arc.Ecto.Schema
   alias StrawHat.Review.Review
 
   @typedoc """
@@ -16,7 +17,7 @@ defmodule StrawHat.Review.Attachment do
   @type t :: %__MODULE__{
           content_type: String.t(),
           file_name: String.t(),
-          file: String.t(),
+          file: StrawHat.Review.AttachmentFile.t(),
           review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t()
         }
@@ -27,7 +28,7 @@ defmodule StrawHat.Review.Attachment do
   @type attachment_attrs :: %{
           content_type: String.t(),
           file_name: String.t(),
-          file: String.t(),
+          file: StrawHat.Review.AttachmentFile.t(),
           review_id: Integer.t()
         }
 
@@ -36,7 +37,7 @@ defmodule StrawHat.Review.Attachment do
   schema "attachments" do
     field(:content_type, :string)
     field(:file_name, :string)
-    field(:file, :string)
+    field(:file, StrawHat.Review.AttachmentFile.Type)
     belongs_to(:review, Review)
 
     timestamps()
@@ -51,6 +52,7 @@ defmodule StrawHat.Review.Attachment do
     attachment
     |> cast(attachment_attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> cast_attachments(attachment_attrs, [:file])
     |> assoc_constraint(:review)
   end
 end
