@@ -118,24 +118,6 @@ defmodule StrawHat.Review.Reviews do
      Repo.all(query)
   end
 
-  # @doc """
-  # Add attachment to review.
-  # """
-  # @since "1.0.0"
-  # @spec add_attachment(Review.t(), String.t() | Plug.Upload.t() | Map.t() ) :: {:ok, String.t()} | {:error, Error.t()} | {:error, String.t()}
-  # def add_attachment(review, file) do
-  #   AttachmentFile.store({file, review})
-  # end
-
-  # @doc """
-  # Remove attachment from review.
-  # """
-  # @since "1.0.0"
-  # @spec remove_attachment(Review.t(), String.t() | Map.t()) :: :ok
-  # def remove_attachment(review, path) do
-  #   AttachmentFile.delete({path, review})
-  # end
-
   @doc """
   Get list of reviews reactions by review ids.
   """

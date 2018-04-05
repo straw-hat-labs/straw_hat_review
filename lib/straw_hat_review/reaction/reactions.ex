@@ -5,6 +5,7 @@ defmodule StrawHat.Review.Reactions do
 
   use StrawHat.Review.Interactor
 
+  import Ecto.Query, only: [from: 2]
   alias StrawHat.Review.Reaction
 
   @doc """
@@ -73,4 +74,17 @@ defmodule StrawHat.Review.Reactions do
   @since "1.0.0"
   @spec get_reaction(Integer.t()) :: Reaction.t() | nil | no_return
   def get_reaction(reaction_id), do: Repo.get(Reaction, reaction_id)
+
+  @doc """
+  Get list of reaction by ids.
+  """
+  @since "1.0.0"
+  @spec reaction_by_ids([Integer.t()]) :: [Reaction.t()] | no_return
+  def reaction_by_ids(reaction_ids) do
+    query =
+      from(reaction in Reaction,
+        where: reaction.id in ^reaction_ids)
+
+    Repo.all(query)
+  end
 end

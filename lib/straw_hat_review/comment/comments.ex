@@ -5,6 +5,7 @@ defmodule StrawHat.Review.Comments do
 
   use StrawHat.Review.Interactor
 
+  import Ecto.Query, only: [from: 2]
   alias StrawHat.Review.Comment
 
   @doc """
@@ -73,4 +74,17 @@ defmodule StrawHat.Review.Comments do
   @since "1.0.0"
   @spec get_comment(Integer.t()) :: Comment.t() | nil | no_return
   def get_comment(comment_id), do: Repo.get(Comment, comment_id)
+
+  @doc """
+  Get list of comment by ids.
+  """
+  @since "1.0.0"
+  @spec comment_by_ids([Integer.t()]) :: [Comment.t()] | no_return
+  def comment_by_ids(comment_ids) do
+    query =
+      from(comment in Comment,
+        where: comment.id in ^comment_ids)
+
+    Repo.all(query)
+  end
 end
