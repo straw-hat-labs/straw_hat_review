@@ -4,14 +4,14 @@ defmodule StrawHat.Review.Review do
   """
 
   use StrawHat.Review.Schema
-  alias StrawHat.Review.{Comment, Attachment, ReviewAspect, ReviewReaction}
+  alias StrawHat.Review.{Comment, Media, ReviewAspect, ReviewReaction}
 
   @typedoc """
   - `reviewee_id`: The object or user that receive the review.
   - `reviewer_id`: The user that make the comment.
   - `comment`: The user comment or appreciation above the reviewee.
   - `comments`: List of `t:StrawHat.Review.Comment.t/0` associated with the current review.
-  - `attachments`: List of `t:StrawHat.Review.Attachment.t/0` associated with the current review.
+  - `medias`: List of `t:StrawHat.Review.Media.t/0` associated with the current review.
   - `reviews_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
   - `reviews_reactions`: List of `t:StrawHat.Review.ReviewReaction.t/0` associated with the current review.
   """
@@ -20,7 +20,7 @@ defmodule StrawHat.Review.Review do
           reviewer_id: String.t(),
           comment: String.t(),
           comments: [Comment.t()] | Ecto.Association.NotLoaded.t(),
-          attachments: [Attachment.t()] | Ecto.Association.NotLoaded.t(),
+          medias: [Media.t()] | Ecto.Association.NotLoaded.t(),
           reviews_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t(),
           reviews_reactions: [ReviewReaction.t()] | Ecto.Association.NotLoaded.t()
         }
@@ -52,8 +52,8 @@ defmodule StrawHat.Review.Review do
     )
 
     has_many(
-      :attachments,
-      Attachment,
+      :medias,
+      Media,
       on_replace: :delete,
       on_delete: :delete_all
     )

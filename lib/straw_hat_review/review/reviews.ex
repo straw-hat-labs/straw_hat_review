@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Reviews do
   use StrawHat.Review.Interactor
 
   import Ecto.Query, only: [from: 2]
-  alias StrawHat.Review.{Review, Attachments, ReviewAspect}
+  alias StrawHat.Review.{Review, Medias, ReviewAspect}
 
   @doc """
   Get the list of reviews.
@@ -29,7 +29,7 @@ defmodule StrawHat.Review.Reviews do
     with {:ok, review} <- result do
       review
       |> put_aspects(review_attrs)
-      |> put_attachments(review_attrs)
+      |> put_medias(review_attrs)
     end
   end
 
@@ -149,18 +149,18 @@ defmodule StrawHat.Review.Reviews do
   defp put_aspects(review, _), do: review
 
   @since "1.0.0"
-  @spec put_attachments(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
-  defp put_attachments(review, %{attachments: attachments}) do
-    attachments =
-      Enum.reduce(attachments, [], fn(attachment, acc) ->
-        {_, attachment} = create_attachment(review.id, attachment)
-        [attachment | acc]
+  @spec put_medias(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
+  defp put_medias(review, %{medias: medias}) do
+    medias =
+      Enum.reduce(medias, [], fn(media, acc) ->
+        {_, media} = create_media(review.id, media)
+        [media | acc]
       end)
 
-    review = Map.put(review, :attachments, attachments)
+    review = Map.put(review, :medias, medias)
     {:ok, review}
   end
-  defp put_attachments(review, _) do
+  defp put_medias(review, _) do
     {:ok, review}
   end
 
@@ -175,10 +175,10 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @since "1.0.0"
-  @spec create_attachment(Integer.t(), Map.t()) :: {:ok, Attachment.t()} | {:error, Ecto.Changeset.t()}
-  defp create_attachment(review_id, attachment) do
-    attachment
+  @spec create_media(Integer.t(), Map.t()) :: {:ok, Media.t()} | {:error, Ecto.Changeset.t()}
+  defp create_media(review_id, media) do
+    media
     |> Map.put(:review_id, review_id)
-    |> Attachments.create_attachment()
+    |> Medias.create_media()
   end
 end

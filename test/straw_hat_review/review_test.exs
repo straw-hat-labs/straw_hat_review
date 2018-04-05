@@ -41,9 +41,9 @@ defmodule StrawHat.Review.Test.ReviewsTest do
       assert length(review.reviews_aspects) == 1
     end
 
-    test "with valid inputs creates a review with attachment" do
+    test "with valid inputs creates a review with media" do
 
-      attachment_params = %{
+      media_params = %{
         content_type: "image/png",
         file_name: "elixir_logo.png",
         file: %Plug.Upload{
@@ -56,10 +56,10 @@ defmodule StrawHat.Review.Test.ReviewsTest do
       params = 
         :review
         |> params_for()
-        |> Map.put(:attachments, [attachment_params])
+        |> Map.put(:medias, [media_params])
 
       assert {:ok, review} = Reviews.create_review(params)
-      assert length(review.attachments) == 1
+      assert length(review.medias) == 1
     end
   end
 

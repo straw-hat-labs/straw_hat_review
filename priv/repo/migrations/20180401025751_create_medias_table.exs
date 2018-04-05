@@ -1,8 +1,8 @@
-defmodule StrawHat.Review.Repo.Migrations.CreateAttachmentsTable do
+defmodule StrawHat.Review.Repo.Migrations.CreateMediasTable do
   use Ecto.Migration
 
   def change do
-    create table(:attachments) do
+    create table(:medias) do
       add(:content_type, :string, null: false)
       add(:file_name, :string, null: false)
       add(:file, :string, null: false)

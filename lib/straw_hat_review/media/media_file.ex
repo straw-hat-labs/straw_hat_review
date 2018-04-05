@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.AttachmentFile do
+defmodule StrawHat.Review.MediaFile do
   use Arc.Definition
   use Arc.Ecto.Definition
 

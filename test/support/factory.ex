@@ -1,7 +1,7 @@
 defmodule StrawHat.Review.Test.Factory do
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
-  alias StrawHat.Review.{Review, Aspect, Comment, Reaction, CommentReaction, Attachment, ReviewReaction, ReviewAspect}
+  alias StrawHat.Review.{Review, Aspect, Comment, Reaction, CommentReaction, Media, ReviewReaction, ReviewAspect}
 
   def aspect_factory do
     %Aspect{
@@ -23,8 +23,8 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def attachment_factory do
-    %Attachment{
+  def media_factory do
+    %Media{
       content_type: "image/png",
       file_name: "elixir_logo.png",
       review: build(:review),
