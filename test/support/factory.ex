@@ -25,9 +25,10 @@ defmodule StrawHat.Review.Test.Factory do
 
   def attachment_factory do
     %Attachment{
-      content_type: Faker.File.mime_type(:image),
-      file_name: Faker.String.base64(),
-      review: build(:review)
+      content_type: "image/png",
+      file_name: "elixir_logo.png",
+      review: build(:review),
+      file: get_file()
     }
   end
 
@@ -65,5 +66,13 @@ defmodule StrawHat.Review.Test.Factory do
 
   defp get_score() do
     Enum.take_random(1..5, 1) |> List.first()
+  end
+
+  defp get_file() do
+    %Plug.Upload{
+      content_type: "image/png",
+      filename: "elixir_logo.png",
+      path: "test/features/files/elixir_logo.png"
+    }
   end
 end
