@@ -2,15 +2,15 @@ defmodule StrawHat.Review.Test.CommentsReactionsTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.CommentsReactions
 
-  describe "find_comment_reaction/1" do
+  describe "find_comments_reactions/1" do
     test "with valid id" do
       comments_reactions = insert(:comments_reactions)
 
-      assert {:ok, _comments_reactions} = CommentsReactions.find_comment_reaction(comments_reactions.id)
+      assert {:ok, _comments_reactions} = CommentsReactions.find_comments_reactions(comments_reactions.id)
     end
 
     test "with invalid id shouldn't find the comments_reactions" do
-      assert {:error, _reason} = CommentsReactions.find_comment_reaction(8347)
+      assert {:error, _reason} = CommentsReactions.find_comments_reactions(8347)
     end
   end
 
