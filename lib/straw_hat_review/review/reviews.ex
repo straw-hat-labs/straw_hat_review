@@ -6,7 +6,7 @@ defmodule StrawHat.Review.Reviews do
   use StrawHat.Review.Interactor
 
   import Ecto.Query, only: [from: 2]
-  alias StrawHat.Review.{Review, Attachment, ReviewAspect}
+  alias StrawHat.Review.{Review, Attachments, ReviewAspect}
 
   @doc """
   Get the list of reviews.
@@ -27,7 +27,9 @@ defmodule StrawHat.Review.Reviews do
       |> Repo.insert()
 
     with {:ok, review} <- result do
-      put_aspects(review, review_attrs)
+      review
+      |> put_aspects(review_attrs)
+      |> put_attachments(review_attrs)
     end
   end
 
@@ -142,10 +144,23 @@ defmodule StrawHat.Review.Reviews do
         [aspect | acc]
       end)
 
-    review = Map.put(review, :reviews_aspects, reviews_aspects)
+    Map.put(review, :reviews_aspects, reviews_aspects)
+  end
+  defp put_aspects(review, _), do: review
+
+  @since "1.0.0"
+  @spec put_attachments(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
+  defp put_attachments(review, %{attachments: attachments}) do
+    attachments =
+      Enum.reduce(attachments, [], fn(attachment, acc) ->
+        {_, attachment} = create_attachment(review.id, attachment)
+        [attachment | acc]
+      end)
+
+    review = Map.put(review, :attachments, attachments)
     {:ok, review}
   end
-  defp put_aspects(review, _) do
+  defp put_attachments(review, _) do
     {:ok, review}
   end
 
@@ -157,5 +172,13 @@ defmodule StrawHat.Review.Reviews do
     %ReviewAspect{}
     |> ReviewAspect.changeset(review_aspect_attrs)
     |> Repo.insert()
+  end
+
+  @since "1.0.0"
+  @spec create_attachment(Integer.t(), Map.t()) :: {:ok, Attachment.t()} | {:error, Ecto.Changeset.t()}
+  defp create_attachment(review_id, attachment) do
+    attachment
+    |> Map.put(:review_id, review_id)
+    |> Attachments.create_attachment()
   end
 end
