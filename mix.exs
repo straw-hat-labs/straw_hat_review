@@ -39,7 +39,7 @@ defmodule StrawHat.Review.MixProject do
   def application do
     [
       mod: {StrawHat.Review.Application, []},
-      extra_applications: [:logger]
+      extra_applications: [:logger,:arc_ecto],
     ]
   end
 
@@ -52,6 +52,8 @@ defmodule StrawHat.Review.MixProject do
       {:postgrex, "~> 0.13.2"},
       {:ecto, "~> 2.2"},
       {:scrivener_ecto, "~> 1.2"},
+      {:arc, "~> 0.8.0"},
+      {:arc_ecto, "~> 0.7.0"},
 
       # Testing
       {:ex_machina, ">= 0.0.0", only: [:test]},
