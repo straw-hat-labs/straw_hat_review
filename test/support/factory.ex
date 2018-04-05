@@ -27,7 +27,6 @@ defmodule StrawHat.Review.Test.Factory do
     %Attachment{
       content_type: Faker.File.mime_type(:image),
       file_name: Faker.String.base64(),
-      file: Faker.String.base64(),
       review: build(:review)
     }
   end
