@@ -50,8 +50,8 @@ defmodule StrawHat.Review.ReviewsReactions do
   Find reviews reactions by `id`.
   """
   @since "1.0.0"
-  @spec find_review_reaction(Integer.t()) :: {:ok, ReviewReaction.t()} | {:error, Error.t()}
-  def find_review_reaction(review_reaction_id) do
+  @spec find_reviews_reactions(Integer.t()) :: {:ok, ReviewReaction.t()} | {:error, Error.t()}
+  def find_reviews_reactions(review_reaction_id) do
     case get_review_reaction(review_reaction_id) do
       nil ->
         error =
