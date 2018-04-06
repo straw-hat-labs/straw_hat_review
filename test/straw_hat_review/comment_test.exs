@@ -35,6 +35,13 @@ defmodule StrawHat.Review.Test.CommentsTest do
     assert comment.comment == "Awesome!!"
   end
 
+  test "comment_by_ids/1 with valid ids list return the respective comments" do
+    comment = insert(:comment)
+    comments = Comments.comment_by_ids([comment.id])
+
+    assert length(comments) == 1
+  end
+
   test "destroy_comment/1 with a found review destroys the comment" do
     comment = insert(:comment)
 
