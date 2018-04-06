@@ -85,22 +85,20 @@ defmodule StrawHat.Review.Reviews do
       from(review in Review,
         where: review.id in ^review_ids)
 
-    query
-    |> Repo.all()
-    |> Repo.preload(:reviews)
+    Repo.all(query)
   end
 
   @doc """
-  Get list of attachments by review ids.
+  Get list of medias by review ids.
   """
   @since "1.0.0"
-  @spec get_attachments([Integer.t()]) :: [Review.t()] | no_return
-  def get_attachments(review_ids) do
+  @spec get_medias([Integer.t()]) :: [Review.t()] | no_return
+  def get_medias(review_ids) do
     query =
       from(review in Review,
         where: review.id in ^review_ids,
-        join: attachments in assoc(review, :attachments),
-        preload: [attachments: attachments])
+        join: medias in assoc(review, :medias),
+        preload: [medias: medias])
 
      Repo.all(query)
   end
