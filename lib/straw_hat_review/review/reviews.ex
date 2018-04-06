@@ -91,6 +91,21 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
+  Get list of attachments by review ids.
+  """
+  @since "1.0.0"
+  @spec get_attachments([Integer.t()]) :: [Review.t()] | no_return
+  def get_attachments(review_ids) do
+    query =
+      from(review in Review,
+        where: review.id in ^review_ids,
+        join: attachments in assoc(review, :attachments),
+        preload: [attachments: attachments])
+
+     Repo.all(query)
+  end
+
+  @doc """
   Get list of reviews aspects by review ids.
   """
   @since "1.0.0"
