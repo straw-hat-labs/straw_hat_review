@@ -9,7 +9,7 @@ config :straw_hat_review, StrawHat.Review.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :straw_hat_review, StrawHat.Review, adapter: Swoosh.Adapters.Local
-
 config :arc,
   storage: Arc.Storage.Local
+
+config :logger, level: :warn

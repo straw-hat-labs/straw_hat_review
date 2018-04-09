@@ -48,13 +48,13 @@ defmodule StrawHat.Review.MixProject do
 
   defp deps do
     [
-      {:straw_hat, "~> 0.2"},
-      {:postgrex, "~> 0.13.2"},
+      {:straw_hat, "~> 0.4"},
+      {:postgrex, "~> 0.13"},
       {:ecto, "~> 2.2"},
       {:scrivener_ecto, "~> 1.2"},
       {:arc, "~> 0.8.0"},
       {:arc_ecto, "~> 0.7.0"},
-      {:plug, "~> 1.5"},
+      {:plug, "~> 1.5", optional: true},
 
       # Testing
       {:ex_machina, ">= 0.0.0", only: [:test]},
@@ -64,8 +64,6 @@ defmodule StrawHat.Review.MixProject do
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},
-      {:benchee, ">= 0.0.0", only: [:dev], runtime: false},
-      {:benchee_html, ">= 0.0.0", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false}
     ]
   end
