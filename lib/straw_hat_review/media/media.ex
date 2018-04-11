@@ -10,7 +10,7 @@ defmodule StrawHat.Review.Media do
   @typedoc """
   - `content_type`: The type content of the media.
   - `file_name`: The name use to identify the file.
-  - `file`: The file content.
+  - `file`: `t:StrawHat.Review.MediaFile.t/0` the file representation in arc.
   - `review`: `t:StrawHat.Review.Review.t/0` associated with the current media.
   - `review_id`: The review used for the media.
   """
