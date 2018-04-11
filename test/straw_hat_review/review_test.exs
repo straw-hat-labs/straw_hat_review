@@ -32,7 +32,7 @@ defmodule StrawHat.Review.Test.ReviewsTest do
     test "with valid inputs creates a review with aspect" do
       aspect = insert(:aspect)
 
-      params = 
+      params =
         :review
         |> params_for()
         |> Map.put(:aspects, [%{score: 3, aspect_id: aspect.id}])
@@ -53,7 +53,7 @@ defmodule StrawHat.Review.Test.ReviewsTest do
         }
       }
 
-      params = 
+      params =
         :review
         |> params_for()
         |> Map.put(:medias, [media_params])
@@ -88,7 +88,7 @@ defmodule StrawHat.Review.Test.ReviewsTest do
       }
     }
 
-    params = 
+    params =
       :review
       |> params_for()
       |> Map.put(:medias, [media_params])
@@ -102,7 +102,7 @@ defmodule StrawHat.Review.Test.ReviewsTest do
   test "get_reviews_aspects/1 with valid ids list return the respective reviews aspects" do
     aspect = insert(:aspect)
 
-    params = 
+    params =
       :review
       |> params_for()
       |> Map.put(:aspects, [%{score: 3, aspect_id: aspect.id}])
