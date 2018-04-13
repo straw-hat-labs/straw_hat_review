@@ -50,23 +50,7 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def reviews_aspects do
-    %ReviewAspect{
-      review: build(:review),
-      aspect: build(:aspect),
-      score: get_score()
-    }
-  end
-
-  def reviews_reactions do
-    %ReviewReaction{
-      review: build(:review),
-      reaction: build(:reaction),
-      user_id: Faker.String.base64()
-    }
-  end
-
-  def reviews_aspects do
+  def reviews_aspects_factory do
     %ReviewAspect{
       review: build(:review),
       aspect: build(:aspect),

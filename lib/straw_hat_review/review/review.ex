@@ -82,16 +82,5 @@ defmodule StrawHat.Review.Review do
     review
     |> cast(review_attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> assoc_constraint(:review)
-    |> validate_reviews_aspects(review_attrs)
-  end
-
-  @since "1.0.0"
-  @spec validate_reviews_aspects(t, review_attrs) :: Ecto.Changeset.t()
-  defp validate_reviews_aspects(changeset, %{reviews_aspects: reviews_aspects}) do
-    put_assoc(changeset, :reviews_aspects, reviews_aspects)
-  end
-  defp validate_reviews_aspects(changeset, _) do
-    add_error(changeset, :review_aspects, "empty")
   end
 end

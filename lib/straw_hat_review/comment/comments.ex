@@ -9,14 +9,14 @@ defmodule StrawHat.Review.Comments do
   alias StrawHat.Review.Comment
 
   @doc """
-  Get the list of comments.
+  Gets the list of comments.
   """
   @since "1.0.0"
   @spec get_comments(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_comments(pagination \\ []), do: Repo.paginate(Comment, pagination)
 
   @doc """
-  Create comment.
+  Creates comment.
   """
   @since "1.0.0"
   @spec create_comment(Comment.comment_attrs()) ::
@@ -28,7 +28,7 @@ defmodule StrawHat.Review.Comments do
   end
 
   @doc """
-  Update comment.
+  Updates comment.
   """
   @since "1.0.0"
   @spec update_comment(Comment.t(), Comment.comment_attrs()) ::
@@ -40,7 +40,7 @@ defmodule StrawHat.Review.Comments do
   end
 
   @doc """
-  Destroy comment.
+  Destroys comment.
   """
   @since "1.0.0"
   @spec destroy_comment(Comment.t()) ::
@@ -48,35 +48,30 @@ defmodule StrawHat.Review.Comments do
   def destroy_comment(%Comment{} = comment), do: Repo.delete(comment)
 
   @doc """
-  Find comment by `id`.
+  Finds comment by `id`.
   """
   @since "1.0.0"
   @spec find_comment(Integer.t()) :: {:ok, Comment.t()} | {:error, Error.t()}
   def find_comment(comment_id) do
-    case get_comment(comment_id) do
-      nil ->
-        error =
-          Error.new(
-            "straw_hat_review.comment.not_found",
-            metadata: [comment_id: comment_id]
-          )
-
-        {:error, error}
-
-      comment ->
-        {:ok, comment}
-    end
+    comment_id
+    |> get_comment()
+    |> StrawHat.Response.from_value(
+      Error.new(
+        "straw_hat_review.comment.not_found",
+        metadata: [comment_id: comment_id]
+      )
+    )
   end
 
   @doc """
-  Get comment by `id`.
+  Gets comment by `id`.
   """
   @since "1.0.0"
   @spec get_comment(Integer.t()) :: Comment.t() | nil | no_return
   def get_comment(comment_id), do: Repo.get(Comment, comment_id)
 
   @doc """
-  Get list of comment by ids.
+  Gets list of comment by ids.
   """
   @since "1.0.0"
   @spec comment_by_ids([Integer.t()]) :: [Comment.t()] | no_return

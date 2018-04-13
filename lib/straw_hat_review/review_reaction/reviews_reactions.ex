@@ -8,14 +8,14 @@ defmodule StrawHat.Review.ReviewsReactions do
   alias StrawHat.Review.ReviewReaction
 
   @doc """
-  Get the list of reviews reactions.
+  Gets the list of reviews reactions.
   """
   @since "1.0.0"
   @spec get_reviews_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_reviews_reactions(pagination \\ []), do: Repo.paginate(ReviewReaction, pagination)
 
   @doc """
-  Create reviews reaction.
+  Creates reviews reaction.
   """
   @since "1.0.0"
   @spec create_reviews_reactions(ReviewReaction.reviews_reactions_attrs()) ::
@@ -27,7 +27,7 @@ defmodule StrawHat.Review.ReviewsReactions do
   end
 
   @doc """
-  Update reviews reactions.
+  Updates reviews reactions.
   """
   @since "1.0.0"
   @spec update_reviews_reactions(ReviewReaction.t(), ReviewReaction.reviews_reactions_attrs()) ::
@@ -39,7 +39,7 @@ defmodule StrawHat.Review.ReviewsReactions do
   end
 
   @doc """
-  Destroy reviews reactions.
+  Destroys reviews reactions.
   """
   @since "1.0.0"
   @spec destroy_reviews_reactions(ReviewReaction.t()) ::
@@ -47,28 +47,23 @@ defmodule StrawHat.Review.ReviewsReactions do
   def destroy_reviews_reactions(%ReviewReaction{} = reviews_reactions), do: Repo.delete(reviews_reactions)
 
   @doc """
-  Find reviews reactions by `id`.
+  Finds reviews reactions by `id`.
   """
   @since "1.0.0"
   @spec find_reviews_reactions(Integer.t()) :: {:ok, ReviewReaction.t()} | {:error, Error.t()}
   def find_reviews_reactions(review_reaction_id) do
-    case get_review_reaction(review_reaction_id) do
-      nil ->
-        error =
-          Error.new(
-            "straw_hat_review.review_reaction.not_found",
-            metadata: [review_reaction_id: review_reaction_id]
-          )
-
-        {:error, error}
-
-      review_reaction ->
-        {:ok, review_reaction}
-    end
+    review_reaction_id
+    |> get_review_reaction()
+    |> StrawHat.Response.from_value(
+      Error.new(
+        "straw_hat_review.review_reaction.not_found",
+        metadata: [review_reaction_id: review_reaction_id]
+      )
+    )
   end
 
   @doc """
-  Get reviews reactions by `id`.
+  Gets reviews reactions by `id`.
   """
   @since "1.0.0"
   @spec get_review_reaction(Integer.t()) :: ReviewReaction.t() | nil | no_return

@@ -8,14 +8,14 @@ defmodule StrawHat.Review.CommentsReactions do
   alias StrawHat.Review.CommentReaction
 
   @doc """
-  Get the list of comments_reactions.
+  Gets the list of comments_reactions.
   """
   @since "1.0.0"
   @spec get_comments_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_comments_reactions(pagination \\ []), do: Repo.paginate(CommentReaction, pagination)
 
   @doc """
-  Create comments_reaction.
+  Creates comments_reaction.
   """
   @since "1.0.0"
   @spec create_comments_reactions(CommentReaction.comment_reaction_attrs()) ::
@@ -27,7 +27,7 @@ defmodule StrawHat.Review.CommentsReactions do
   end
 
   @doc """
-  Update comments_reaction.
+  Updates comments_reaction.
   """
   @since "1.0.0"
   @spec update_comments_reactions(CommentReaction.t(), CommentReaction.comment_reaction_attrs()) ::
@@ -39,7 +39,7 @@ defmodule StrawHat.Review.CommentsReactions do
   end
 
   @doc """
-  Destroy comments_reaction.
+  Destroys comments_reaction.
   """
   @since "1.0.0"
   @spec destroy_comments_reactions(CommentReaction.t()) ::
@@ -47,28 +47,23 @@ defmodule StrawHat.Review.CommentsReactions do
   def destroy_comments_reactions(%CommentReaction{} = comments_reactions), do: Repo.delete(comments_reactions)
 
   @doc """
-  Find comments_reaction by `id`.
+  Finds comments_reaction by `id`.
   """
   @since "1.0.0"
   @spec find_comments_reactions(Integer.t()) :: {:ok, CommentReaction.t()} | {:error, Error.t()}
   def find_comments_reactions(comment_reaction_id) do
-    case get_comment_reaction(comment_reaction_id) do
-      nil ->
-        error =
-          Error.new(
-            "straw_hat_review.comments_reaction.not_found",
-            metadata: [comment_reaction_id: comment_reaction_id]
-          )
-
-        {:error, error}
-
-      comments_reactions ->
-        {:ok, comments_reactions}
-    end
+    comment_reaction_id
+    |> get_comment_reaction()
+    |> StrawHat.Response.from_value(
+      Error.new(
+        "straw_hat_review.comments_reaction.not_found",
+        metadata: [comment_reaction_id: comment_reaction_id]
+      )
+    )
   end
 
   @doc """
-  Get comments_reaction by `id`.
+  Gets comments_reaction by `id`.
   """
   @since "1.0.0"
   @spec get_comment_reaction(Integer.t()) :: CommentReaction.t() | nil | no_return

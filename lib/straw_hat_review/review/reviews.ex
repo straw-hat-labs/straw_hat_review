@@ -34,27 +34,33 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
-  Update a review.
+  Updates a review.
   """
   @since "1.0.0"
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
-    review_attrs = put_reviews_aspects_to_attributes(review_attrs)
-    review
-    |> Review.changeset(review_attrs)
-    |> Repo.update()
+    result =
+      review
+      |> Review.changeset(review_attrs)
+      |> Repo.update()
+
+    with {:ok, review} <- result do
+      review
+      |> put_aspects(review_attrs)
+      |> put_medias(review_attrs)
+    end
   end
 
   @doc """
-  Destroy a review.
+  Destroys a review.
   """
   @since "1.0.0"
   @spec destroy_review(Review.t()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def destroy_review(%Review{} = review), do: Repo.delete(review)
 
   @doc """
-  Find a review by `id`.
+  Finds a review by `id`.
   """
   @since "1.0.0"
   @spec find_review(Integer.t()) :: {:ok, Review.t()} | {:error, Error.t()}

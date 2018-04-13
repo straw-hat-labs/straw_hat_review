@@ -9,14 +9,14 @@ defmodule StrawHat.Review.Reactions do
   alias StrawHat.Review.Reaction
 
   @doc """
-  Get the list of reactions.
+  Gets the list of reactions.
   """
   @since "1.0.0"
   @spec get_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_reactions(pagination \\ []), do: Repo.paginate(Reaction, pagination)
 
   @doc """
-  Create reaction.
+  Creates reaction.
   """
   @since "1.0.0"
   @spec create_reaction(Reaction.reaction_attrs()) ::
@@ -28,7 +28,7 @@ defmodule StrawHat.Review.Reactions do
   end
 
   @doc """
-  Update reaction.
+  Updates reaction.
   """
   @since "1.0.0"
   @spec update_reaction(Reaction.t(), Reaction.reaction_attrs()) ::
@@ -40,7 +40,7 @@ defmodule StrawHat.Review.Reactions do
   end
 
   @doc """
-  Destroy reaction.
+  Destroys reaction.
   """
   @since "1.0.0"
   @spec destroy_reaction(Reaction.t()) ::
@@ -48,35 +48,30 @@ defmodule StrawHat.Review.Reactions do
   def destroy_reaction(%Reaction{} = reaction), do: Repo.delete(reaction)
 
   @doc """
-  Find reaction by `id`.
+  Finds reaction by `id`.
   """
   @since "1.0.0"
   @spec find_reaction(Integer.t()) :: {:ok, Reaction.t()} | {:error, Error.t()}
   def find_reaction(reaction_id) do
-    case get_reaction(reaction_id) do
-      nil ->
-        error =
-          Error.new(
-            "straw_hat_review.reaction.not_found",
-            metadata: [reaction_id: reaction_id]
-          )
-
-        {:error, error}
-
-      reaction ->
-        {:ok, reaction}
-    end
+    reaction_id
+    |> get_reaction()
+    |> StrawHat.Response.from_value(
+      Error.new(
+        "straw_hat_review.reaction.not_found",
+        metadata: [reaction_id: reaction_id]
+      )
+    )
   end
 
   @doc """
-  Get reaction by `id`.
+  Gets reaction by `id`.
   """
   @since "1.0.0"
   @spec get_reaction(Integer.t()) :: Reaction.t() | nil | no_return
   def get_reaction(reaction_id), do: Repo.get(Reaction, reaction_id)
 
   @doc """
-  Get list of reaction by ids.
+  Gets list of reaction by ids.
   """
   @since "1.0.0"
   @spec reaction_by_ids([Integer.t()]) :: [Reaction.t()] | no_return
