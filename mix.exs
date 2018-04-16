@@ -39,7 +39,7 @@ defmodule StrawHat.Review.MixProject do
   def application do
     [
       mod: {StrawHat.Review.Application, []},
-      extra_applications: [:logger, :arc_ecto]
+      extra_applications: [:logger]
     ]
   end
 
