@@ -4,8 +4,6 @@ defmodule StrawHat.Review.Comments do
   """
 
   use StrawHat.Review.Interactor
-
-  import Ecto.Query, only: [from: 2]
   alias StrawHat.Review.Comment
 
   @doc """

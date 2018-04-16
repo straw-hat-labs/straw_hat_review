@@ -4,7 +4,6 @@ defmodule StrawHat.Review.ReviewsReactions do
   """
 
   use StrawHat.Review.Interactor
-
   alias StrawHat.Review.ReviewReaction
 
   @doc """

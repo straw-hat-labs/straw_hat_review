@@ -4,7 +4,6 @@ defmodule StrawHat.Review.Medias do
   """
 
   use StrawHat.Review.Interactor
-
   alias StrawHat.Review.Media
 
   @doc """
