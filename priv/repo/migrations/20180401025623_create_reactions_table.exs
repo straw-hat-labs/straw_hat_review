@@ -8,6 +8,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateReactionsTable do
       timestamps()
     end
 
-    create(index(:reactions, :name, unique: true, name: :reactions_name_index))
+    create(index(:reactions, :name, unique: true))
   end
 end

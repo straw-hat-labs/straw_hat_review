@@ -8,6 +8,6 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAspectsTable do
       timestamps()
     end
 
-    create(index(:aspects, :name, unique: true, name: :aspects_name_index))
+    create(index(:aspects, :name, unique: true))
   end
 end
