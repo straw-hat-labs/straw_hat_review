@@ -43,8 +43,7 @@ defmodule StrawHat.Review.Reactions do
   Destroys reaction.
   """
   @since "1.0.0"
-  @spec destroy_reaction(Reaction.t()) ::
-          {:ok, Reaction.t()} | {:error, Ecto.Changeset.t()}
+  @spec destroy_reaction(Reaction.t()) :: {:ok, Reaction.t()} | {:error, Ecto.Changeset.t()}
   def destroy_reaction(%Reaction{} = reaction), do: Repo.delete(reaction)
 
   @doc """
@@ -76,9 +75,7 @@ defmodule StrawHat.Review.Reactions do
   @since "1.0.0"
   @spec reaction_by_ids([Integer.t()]) :: [Reaction.t()] | no_return
   def reaction_by_ids(reaction_ids) do
-    query =
-      from(reaction in Reaction,
-        where: reaction.id in ^reaction_ids)
+    query = from(reaction in Reaction, where: reaction.id in ^reaction_ids)
 
     Repo.all(query)
   end

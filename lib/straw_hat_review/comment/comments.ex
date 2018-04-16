@@ -43,8 +43,7 @@ defmodule StrawHat.Review.Comments do
   Destroys comment.
   """
   @since "1.0.0"
-  @spec destroy_comment(Comment.t()) ::
-          {:ok, Comment.t()} | {:error, Ecto.Changeset.t()}
+  @spec destroy_comment(Comment.t()) :: {:ok, Comment.t()} | {:error, Ecto.Changeset.t()}
   def destroy_comment(%Comment{} = comment), do: Repo.delete(comment)
 
   @doc """
@@ -76,9 +75,7 @@ defmodule StrawHat.Review.Comments do
   @since "1.0.0"
   @spec comment_by_ids([Integer.t()]) :: [Comment.t()] | no_return
   def comment_by_ids(comment_ids) do
-    query =
-      from(comment in Comment,
-        where: comment.id in ^comment_ids)
+    query = from(comment in Comment, where: comment.id in ^comment_ids)
 
     Repo.all(query)
   end

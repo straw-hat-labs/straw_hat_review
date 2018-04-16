@@ -44,7 +44,8 @@ defmodule StrawHat.Review.CommentsReactions do
   @since "1.0.0"
   @spec destroy_comments_reactions(CommentReaction.t()) ::
           {:ok, CommentReaction.t()} | {:error, Ecto.Changeset.t()}
-  def destroy_comments_reactions(%CommentReaction{} = comments_reactions), do: Repo.delete(comments_reactions)
+  def destroy_comments_reactions(%CommentReaction{} = comments_reactions),
+    do: Repo.delete(comments_reactions)
 
   @doc """
   Finds comments_reaction by `id`.
@@ -67,5 +68,6 @@ defmodule StrawHat.Review.CommentsReactions do
   """
   @since "1.0.0"
   @spec get_comment_reaction(Integer.t()) :: CommentReaction.t() | nil | no_return
-  def get_comment_reaction(comment_reaction_id), do: Repo.get(CommentReaction, comment_reaction_id)
+  def get_comment_reaction(comment_reaction_id),
+    do: Repo.get(CommentReaction, comment_reaction_id)
 end

@@ -18,8 +18,7 @@ defmodule StrawHat.Review.Medias do
   Creates media.
   """
   @since "1.0.0"
-  @spec create_media(Media.media_attrs()) ::
-          {:ok, Media.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_media(Media.media_attrs()) :: {:ok, Media.t()} | {:error, Ecto.Changeset.t()}
   def create_media(media_attrs) do
     %Media{}
     |> Media.changeset(media_attrs)
@@ -42,8 +41,7 @@ defmodule StrawHat.Review.Medias do
   Destroys media.
   """
   @since "1.0.0"
-  @spec destroy_media(Media.t()) ::
-          {:ok, Media.t()} | {:error, Ecto.Changeset.t()}
+  @spec destroy_media(Media.t()) :: {:ok, Media.t()} | {:error, Ecto.Changeset.t()}
   def destroy_media(%Media{} = media), do: Repo.delete(media)
 
   @doc """

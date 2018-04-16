@@ -22,7 +22,6 @@ defmodule StrawHat.Review.Test.ReviewsTest do
   end
 
   describe "create_review/1" do
-
     test "with valid inputs creates a review" do
       params = params_for(:review)
 
@@ -42,7 +41,6 @@ defmodule StrawHat.Review.Test.ReviewsTest do
     end
 
     test "with valid inputs creates a review with media" do
-
       media_params = %{
         content_type: "image/png",
         file_name: "elixir_logo.png",
@@ -94,7 +92,7 @@ defmodule StrawHat.Review.Test.ReviewsTest do
       |> Map.put(:medias, [media_params])
 
     assert {:ok, review} = Reviews.create_review(params)
- 
+
     reviews = Reviews.get_medias([review.id])
     assert length(Enum.at(reviews, 0).medias) == 1
   end

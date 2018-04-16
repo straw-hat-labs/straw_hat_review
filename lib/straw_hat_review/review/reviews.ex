@@ -88,9 +88,7 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec review_by_ids([Integer.t()]) :: [Review.t()] | no_return
   def review_by_ids(review_ids) do
-    query =
-      from(review in Review,
-        where: review.id in ^review_ids)
+    query = from(review in Review, where: review.id in ^review_ids)
 
     Repo.all(query)
   end
@@ -102,12 +100,14 @@ defmodule StrawHat.Review.Reviews do
   @spec get_medias([Integer.t()]) :: [Review.t()] | no_return
   def get_medias(review_ids) do
     query =
-      from(review in Review,
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: medias in assoc(review, :medias),
-        preload: [medias: medias])
+        preload: [medias: medias]
+      )
 
-     Repo.all(query)
+    Repo.all(query)
   end
 
   @doc """
@@ -116,11 +116,13 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec get_reviews_aspects([Integer.t()]) :: [Review.t()] | no_return
   def get_reviews_aspects(review_ids) do
-    query = 
-      from(review in Review,
+    query =
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: reviews_aspects in assoc(review, :reviews_aspects),
-        preload: [reviews_aspects: reviews_aspects])
+        preload: [reviews_aspects: reviews_aspects]
+      )
 
     Repo.all(query)
   end
@@ -132,12 +134,14 @@ defmodule StrawHat.Review.Reviews do
   @spec get_comments([Integer.t()]) :: [Review.t()] | no_return
   def get_comments(review_ids) do
     query =
-      from(review in Review,
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: comments in assoc(review, :comments),
-        preload: [comments: comments])
+        preload: [comments: comments]
+      )
 
-     Repo.all(query)
+    Repo.all(query)
   end
 
   @doc """
@@ -147,32 +151,35 @@ defmodule StrawHat.Review.Reviews do
   @spec get_reviews_reactions([Integer.t()]) :: [Review.t()] | no_return
   def get_reviews_reactions(review_ids) do
     query =
-      from(review in Review,
+      from(
+        review in Review,
         where: review.id in ^review_ids,
         join: reviews_reactions in assoc(review, :reviews_reactions),
-        preload: [reviews_reactions: reviews_reactions])
+        preload: [reviews_reactions: reviews_reactions]
+      )
 
-     Repo.all(query)
+    Repo.all(query)
   end
 
   @since "1.0.0"
   @spec put_aspects(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
-  defp put_aspects(review, %{aspects: aspects}) do    
+  defp put_aspects(review, %{aspects: aspects}) do
     reviews_aspects =
-      Enum.reduce(aspects, [], fn(aspect, acc) ->
+      Enum.reduce(aspects, [], fn aspect, acc ->
         {_, aspect} = create_review_aspect(review.id, aspect)
         [aspect | acc]
       end)
 
     Map.put(review, :reviews_aspects, reviews_aspects)
   end
+
   defp put_aspects(review, _), do: review
 
   @since "1.0.0"
   @spec put_medias(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
   defp put_medias(review, %{medias: medias}) do
     medias =
-      Enum.reduce(medias, [], fn(media, acc) ->
+      Enum.reduce(medias, [], fn media, acc ->
         {_, media} = create_media(review.id, media)
         [media | acc]
       end)
@@ -180,12 +187,14 @@ defmodule StrawHat.Review.Reviews do
     review = Map.put(review, :medias, medias)
     {:ok, review}
   end
+
   defp put_medias(review, _) do
     {:ok, review}
   end
 
   @since "1.0.0"
-  @spec create_review_aspect(Integer.t(), Map.t()) :: {:ok, ReviewAspect.t()} | {:error, Ecto.Changeset.t()}
+  @spec create_review_aspect(Integer.t(), Map.t()) ::
+          {:ok, ReviewAspect.t()} | {:error, Ecto.Changeset.t()}
   defp create_review_aspect(review_id, review_aspect_attrs) do
     review_aspect_attrs = Map.put(review_aspect_attrs, :review_id, review_id)
 

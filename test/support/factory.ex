@@ -3,7 +3,16 @@ defmodule StrawHat.Review.Test.Factory do
 
   use ExMachina.Ecto, repo: StrawHat.Review.Repo
 
-  alias StrawHat.Review.{Review, Aspect, Comment, Reaction, CommentReaction, Media, ReviewReaction, ReviewAspect}
+  alias StrawHat.Review.{
+    Review,
+    Aspect,
+    Comment,
+    Reaction,
+    CommentReaction,
+    Media,
+    ReviewReaction,
+    ReviewAspect
+  }
 
   def aspect_factory do
     %Aspect{

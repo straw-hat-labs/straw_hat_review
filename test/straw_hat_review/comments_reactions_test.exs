@@ -6,7 +6,8 @@ defmodule StrawHat.Review.Test.CommentsReactionsTest do
     test "with valid id" do
       comments_reactions = insert(:comments_reactions)
 
-      assert {:ok, _comments_reactions} = CommentsReactions.find_comments_reactions(comments_reactions.id)
+      assert {:ok, _comments_reactions} =
+               CommentsReactions.find_comments_reactions(comments_reactions.id)
     end
 
     test "with invalid id shouldn't find the comments_reactions" do
@@ -31,7 +32,9 @@ defmodule StrawHat.Review.Test.CommentsReactionsTest do
 
   test "update_comments_reactions/2 with valid inputs updates a comments_reactions" do
     comments_reactions = insert(:comments_reactions)
-    {:ok, comments_reactions} = CommentsReactions.update_comments_reactions(comments_reactions, %{user_id: "user:546"})
+
+    {:ok, comments_reactions} =
+      CommentsReactions.update_comments_reactions(comments_reactions, %{user_id: "user:546"})
 
     assert comments_reactions.user_id == "user:546"
   end

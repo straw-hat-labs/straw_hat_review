@@ -44,7 +44,8 @@ defmodule StrawHat.Review.ReviewsReactions do
   @since "1.0.0"
   @spec destroy_reviews_reactions(ReviewReaction.t()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
-  def destroy_reviews_reactions(%ReviewReaction{} = reviews_reactions), do: Repo.delete(reviews_reactions)
+  def destroy_reviews_reactions(%ReviewReaction{} = reviews_reactions),
+    do: Repo.delete(reviews_reactions)
 
   @doc """
   Finds reviews reactions by `id`.
