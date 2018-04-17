@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.ReactionsTest do
+defmodule StrawHat.Review.ReactionsTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.Reactions
 

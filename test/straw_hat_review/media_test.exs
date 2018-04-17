@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.Test.MediasTest do
+defmodule StrawHat.Review.MediasTest do
   use StrawHat.Review.Test.DataCase, async: true
   alias StrawHat.Review.Medias
 
