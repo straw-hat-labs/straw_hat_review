@@ -51,5 +51,6 @@ defmodule StrawHat.Review.CommentReaction do
     |> validate_required(@required_fields)
     |> assoc_constraint(:comment)
     |> assoc_constraint(:reaction)
+    |> unique_constraint(:comment_id, name: :comments_reactions_comment_id_user_id_index)
   end
 end
