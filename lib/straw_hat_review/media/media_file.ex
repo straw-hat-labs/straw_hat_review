@@ -1,4 +1,6 @@
 defmodule StrawHat.Review.MediaFile do
+  @moduledoc false
+
   use Arc.Definition
   use Arc.Ecto.Definition
 

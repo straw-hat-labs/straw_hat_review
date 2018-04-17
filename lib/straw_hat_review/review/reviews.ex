@@ -23,7 +23,7 @@ defmodule StrawHat.Review.Reviews do
     %Review{}
     |> Review.changeset(review_attrs)
     |> Repo.insert()
-    |> Response.and_then(fn(review) ->
+    |> Response.and_then(fn review ->
       review
       |> put_aspects(review_attrs)
       |> put_medias(review_attrs)
@@ -40,7 +40,7 @@ defmodule StrawHat.Review.Reviews do
     review
     |> Review.changeset(review_attrs)
     |> Repo.update()
-    |> Response.and_then(fn(review) ->
+    |> Response.and_then(fn review ->
       review
       |> put_aspects(review_attrs)
       |> put_medias(review_attrs)
