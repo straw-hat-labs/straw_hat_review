@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Reviews do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.{Review, Medias, ReviewAspect}
 
   @doc """
@@ -19,16 +20,14 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def create_review(review_attrs) do
-    result =
-      %Review{}
-      |> Review.changeset(review_attrs)
-      |> Repo.insert()
-
-    with {:ok, review} <- result do
+    %Review{}
+    |> Review.changeset(review_attrs)
+    |> Repo.insert()
+    |> Response.and_then(fn(review) ->
       review
       |> put_aspects(review_attrs)
       |> put_medias(review_attrs)
-    end
+    end)
   end
 
   @doc """
@@ -38,16 +37,14 @@ defmodule StrawHat.Review.Reviews do
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
-    result =
-      review
-      |> Review.changeset(review_attrs)
-      |> Repo.update()
-
-    with {:ok, review} <- result do
+    review
+    |> Review.changeset(review_attrs)
+    |> Repo.update()
+    |> Response.and_then(fn(review) ->
       review
       |> put_aspects(review_attrs)
       |> put_medias(review_attrs)
-    end
+    end)
   end
 
   @doc """
@@ -63,14 +60,14 @@ defmodule StrawHat.Review.Reviews do
   @since "1.0.0"
   @spec find_review(Integer.t()) :: {:ok, Review.t()} | {:error, Error.t()}
   def find_review(review_id) do
-    case get_review(review_id) do
-      nil ->
-        error = Error.new("straw_hat_review.review.not_found", metadata: [review_id: review_id])
-        {:error, error}
-
-      review ->
-        {:ok, review}
-    end
+    review_id
+    |> get_review()
+    |> Response.from_value(
+      Error.new(
+        "straw_hat_review.review.not_found",
+        metadata: [review_id: review_id]
+      )
+    )
   end
 
   @doc """

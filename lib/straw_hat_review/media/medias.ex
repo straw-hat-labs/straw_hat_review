@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Medias do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.Media
 
   @doc """
@@ -51,7 +52,7 @@ defmodule StrawHat.Review.Medias do
   def find_media(media_id) do
     media_id
     |> get_media()
-    |> StrawHat.Response.from_value(
+    |> Response.from_value(
       Error.new(
         "straw_hat_review.media.not_found",
         metadata: [media_id: media_id]

@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Aspects do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.Aspect
 
   @doc """
@@ -51,7 +52,7 @@ defmodule StrawHat.Review.Aspects do
   def find_aspect(aspect_id) do
     aspect_id
     |> get_aspect()
-    |> StrawHat.Response.from_value(
+    |> Response.from_value(
       Error.new(
         "straw_hat_review.aspect.not_found",
         metadata: [aspect_id: aspect_id]
