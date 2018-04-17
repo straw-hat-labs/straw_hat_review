@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Comments do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.Comment
 
   @doc """
@@ -52,7 +53,7 @@ defmodule StrawHat.Review.Comments do
   def find_comment(comment_id) do
     comment_id
     |> get_comment()
-    |> StrawHat.Response.from_value(
+    |> Response.from_value(
       Error.new(
         "straw_hat_review.comment.not_found",
         metadata: [comment_id: comment_id]

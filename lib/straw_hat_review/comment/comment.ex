@@ -55,5 +55,6 @@ defmodule StrawHat.Review.Comment do
     |> cast(comment_attrs, @required_fields)
     |> validate_required(@required_fields)
     |> assoc_constraint(:review)
+    |> unique_constraint(:review_id, name: :comments_review_id_owner_id_index)
   end
 end
