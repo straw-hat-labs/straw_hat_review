@@ -47,7 +47,6 @@ defmodule StrawHat.Review.Reaction do
     changeset
     |> update_change(:name, &cleanup_name/1)
     |> validate_format(:name, @name_regex)
-    |> unique_constraint(:name, name: :partials_owner_id_name_index)
   end
 
   @spec cleanup_name(String.t()) :: String.t()

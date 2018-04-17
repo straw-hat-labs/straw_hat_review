@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Reactions do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.Reaction
 
   @doc """
@@ -52,7 +53,7 @@ defmodule StrawHat.Review.Reactions do
   def find_reaction(reaction_id) do
     reaction_id
     |> get_reaction()
-    |> StrawHat.Response.from_value(
+    |> Response.from_value(
       Error.new(
         "straw_hat_review.reaction.not_found",
         metadata: [reaction_id: reaction_id]
