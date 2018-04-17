@@ -4,14 +4,8 @@ defmodule StrawHat.Review.ReviewsReactions do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.ReviewReaction
-
-  @doc """
-  Gets the list of reviews reactions.
-  """
-  @since "1.0.0"
-  @spec get_reviews_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
-  def get_reviews_reactions(pagination \\ []), do: Repo.paginate(ReviewReaction, pagination)
 
   @doc """
   Creates reviews reaction.
@@ -54,7 +48,7 @@ defmodule StrawHat.Review.ReviewsReactions do
   def find_reviews_reactions(review_reaction_id) do
     review_reaction_id
     |> get_review_reaction()
-    |> StrawHat.Response.from_value(
+    |> Response.from_value(
       Error.new(
         "straw_hat_review.review_reaction.not_found",
         metadata: [review_reaction_id: review_reaction_id]
