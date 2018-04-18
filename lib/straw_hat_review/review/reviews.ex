@@ -5,7 +5,7 @@ defmodule StrawHat.Review.Reviews do
 
   use StrawHat.Review.Interactor
   alias StrawHat.Response
-  alias StrawHat.Review.{Review, Medias, ReviewAspect}
+  alias StrawHat.Review.{Review, Medias, ReviewAspect, ReviewReaction}
 
   @doc """
   Get the list of reviews.
@@ -154,6 +154,23 @@ defmodule StrawHat.Review.Reviews do
       )
 
     Repo.all(query)
+  end
+
+  @since "1.0.0"
+  @spec add_reaction(Integer.t(), String.t(), Integer.t()) ::
+          {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
+  def add_reaction(review_id, user_id, reaction_id) do
+    changes = %{reaction_id: reaction_id}
+
+    review_reaction =
+      case Repo.get_by(ReviewReaction, [review_id: review_id, user_id: user_id]) do
+        nil -> %ReviewReaction{review_id: review_id, user_id: user_id}
+        review_reaction -> review_reaction
+      end
+
+    review_reaction
+    |> ReviewReaction.changeset(changes)
+    |> Repo.insert_or_update()
   end
 
   @since "1.0.0"
