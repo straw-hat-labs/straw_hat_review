@@ -134,4 +134,24 @@ defmodule StrawHat.Review.ReviewsTest do
 
     assert {:ok, _} = Reviews.destroy_review(review)
   end
+
+  test "add_reaction/3 without exist review reaction" do
+    user_id = "user:2365"
+    review = insert(:review)
+    reaction = insert(:reaction)
+
+    assert {:ok, review_reaction} = Reviews.add_reaction(review.id, user_id, reaction.id)
+    assert review_reaction.reaction_id == reaction.id
+  end
+
+  test "add_reaction/3 with exist review reaction" do
+    review = insert(:review)
+    reaction = insert(:reaction)
+    review_reaction = insert(:reviews_reactions, review: review, reaction: reaction)
+    new_reaction = insert(:reaction)
+
+    assert {:ok, update_review_reaction} = Reviews.add_reaction(review.id, review_reaction.user_id, new_reaction.id)
+    assert update_review_reaction.id == review_reaction.id
+    assert update_review_reaction.reaction_id == new_reaction.id
+  end
 end
