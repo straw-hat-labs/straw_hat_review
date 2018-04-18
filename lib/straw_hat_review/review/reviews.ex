@@ -163,7 +163,7 @@ defmodule StrawHat.Review.Reviews do
     changes = %{reaction_id: reaction_id}
 
     review_reaction =
-      case Repo.get_by(ReviewReaction, [review_id: review_id, user_id: user_id]) do
+      case Repo.get_by(ReviewReaction, review_id: review_id, user_id: user_id) do
         nil -> %ReviewReaction{review_id: review_id, user_id: user_id}
         review_reaction -> review_reaction
       end

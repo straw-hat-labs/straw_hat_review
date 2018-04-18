@@ -150,7 +150,9 @@ defmodule StrawHat.Review.ReviewsTest do
     review_reaction = insert(:reviews_reactions, review: review, reaction: reaction)
     new_reaction = insert(:reaction)
 
-    assert {:ok, update_review_reaction} = Reviews.add_reaction(review.id, review_reaction.user_id, new_reaction.id)
+    assert {:ok, update_review_reaction} =
+             Reviews.add_reaction(review.id, review_reaction.user_id, new_reaction.id)
+
     assert update_review_reaction.id == review_reaction.id
     assert update_review_reaction.reaction_id == new_reaction.id
   end
