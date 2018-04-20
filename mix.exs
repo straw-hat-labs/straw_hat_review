@@ -64,7 +64,8 @@ defmodule StrawHat.Review.MixProject do
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false}
+      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
+      {:inch_ex, ">= 0.0.0", only: [:dev], runtime: false}
     ]
   end
 
