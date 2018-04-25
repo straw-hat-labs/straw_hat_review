@@ -13,9 +13,10 @@ defmodule StrawHat.Review.Test.Factory do
     ReviewReaction,
     ReviewAspect
   }
+
   def aspect_factory do
     %Aspect{
-      name: Faker.String.base64()
+      name: Faker.Name.name()
     }
   end
 

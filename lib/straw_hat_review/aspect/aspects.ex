@@ -66,4 +66,13 @@ defmodule StrawHat.Review.Aspects do
   @since "1.0.0"
   @spec get_aspect(Integer.t()) :: Aspect.t() | nil | no_return
   def get_aspect(aspect_id), do: Repo.get(Aspect, aspect_id)
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking aspect changes.
+  """
+  @since "1.0.0"
+  @spec change_aspect(Aspect.t()) :: Ecto.Changeset.t()
+  def change_aspect(%Aspect{} = aspect) do
+    Aspect.changeset(aspect, %{})
+  end
 end

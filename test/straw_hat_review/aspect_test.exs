@@ -1,6 +1,6 @@
 defmodule StrawHat.Review.AspectsTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Aspects
+  alias StrawHat.Review.{Aspects, Aspect}
 
   describe "find_aspect/1" do
     test "with valid id" do
@@ -31,12 +31,16 @@ defmodule StrawHat.Review.AspectsTest do
     aspect = insert(:aspect)
     {:ok, aspect} = Aspects.update_aspect(aspect, %{name: "Professional"})
 
-    assert aspect.name == "Professional"
+    assert aspect.name == "professional"
   end
 
   test "destroy_aspect/1 with a found review destroys the aspect" do
     aspect = insert(:aspect)
 
     assert {:ok, _} = Aspects.destroy_aspect(aspect)
+  end
+
+  test "change_aspect/1 returns an aspect changeset" do
+    assert %Ecto.Changeset{} = Aspects.change_aspect(%Aspect{})
   end
 end
