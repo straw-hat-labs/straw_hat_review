@@ -7,7 +7,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateReviewsTable do
       add(:reviewee_id, :string, null: false)
       # the user that make the comment
       add(:reviewer_id, :string, null: false)
-      add(:comment, :string, null: false)
+      add(:comment, :text, null: false)
 
       timestamps()
     end

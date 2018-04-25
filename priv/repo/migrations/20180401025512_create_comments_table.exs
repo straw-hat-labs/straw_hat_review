@@ -3,7 +3,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateCommentsTable do
 
   def change do
     create table(:comments) do
-      add(:comment, :string, null: false)
+      add(:comment, :text, null: false)
       add(:owner_id, :string, null: false)
       add(:review_id, references(:reviews), null: false)
 

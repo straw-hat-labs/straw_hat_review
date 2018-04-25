@@ -1,5 +1,5 @@
 defmodule StrawHat.Review do
   @moduledoc """
-  Documentation for StrawHat.Review.
+  A system for handling reviews.
   """
 end
