@@ -1,6 +1,6 @@
 defmodule StrawHat.Review.CommentsTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Comments
+  alias StrawHat.Review.{Comments, Comment}
 
   describe "find_comment/1" do
     test "with valid id" do
@@ -46,5 +46,9 @@ defmodule StrawHat.Review.CommentsTest do
     comment = insert(:comment)
 
     assert {:ok, _} = Comments.destroy_comment(comment)
+  end
+
+  test "change_comment/1 returns a comment changeset" do
+    assert %Ecto.Changeset{} = Comments.change_comment(%Comment{})
   end
 end

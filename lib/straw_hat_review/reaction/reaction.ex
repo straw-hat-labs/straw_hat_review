@@ -38,7 +38,6 @@ defmodule StrawHat.Review.Reaction do
     reaction
     |> cast(reaction_attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:name, name: :reactions_name_index)
     |> validate_name()
   end
 
@@ -47,6 +46,7 @@ defmodule StrawHat.Review.Reaction do
     changeset
     |> update_change(:name, &cleanup_name/1)
     |> validate_format(:name, @name_regex)
+    |> unique_constraint(:name)
   end
 
   @spec cleanup_name(String.t()) :: String.t()

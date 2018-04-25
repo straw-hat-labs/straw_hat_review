@@ -1,6 +1,6 @@
 defmodule StrawHat.Review.ReviewsTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Reviews
+  alias StrawHat.Review.{Reviews, Review}
 
   describe "find_review/1" do
     test "with valid id" do
@@ -155,5 +155,9 @@ defmodule StrawHat.Review.ReviewsTest do
 
     assert update_review_reaction.id == review_reaction.id
     assert update_review_reaction.reaction_id == new_reaction.id
+  end
+
+  test "change_review/1 returns a review changeset" do
+    assert %Ecto.Changeset{} = Reviews.change_review(%Review{})
   end
 end

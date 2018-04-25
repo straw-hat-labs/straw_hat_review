@@ -173,6 +173,15 @@ defmodule StrawHat.Review.Reviews do
     |> Repo.insert_or_update()
   end
 
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking review changes.
+  """
+  @since "1.0.0"
+  @spec change_review(Review.t()) :: Ecto.Changeset.t()
+  def change_review(%Review{} = review) do
+    Review.changeset(review, %{})
+  end
+
   @since "1.0.0"
   @spec put_aspects(Review.t(), Review.review_attrs()) :: {:ok, Review.t()}
   defp put_aspects(review, %{aspects: aspects}) do

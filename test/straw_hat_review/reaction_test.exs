@@ -1,6 +1,6 @@
 defmodule StrawHat.Review.ReactionsTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Reactions
+  alias StrawHat.Review.{Reactions, Reaction}
 
   describe "find_reaction/1" do
     test "with valid id" do
@@ -45,5 +45,9 @@ defmodule StrawHat.Review.ReactionsTest do
     reaction = insert(:reaction)
 
     assert {:ok, _} = Reactions.destroy_reaction(reaction)
+  end
+
+  test "change_reaction/1 returns a reaction changeset" do
+    assert %Ecto.Changeset{} = Reactions.change_reaction(%Reaction{})
   end
 end

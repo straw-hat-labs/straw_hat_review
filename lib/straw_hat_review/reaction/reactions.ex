@@ -78,4 +78,13 @@ defmodule StrawHat.Review.Reactions do
 
     Repo.all(query)
   end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking reaction changes.
+  """
+  @since "1.0.0"
+  @spec change_reaction(Reaction.t()) :: Ecto.Changeset.t()
+  def change_reaction(%Reaction{} = reaction) do
+    Reaction.changeset(reaction, %{})
+  end
 end

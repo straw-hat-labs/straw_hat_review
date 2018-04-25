@@ -75,7 +75,15 @@ defmodule StrawHat.Review.Comments do
   @spec comment_by_ids([Integer.t()]) :: [Comment.t()] | no_return
   def comment_by_ids(comment_ids) do
     query = from(comment in Comment, where: comment.id in ^comment_ids)
-
     Repo.all(query)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking comment changes.
+  """
+  @since "1.0.0"
+  @spec change_comment(Comment.t()) :: Ecto.Changeset.t()
+  def change_comment(%Comment{} = comment) do
+    Comment.changeset(comment, %{})
   end
 end
