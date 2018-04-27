@@ -1,5 +1,7 @@
 defmodule StrawHat.Review.MediaFile do
-  @moduledoc false
+  @moduledoc """
+  Arc module that defines a media file.
+  """
 
   use Arc.Definition
   use Arc.Ecto.Definition
