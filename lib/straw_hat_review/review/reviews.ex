@@ -8,14 +8,14 @@ defmodule StrawHat.Review.Reviews do
   alias StrawHat.Review.{Review, Medias, ReviewAspect, ReviewReaction}
 
   @doc """
-  Get the list of reviews.
+  Gets the list of reviews.
   """
   @since "1.0.0"
   @spec get_reviews(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_reviews(pagination \\ []), do: Repo.paginate(Review, pagination)
 
   @doc """
-  Create a review.
+  Creates a review.
   """
   @since "1.0.0"
   @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
@@ -71,14 +71,14 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
-  Get a review by `id`.
+  Gets a review by `id`.
   """
   @since "1.0.0"
   @spec get_review(Integer.t()) :: Review.t() | nil | no_return
   def get_review(review_id), do: Repo.get(Review, review_id)
 
   @doc """
-  Get list of review by ids.
+  Gets a list of review by ids.
   """
   @since "1.0.0"
   @spec review_by_ids([Integer.t()]) :: [Review.t()] | no_return
@@ -89,7 +89,7 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
-  Get list of medias by review ids.
+  Gets a list of medias by review ids.
   """
   @since "1.0.0"
   @spec get_medias([Integer.t()]) :: [Review.t()] | no_return
@@ -106,7 +106,7 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
-  Get list of reviews aspects by review ids.
+  Gets a list of reviews aspects by review ids.
   """
   @since "1.0.0"
   @spec get_reviews_aspects([Integer.t()]) :: [Review.t()] | no_return
@@ -123,7 +123,7 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
-  Get list of comments by review ids.
+  Gets a list of comments by review ids.
   """
   @since "1.0.0"
   @spec get_comments([Integer.t()]) :: [Review.t()] | no_return
@@ -140,7 +140,7 @@ defmodule StrawHat.Review.Reviews do
   end
 
   @doc """
-  Get list of reviews reactions by review ids.
+  Gets a list of reviews reactions by review ids.
   """
   @since "1.0.0"
   @spec get_reviews_reactions([Integer.t()]) :: [Review.t()] | no_return
