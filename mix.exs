@@ -104,8 +104,22 @@ defmodule StrawHat.Review.MixProject do
       source_url: @source_url,
       extras: ["README.md"],
       groups_for_modules: [
-        Interactors: [],
-        Schemas: []
+        Interactors: [
+          StrawHat.Review.Reviews,
+          StrawHat.Review.Aspects,
+          StrawHat.Review.Medias,
+          StrawHat.Review.Comments,
+          StrawHat.Review.Reactions,
+          StrawHat.Review.CommentsReactions,
+          StrawHat.Review.ReviewsReactions
+        ],
+        Schemas: [
+          StrawHat.Review.Review,
+          StrawHat.Review.Aspect,
+          StrawHat.Review.Media,
+          StrawHat.Review.Reaction,
+          StrawHat.Review.Comment
+        ]
       ]
     ]
   end
