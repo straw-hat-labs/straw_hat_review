@@ -1,4 +1,4 @@
-defmodule StrawHat.Review.CommentsReactions do
+defmodule StrawHat.Review.CommentReactions do
   @moduledoc """
   Interactor module that defines all the functionality for CommentsReactions management.
   """
