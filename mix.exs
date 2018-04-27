@@ -110,15 +110,22 @@ defmodule StrawHat.Review.MixProject do
           StrawHat.Review.Medias,
           StrawHat.Review.Comments,
           StrawHat.Review.Reactions,
-          StrawHat.Review.CommentsReactions,
-          StrawHat.Review.ReviewsReactions
+          StrawHat.Review.CommentReactions,
+          StrawHat.Review.ReviewReactions
         ],
         Schemas: [
           StrawHat.Review.Review,
           StrawHat.Review.Aspect,
           StrawHat.Review.Media,
           StrawHat.Review.Reaction,
-          StrawHat.Review.Comment
+          StrawHat.Review.Comment,
+          StrawHat.Review.ReviewAspect,
+          StrawHat.Review.ReviewReaction,
+          StrawHat.Review.CommentReaction
+        ],
+        Arc: [
+          StrawHat.Review.MediaFile,
+          StrawHat.Review.MediaFile.Type
         ]
       ]
     ]
