@@ -1,6 +1,6 @@
-defmodule StrawHat.Review.ReviewTest do
+defmodule StrawHat.Review.ReviewsTest do
   use StrawHat.Review.Test.DataCase, async: true
-  alias StrawHat.Review.Reviews
+  alias StrawHat.Review.{Reviews, Review}
 
   describe "find_review/1" do
     test "with valid id" do
@@ -10,7 +10,7 @@ defmodule StrawHat.Review.ReviewTest do
     end
 
     test "with invalid id shouldn't find the review" do
-      assert {:error, _reason} = Reviews.find_review(8367)
+      assert {:error, _reason} = Reviews.find_review(8347)
     end
   end
 
@@ -28,35 +28,105 @@ defmodule StrawHat.Review.ReviewTest do
       assert {:ok, _review} = Reviews.create_review(params)
     end
 
-    test "with valid inputs creates a review with tags" do
+    test "with valid inputs creates a review with aspect" do
+      aspect = insert(:aspect)
+
       params =
         :review
         |> params_for()
-        |> Map.put(:tags, "Nails,Thumb,Blesser")
+        |> Map.put(:aspects, [%{score: 3, aspect_id: aspect.id}])
 
       assert {:ok, review} = Reviews.create_review(params)
-      assert length(review.tags) == 3
+      assert length(review.reviews_aspects) == 1
+    end
+
+    test "with valid inputs creates a review with media" do
+      media_params = %{
+        content_type: "image/png",
+        file_name: "elixir_logo.png",
+        file: %Plug.Upload{
+          content_type: "image/png",
+          filename: "elixir_logo.png",
+          path: "test/features/files/elixir_logo.png"
+        }
+      }
+
+      params =
+        :review
+        |> params_for()
+        |> Map.put(:medias, [media_params])
+
+      assert {:ok, review} = Reviews.create_review(params)
+      assert length(review.medias) == 1
     end
   end
 
-  describe "update_review/2" do
-    test "with valid inputs updates a review" do
-      review = insert(:review)
-      {:ok, review} = Reviews.update_review(review, %{score: 4})
+  test "update_review/2 with valid inputs updates a review" do
+    review = insert(:review)
+    {:ok, review} = Reviews.update_review(review, %{comment: "Awesome!!!"})
 
-      assert review.score == 4
-    end
+    assert review.comment == "Awesome!!!"
+  end
 
-    test "with valid inputs updates a review with tags" do
-      params =
-        :review
-        |> params_for()
-        |> Map.put(:tags, "Nails,Thumb,Blesser")
+  test "review_by_ids/1 with valid ids list return the respective reviews" do
+    review = insert(:review)
+    reviews = Reviews.review_by_ids([review.id])
 
-      assert {:ok, review} = Reviews.create_review(params)
-      assert {:ok, review} = Reviews.update_review(review, %{tags: "Bummble"})
-      assert length(review.tags) == 1
-    end
+    assert length(reviews) == 1
+  end
+
+  test "get_medias/1 with valid ids list return the associated medias" do
+    media_params = %{
+      content_type: "image/png",
+      file_name: "elixir_logo.png",
+      file: %Plug.Upload{
+        content_type: "image/png",
+        filename: "elixir_logo.png",
+        path: "test/features/files/elixir_logo.png"
+      }
+    }
+
+    params =
+      :review
+      |> params_for()
+      |> Map.put(:medias, [media_params])
+
+    assert {:ok, review} = Reviews.create_review(params)
+
+    reviews = Reviews.get_medias([review.id])
+    assert length(Enum.at(reviews, 0).medias) == 1
+  end
+
+  test "get_reviews_aspects/1 with valid ids list return the respective reviews aspects" do
+    aspect = insert(:aspect)
+
+    params =
+      :review
+      |> params_for()
+      |> Map.put(:aspects, [%{score: 3, aspect_id: aspect.id}])
+
+    assert {:ok, review} = Reviews.create_review(params)
+
+    reviews = Reviews.get_reviews_aspects([review.id])
+
+    assert length(Enum.at(reviews, 0).reviews_aspects) == 1
+  end
+
+  test "get_comments/1 with valid ids list return the respective reviews comments" do
+    review = insert(:review)
+    insert(:comment, review: review)
+    reviews = Reviews.get_comments([review.id])
+
+    assert length(Enum.at(reviews, 0).comments) == 1
+  end
+
+  test "get_reviews_reactions/1 with valid ids list return the respective reviews reactions" do
+    review = insert(:review)
+    reaction = insert(:reaction)
+    insert(:reviews_reactions, reaction: reaction, review: review)
+    reviews = Reviews.get_reviews_reactions([review.id])
+
+    assert length(Enum.at(reviews, 0).reviews_reactions) == 1
   end
 
   test "destroy_review/1 with a found review destroys the review" do
@@ -65,37 +135,29 @@ defmodule StrawHat.Review.ReviewTest do
     assert {:ok, _} = Reviews.destroy_review(review)
   end
 
-  test "review_by_ids/1 with a list of IDs returns the relative reviews" do
+  test "add_reaction/3 without exist review reaction" do
+    user_id = "user:2365"
     review = insert(:review)
-    reviews = Reviews.review_by_ids([review.id])
+    reaction = insert(:reaction)
 
-    assert length(reviews) == 1
+    assert {:ok, review_reaction} = Reviews.add_reaction(review.id, user_id, reaction.id)
+    assert review_reaction.reaction_id == reaction.id
   end
 
-  test "get_tags/1 with a list of IDs returns the relative reviews with tags" do
-    review_tag = insert(:review_tag)
-    reviews = Reviews.get_tags([review_tag.review_id])
-    review = Enum.at(reviews, 0)
+  test "add_reaction/3 with exist review reaction" do
+    review = insert(:review)
+    reaction = insert(:reaction)
+    review_reaction = insert(:reviews_reactions, review: review, reaction: reaction)
+    new_reaction = insert(:reaction)
 
-    assert length(reviews) == 1
-    assert length(review.tags) == 1
+    assert {:ok, update_review_reaction} =
+             Reviews.add_reaction(review.id, review_reaction.user_id, new_reaction.id)
+
+    assert update_review_reaction.id == review_reaction.id
+    assert update_review_reaction.reaction_id == new_reaction.id
   end
 
-  test "get_feedbacks/1 with a list of IDs returns the relative reviews with feedbacks" do
-    feedback = insert(:feedback)
-    reviews = Reviews.get_feedbacks([feedback.review_id])
-    review = Enum.at(reviews, 0)
-
-    assert length(reviews) == 1
-    assert length(review.feedbacks) == 1
-  end
-
-  test "get_review_aspects/1 with a list of IDs returns the relative reviews with aspects" do
-    review_aspect = insert(:review_aspect)
-    reviews = Reviews.get_review_aspects([review_aspect.review_id])
-    review = Enum.at(reviews, 0)
-
-    assert length(reviews) == 1
-    assert length(review.review_aspects) == 1
+  test "change_review/1 returns a review changeset" do
+    assert %Ecto.Changeset{} = Reviews.change_review(%Review{})
   end
 end

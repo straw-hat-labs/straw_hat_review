@@ -1,35 +1,12 @@
-defmodule StrawHat.Review.Aspect do
+defmodule StrawHat.Review.Reaction do
   @moduledoc """
-  Represents an Aspect Ecto Schema.
-
-  A Aspect represents some feature that you could
-  highlight on your review.
-
-  ### Example
-
-      %StrawHat.Review.Aspect{
-        name: "seller_communication"
-      }
-
-      %StrawHat.Review.Aspect{
-        name: "service_as_described"
-      }
-
-      %StrawHat.Review.Aspect{
-        name: "would_recommend"
-      }
-
-
-  You could take some inspiration from
-  Uber, Lyft and Fiverr businesses.
+  Represents a Reaction Ecto Schema.
   """
 
   use StrawHat.Review.Schema
 
-  @name_regex ~r/^[a-z]+[a-z_]+[a-z]$/
-
   @typedoc """
-  - `name`: The name of the aspect.
+  - `name`: The reaction identificator above another reactions.
   """
   @type t :: %__MODULE__{
           name: String.t()
@@ -38,31 +15,32 @@ defmodule StrawHat.Review.Aspect do
   @typedoc """
   Check `t:t/0` type for more information about the keys.
   """
-  @type aspect_attrs :: %{
+  @type reaction_attrs :: %{
           name: String.t()
         }
 
   @required_fields ~w(name)a
 
-  schema "aspects" do
+  @name_regex ~r/^[a-z]+[a-z_]+[a-z]$/
+
+  schema "reactions" do
     field(:name, :string)
 
     timestamps()
   end
 
   @doc """
-  Validates the attributes and return a Ecto.Changeset for the current Aspect.
+  Validate the attributes and return a Ecto.Changeset for the current Reaction.
   """
   @since "1.0.0"
-  @spec changeset(t, aspect_attrs) :: Ecto.Changeset.t()
-  def changeset(aspect, aspect_attrs) do
-    aspect
-    |> cast(aspect_attrs, @required_fields)
+  @spec changeset(t, reaction_attrs) :: Ecto.Changeset.t()
+  def changeset(reaction, reaction_attrs) do
+    reaction
+    |> cast(reaction_attrs, @required_fields)
     |> validate_required(@required_fields)
     |> validate_name()
   end
 
-  @since "1.0.0"
   @spec validate_name(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp validate_name(changeset) do
     changeset
@@ -71,7 +49,6 @@ defmodule StrawHat.Review.Aspect do
     |> unique_constraint(:name)
   end
 
-  @since "1.0.0"
   @spec cleanup_name(String.t()) :: String.t()
   defp cleanup_name(name) do
     name

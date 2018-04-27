@@ -4,6 +4,7 @@ defmodule StrawHat.Review.Aspects do
   """
 
   use StrawHat.Review.Interactor
+  alias StrawHat.Response
   alias StrawHat.Review.Aspect
 
   @doc """
@@ -51,7 +52,7 @@ defmodule StrawHat.Review.Aspects do
   def find_aspect(aspect_id) do
     aspect_id
     |> get_aspect()
-    |> StrawHat.Response.from_value(
+    |> Response.from_value(
       Error.new(
         "straw_hat_review.aspect.not_found",
         metadata: [aspect_id: aspect_id]
@@ -65,4 +66,13 @@ defmodule StrawHat.Review.Aspects do
   @since "1.0.0"
   @spec get_aspect(Integer.t()) :: Aspect.t() | nil | no_return
   def get_aspect(aspect_id), do: Repo.get(Aspect, aspect_id)
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking aspect changes.
+  """
+  @since "1.0.0"
+  @spec change_aspect(Aspect.t()) :: Ecto.Changeset.t()
+  def change_aspect(%Aspect{} = aspect) do
+    Aspect.changeset(aspect, %{})
+  end
 end

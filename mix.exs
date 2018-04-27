@@ -49,9 +49,12 @@ defmodule StrawHat.Review.MixProject do
   defp deps do
     [
       {:straw_hat, "~> 0.4"},
-      {:postgrex, "~> 0.13.2"},
+      {:postgrex, "~> 0.13"},
       {:ecto, "~> 2.2"},
       {:scrivener_ecto, "~> 1.2"},
+      {:arc, "~> 0.8.0"},
+      {:arc_ecto, "~> 0.7.0"},
+      {:plug, "~> 1.5", optional: true},
 
       # Testing
       {:ex_machina, ">= 0.0.0", only: [:test]},
@@ -101,8 +104,22 @@ defmodule StrawHat.Review.MixProject do
       source_url: @source_url,
       extras: ["README.md"],
       groups_for_modules: [
-        Interactors: [],
-        Schemas: []
+        Interactors: [
+          StrawHat.Review.Reviews,
+          StrawHat.Review.Aspects,
+          StrawHat.Review.Medias,
+          StrawHat.Review.Comments,
+          StrawHat.Review.Reactions,
+          StrawHat.Review.CommentsReactions,
+          StrawHat.Review.ReviewsReactions
+        ],
+        Schemas: [
+          StrawHat.Review.Review,
+          StrawHat.Review.Aspect,
+          StrawHat.Review.Media,
+          StrawHat.Review.Reaction,
+          StrawHat.Review.Comment
+        ]
       ]
     ]
   end
