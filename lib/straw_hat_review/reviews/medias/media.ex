@@ -26,13 +26,9 @@ defmodule StrawHat.Review.Media do
   Check `t:t/0` type for more information about the keys.
   """
   @type media_attrs :: %{
-          content_type: String.t(),
-          file_name: String.t(),
           file: StrawHat.Review.MediaFile.t(),
           review_id: Integer.t()
         }
-
-  @required_fields ~w(content_type file_name file review_id)a
 
   schema "medias" do
     field(:content_type, :string)
@@ -44,15 +40,18 @@ defmodule StrawHat.Review.Media do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Media.
+  Validates the attributes and return a Ecto.Changeset for the current Media.
   """
   @since "1.0.0"
-  @spec changeset(t, media_attrs) :: Ecto.Changeset.t()
-  def changeset(media, media_attrs) do
+  @spec changeset(t, %Plug.Upload{}) :: Ecto.Changeset.t()
+  def changeset(media, %Plug.Upload{} = file) do
+    # TODO: I am not happy with Arc at all
+    # replace Arc all at once from the application.
     media
-    |> cast(media_attrs, @required_fields)
-    |> validate_required(@required_fields)
-    |> cast_attachments(media_attrs, [:file])
+    |> change()
+    |> cast_attachments(%{file: file}, [:file])
+    |> put_change(:content_type, file.content_type)
+    |> put_change(:file_name, file.filename)
     |> assoc_constraint(:review)
   end
 end

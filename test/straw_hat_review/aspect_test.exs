@@ -21,13 +21,13 @@ defmodule StrawHat.Review.AspectsTest do
     assert length(aspect.entries) == 5
   end
 
-  test "create_aspect/1 with valid inputs creates a aspect" do
+  test "create_aspect/1 with valid inputs creates an aspect" do
     params = params_for(:aspect)
 
     assert {:ok, _aspect} = Aspects.create_aspect(params)
   end
 
-  test "update_aspect/2 with valid inputs updates a aspect" do
+  test "update_aspect/2 with valid inputs updates an aspect" do
     aspect = insert(:aspect)
     {:ok, aspect} = Aspects.update_aspect(aspect, %{name: "Professional"})
 

@@ -10,10 +10,14 @@ defmodule StrawHat.Review.Review do
   - `reviewee_id`: The object or user that receive the review.
   - `reviewer_id`: The user that make the comment.
   - `comment`: The user comment or appreciation above the reviewee.
-  - `comments`: List of `t:StrawHat.Review.Comment.t/0` associated with the current review.
-  - `medias`: List of `t:StrawHat.Review.Media.t/0` associated with the current review.
-  - `reviews_aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with the current review.
-  - `reviews_reactions`: List of `t:StrawHat.Review.ReviewReaction.t/0` associated with the current review.
+  - `comments`: List of `t:StrawHat.Review.Comment.t/0` associated with the
+  current review.
+  - `medias`: List of `t:StrawHat.Review.Media.t/0` associated with the
+  current review.
+  - `aspects`: List of `t:StrawHat.Review.ReviewAspect.t/0` associated with
+  the current review.
+  - `reactions`: List of `t:StrawHat.Review.ReviewReaction.t/0`
+  associated with the current review.
   """
   @type t :: %__MODULE__{
           reviewee_id: String.t(),
@@ -21,8 +25,8 @@ defmodule StrawHat.Review.Review do
           comment: String.t(),
           comments: [Comment.t()] | Ecto.Association.NotLoaded.t(),
           medias: [Media.t()] | Ecto.Association.NotLoaded.t(),
-          reviews_aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t(),
-          reviews_reactions: [ReviewReaction.t()] | Ecto.Association.NotLoaded.t()
+          aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t(),
+          reactions: [ReviewReaction.t()] | Ecto.Association.NotLoaded.t()
         }
 
   @typedoc """
@@ -32,7 +36,7 @@ defmodule StrawHat.Review.Review do
           reviewee_id: String.t(),
           reviewer_id: String.t(),
           comment: String.t(),
-          reviews_aspects: [ReviewAspect.t()]
+          aspects: [ReviewAspect.t()]
         }
 
   @required_fields ~w(reviewee_id reviewer_id comment)a
@@ -59,14 +63,14 @@ defmodule StrawHat.Review.Review do
     )
 
     has_many(
-      :reviews_aspects,
+      :aspects,
       ReviewAspect,
       on_replace: :delete,
       on_delete: :delete_all
     )
 
     has_many(
-      :reviews_reactions,
+      :reactions,
       ReviewReaction,
       on_replace: :delete,
       on_delete: :delete_all
@@ -82,5 +86,7 @@ defmodule StrawHat.Review.Review do
     review
     |> cast(review_attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> cast_assoc(:aspects, required: true)
+    |> cast_assoc(:medias)
   end
 end

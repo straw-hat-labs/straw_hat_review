@@ -39,7 +39,7 @@ defmodule StrawHat.Review.Test.Factory do
       content_type: "image/png",
       file_name: "elixir_logo.png",
       review: build(:review),
-      file: get_file()
+      file: build(:file)
     }
   end
 
@@ -59,9 +59,8 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def reviews_aspects_factory do
+  def review_aspects_factory do
     %ReviewAspect{
-      review: build(:review),
       aspect: build(:aspect),
       score: get_score()
     }
@@ -71,8 +70,21 @@ defmodule StrawHat.Review.Test.Factory do
     %Review{
       reviewee_id: Faker.String.base64(),
       reviewer_id: Faker.String.base64(),
-      comment: Faker.Lorem.Shakespeare.hamlet()
+      comment: Faker.Lorem.Shakespeare.hamlet(),
+      aspects: build_list(2, :review_aspects)
     }
+  end
+
+  # TODO: remove this functions
+  # related to: https://github.com/thoughtbot/ex_machina/issues/279
+  def review_attrs do
+    :review
+    |> params_for()
+    |> Map.put(:aspects, [
+      params_with_assocs(:review_aspects),
+      params_with_assocs(:review_aspects)
+    ])
+    |> Map.put(:medias, build_list(2, :file))
   end
 
   defp get_score() do
@@ -81,7 +93,7 @@ defmodule StrawHat.Review.Test.Factory do
     |> List.first()
   end
 
-  defp get_file() do
+  def file_factory() do
     %Plug.Upload{
       content_type: "image/png",
       filename: "elixir_logo.png",

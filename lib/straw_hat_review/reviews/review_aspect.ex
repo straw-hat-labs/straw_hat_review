@@ -30,7 +30,7 @@ defmodule StrawHat.Review.ReviewAspect do
           score: String.t()
         }
 
-  @required_fields ~w(review_id aspect_id score)a
+  @required_fields ~w(aspect_id score)a
 
   schema "reviews_aspects" do
     belongs_to(:review, Review)
@@ -41,7 +41,7 @@ defmodule StrawHat.Review.ReviewAspect do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current ReviewAspect.
+  Validates the attributes and return a Ecto.Changeset for the current ReviewAspect.
   """
   @since "1.0.0"
   @spec changeset(t, review_aspect_attrs) :: Ecto.Changeset.t()
@@ -49,7 +49,6 @@ defmodule StrawHat.Review.ReviewAspect do
     review_aspect
     |> cast(review_aspect_attrs, @required_fields)
     |> validate_required(@required_fields)
-    |> assoc_constraint(:review)
     |> assoc_constraint(:aspect)
   end
 end
