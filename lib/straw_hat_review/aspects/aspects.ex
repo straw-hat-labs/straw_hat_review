@@ -15,7 +15,7 @@ defmodule StrawHat.Review.Aspects do
   def get_aspects(pagination \\ []), do: Repo.paginate(Aspect, pagination)
 
   @doc """
-  Creates aspect.
+  Creates an aspect.
   """
   @since "1.0.0"
   @spec create_aspect(Aspect.aspect_attrs()) :: {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
@@ -26,7 +26,7 @@ defmodule StrawHat.Review.Aspects do
   end
 
   @doc """
-  Updates aspect.
+  Updates an aspect.
   """
   @since "1.0.0"
   @spec update_aspect(Aspect.t(), Aspect.aspect_attrs()) ::
@@ -38,14 +38,14 @@ defmodule StrawHat.Review.Aspects do
   end
 
   @doc """
-  Destroys aspect.
+  Destroys an aspect.
   """
   @since "1.0.0"
   @spec destroy_aspect(Aspect.t()) :: {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
   def destroy_aspect(%Aspect{} = aspect), do: Repo.delete(aspect)
 
   @doc """
-  Finds aspect by `id`.
+  Finds an aspect by `id`.
   """
   @since "1.0.0"
   @spec find_aspect(Integer.t()) :: {:ok, Aspect.t()} | {:error, Error.t()}
@@ -61,7 +61,7 @@ defmodule StrawHat.Review.Aspects do
   end
 
   @doc """
-  Gets aspect by `id`.
+  Gets an aspect by `id`.
   """
   @since "1.0.0"
   @spec get_aspect(Integer.t()) :: Aspect.t() | nil | no_return

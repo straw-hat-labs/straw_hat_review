@@ -16,7 +16,7 @@ defmodule StrawHat.Review.Test.Factory do
 
   def aspect_factory do
     %Aspect{
-      name: Faker.Name.name()
+      name: Faker.format("???_???")
     }
   end
 

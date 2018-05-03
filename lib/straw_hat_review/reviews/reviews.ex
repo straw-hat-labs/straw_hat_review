@@ -65,7 +65,17 @@ defmodule StrawHat.Review.Reviews do
   """
   @since "1.0.0"
   @spec get_review(Integer.t()) :: Review.t() | nil | no_return
-  def get_review(review_id), do: Repo.get(Review, review_id)
+  def get_review(review_id) do
+    query =
+      from(
+        review in Review,
+        where: review.id == ^review_id,
+        preload: [aspects: :aspect],
+        preload: [:medias]
+      )
+
+    Repo.one(query)
+  end
 
   @doc """
   Gets a list of review by ids.

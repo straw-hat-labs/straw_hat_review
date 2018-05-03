@@ -46,7 +46,7 @@ defmodule StrawHat.Review.Comment do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Comment.
+  Validates the attributes and return a Ecto.Changeset for the current Comment.
   """
   @since "1.0.0"
   @spec changeset(t, comment_attrs) :: Ecto.Changeset.t()
