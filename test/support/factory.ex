@@ -75,6 +75,7 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
+  # credo:disable-for-next-line
   # TODO: remove this functions
   # related to: https://github.com/thoughtbot/ex_machina/issues/279
   def review_attrs do

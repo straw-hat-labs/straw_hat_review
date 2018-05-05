@@ -45,6 +45,7 @@ defmodule StrawHat.Review.Media do
   @since "1.0.0"
   @spec changeset(t, %Plug.Upload{}) :: Ecto.Changeset.t()
   def changeset(media, %Plug.Upload{} = file) do
+    # credo:disable-for-next-line
     # TODO: I am not happy with Arc at all
     # replace Arc all at once from the application.
     media

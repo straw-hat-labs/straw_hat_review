@@ -6,8 +6,7 @@ defmodule StrawHat.Review.ReviewReactionsTest do
     test "with valid id" do
       reviews_reactions = insert(:reviews_reactions)
 
-      assert {:ok, _reviews_reactions} =
-               ReviewReactions.find_reaction(reviews_reactions.id)
+      assert {:ok, _reviews_reactions} = ReviewReactions.find_reaction(reviews_reactions.id)
     end
 
     test "with invalid id shouldn't find the reviews_reactions" do
