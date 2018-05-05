@@ -51,7 +51,7 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def reviews_reactions_factory do
+  def review_reaction_factory do
     %ReviewReaction{
       review: build(:review),
       reaction: build(:reaction),
@@ -59,7 +59,7 @@ defmodule StrawHat.Review.Test.Factory do
     }
   end
 
-  def review_aspects_factory do
+  def review_aspect_factory do
     %ReviewAspect{
       aspect: build(:aspect),
       score: get_score()
@@ -71,7 +71,7 @@ defmodule StrawHat.Review.Test.Factory do
       reviewee_id: Faker.String.base64(),
       reviewer_id: Faker.String.base64(),
       comment: Faker.Lorem.Shakespeare.hamlet(),
-      aspects: build_list(2, :review_aspects)
+      aspects: build_list(2, :review_aspect)
     }
   end
 
@@ -82,8 +82,8 @@ defmodule StrawHat.Review.Test.Factory do
     :review
     |> params_for()
     |> Map.put(:aspects, [
-      params_with_assocs(:review_aspects),
-      params_with_assocs(:review_aspects)
+      params_with_assocs(:review_aspect),
+      params_with_assocs(:review_aspect)
     ])
     |> Map.put(:medias, build_list(2, :file))
   end
