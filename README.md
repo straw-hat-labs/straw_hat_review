@@ -131,3 +131,6 @@ Now we could react to the reviews and comments
     user_id: "user:1"
   })
 ```
+
+That is a basic usage of the package. Check the interactor modules for more
+available APIs.
