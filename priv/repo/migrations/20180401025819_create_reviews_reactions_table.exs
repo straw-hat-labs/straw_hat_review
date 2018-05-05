@@ -9,7 +9,5 @@ defmodule StrawHat.Review.Repo.Migrations.CreateReviewsReactionsTable do
 
       timestamps()
     end
-
-    create(index(:reviews_reactions, [:user_id, :review_id], unique: true))
   end
 end

@@ -34,9 +34,9 @@ defmodule StrawHat.Review.ReactionsTest do
     assert reaction.name == "professional"
   end
 
-  test "reaction_by_ids/1 with valid ids list return the respective reactions" do
+  test "get_reaction_by_ids/1 with valid ids list return the respective reactions" do
     reaction = insert(:reaction)
-    reactions = Reactions.reaction_by_ids([reaction.id])
+    reactions = Reactions.get_reaction_by_ids([reaction.id])
 
     assert length(reactions) == 1
   end

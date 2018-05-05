@@ -33,15 +33,15 @@ defmodule StrawHat.Review.ReviewReaction do
   @required_fields ~w(review_id reaction_id user_id)a
 
   schema "reviews_reactions" do
+    field(:user_id, :string)
     belongs_to(:review, Review)
     belongs_to(:reaction, Reaction)
-    field(:user_id, :string)
 
     timestamps()
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current ReviewReaction.
+  Validates the attributes and return a Ecto.Changeset for the current ReviewReaction.
   """
   @since "1.0.0"
   @spec changeset(t, review_reaction_attrs) :: Ecto.Changeset.t()
@@ -51,6 +51,5 @@ defmodule StrawHat.Review.ReviewReaction do
     |> validate_required(@required_fields)
     |> assoc_constraint(:review)
     |> assoc_constraint(:reaction)
-    |> unique_constraint(:review_id, name: :reviews_reactions_review_id_user_id_index)
   end
 end

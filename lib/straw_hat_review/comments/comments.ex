@@ -72,8 +72,8 @@ defmodule StrawHat.Review.Comments do
   Gets list of comment by ids.
   """
   @since "1.0.0"
-  @spec comment_by_ids([Integer.t()]) :: [Comment.t()] | no_return
-  def comment_by_ids(comment_ids) do
+  @spec get_comment_by_ids([Integer.t()]) :: [Comment.t()] | no_return
+  def get_comment_by_ids(comment_ids) do
     query = from(comment in Comment, where: comment.id in ^comment_ids)
     Repo.all(query)
   end

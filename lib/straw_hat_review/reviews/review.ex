@@ -36,7 +36,8 @@ defmodule StrawHat.Review.Review do
           reviewee_id: String.t(),
           reviewer_id: String.t(),
           comment: String.t(),
-          aspects: [ReviewAspect.t()]
+          aspects: [ReviewAspect.t()],
+          medias: [%Plug.Upload{}]
         }
 
   @required_fields ~w(reviewee_id reviewer_id comment)a
@@ -78,7 +79,7 @@ defmodule StrawHat.Review.Review do
   end
 
   @doc """
-  Validate the attributes and return a Ecto.Changeset for the current Review.
+  Validates the attributes and return a Ecto.Changeset for the current Review.
   """
   @since "1.0.0"
   @spec changeset(t, review_attrs) :: Ecto.Changeset.t()

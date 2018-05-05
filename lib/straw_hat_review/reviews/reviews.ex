@@ -81,25 +81,14 @@ defmodule StrawHat.Review.Reviews do
   Gets a list of review by ids.
   """
   @since "1.0.0"
-  @spec review_by_ids([Integer.t()]) :: [Review.t()] | no_return
-  def review_by_ids(review_ids) do
-    query = from(review in Review, where: review.id in ^review_ids)
-
-    Repo.all(query)
-  end
-
-  @doc """
-  Gets a list of reviews aspects by review ids.
-  """
-  @since "1.0.0"
-  @spec get_reviews_aspects([Integer.t()]) :: [Review.t()] | no_return
-  def get_reviews_aspects(review_ids) do
+  @spec get_review_by_ids([Integer.t()]) :: [Review.t()] | no_return
+  def get_review_by_ids(review_ids) do
     query =
       from(
         review in Review,
         where: review.id in ^review_ids,
-        join: reviews_aspects in assoc(review, :aspects),
-        preload: [aspects: :aspect]
+        preload: [aspects: :aspect],
+        preload: [:medias]
       )
 
     Repo.all(query)
@@ -120,40 +109,6 @@ defmodule StrawHat.Review.Reviews do
       )
 
     Repo.all(query)
-  end
-
-  @doc """
-  Gets a list of reviews reactions by review ids.
-  """
-  @since "1.0.0"
-  @spec get_reviews_reactions([Integer.t()]) :: [Review.t()] | no_return
-  def get_reviews_reactions(review_ids) do
-    query =
-      from(
-        review in Review,
-        where: review.id in ^review_ids,
-        join: reviews_reactions in assoc(review, :reactions),
-        preload: [reactions: :reaction]
-      )
-
-    Repo.all(query)
-  end
-
-  @since "1.0.0"
-  @spec add_reaction(Integer.t(), String.t(), Integer.t()) ::
-          {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
-  def add_reaction(review_id, user_id, reaction_id) do
-    changes = %{reaction_id: reaction_id}
-
-    review_reaction =
-      case Repo.get_by(ReviewReaction, review_id: review_id, user_id: user_id) do
-        nil -> %ReviewReaction{review_id: review_id, user_id: user_id}
-        review_reaction -> review_reaction
-      end
-
-    review_reaction
-    |> ReviewReaction.changeset(changes)
-    |> Repo.insert_or_update()
   end
 
   @doc """
