@@ -81,10 +81,7 @@ defmodule StrawHat.Review.Test.Factory do
   def review_attrs do
     :review
     |> params_for()
-    |> Map.put(:aspects, [
-      params_with_assocs(:review_aspect),
-      params_with_assocs(:review_aspect)
-    ])
+    |> Map.put(:aspects, [params_with_assocs(:review_aspect)])
     |> Map.put(:medias, build_list(2, :file))
   end
 

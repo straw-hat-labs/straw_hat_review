@@ -4,7 +4,7 @@ defmodule StrawHat.Review.Interactor do
   defmacro __using__(_opts) do
     quote do
       import Ecto.Query, only: [from: 2]
-      alias StrawHat.Error
+      alias StrawHat.{Error, Response}
       alias StrawHat.Review.Repo
     end
   end
