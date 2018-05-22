@@ -5,6 +5,7 @@ defmodule StrawHat.Review.Interactor do
     quote do
       import Ecto.Query, only: [from: 2]
       alias StrawHat.Error
+      alias StrawHat.Response
       alias StrawHat.Review.Repo
     end
   end
