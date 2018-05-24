@@ -4,7 +4,7 @@ defmodule StrawHat.Review.Reviews do
   """
 
   use StrawHat.Review.Interactor
-  alias StrawHat.Review.{Review, ReviewReaction}
+  alias StrawHat.Review.Review
 
   @doc """
   Gets the list of reviews.
