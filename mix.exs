@@ -53,7 +53,7 @@ defmodule StrawHat.Review.MixProject do
       {:ecto, "~> 2.2"},
       {:scrivener_ecto, "~> 1.2"},
       {:arc, "~> 0.8.0"},
-      {:arc_ecto, "~> 0.7.0"},
+      {:arc_ecto, "~> 0.8.0"},
       {:plug, "~> 1.5", optional: true},
 
       # Testing
