@@ -10,7 +10,7 @@ defmodule StrawHat.Review.ReviewsTest do
     end
 
     test "with invalid id shouldn't find the review" do
-      assert {:error, _reason} = Reviews.find_review(8347)
+      assert {:error, _reason} = Ecto.UUID.generate() |> Reviews.find_review()
     end
   end
 

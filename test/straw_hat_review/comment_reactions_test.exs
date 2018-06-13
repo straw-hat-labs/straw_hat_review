@@ -11,7 +11,7 @@ defmodule StrawHat.Review.CommentReactionsTest do
     end
 
     test "with invalid id shouldn't find the comments_reactions" do
-      assert {:error, _reason} = CommentReactions.find_comment_reaction(8347)
+      assert {:error, _reason} = Ecto.UUID.generate() |> CommentReactions.find_comment_reaction()
     end
   end
 

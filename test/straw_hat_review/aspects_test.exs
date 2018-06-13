@@ -10,7 +10,7 @@ defmodule StrawHat.Review.AspectsTest do
     end
 
     test "with invalid id shouldn't find the aspect" do
-      assert {:error, _reason} = Aspects.find_aspect(8347)
+      assert {:error, _reason} = Ecto.UUID.generate() |> Aspects.find_aspect()
     end
   end
 

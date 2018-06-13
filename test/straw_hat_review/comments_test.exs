@@ -10,7 +10,7 @@ defmodule StrawHat.Review.CommentsTest do
     end
 
     test "with invalid id shouldn't find the comment" do
-      assert {:error, _reason} = Comments.find_comment(8347)
+      assert {:error, _reason} = Ecto.UUID.generate() |> Comments.find_comment()
     end
   end
 
