@@ -5,7 +5,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateAspectsTable do
     create table(:aspects) do
       add(:name, :string, null: false)
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
 
     create(index(:aspects, :name, unique: true))

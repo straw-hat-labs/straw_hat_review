@@ -8,7 +8,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateMediasTable do
       add(:file, :string, null: false)
       add(:review_id, references(:reviews), null: false)
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

@@ -7,7 +7,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateReviewsReactionsTable do
       add(:review_id, references(:reviews))
       add(:reaction_id, references(:reactions))
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

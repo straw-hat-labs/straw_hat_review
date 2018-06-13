@@ -9,7 +9,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateReviewsTable do
       add(:reviewer_id, :string, null: false)
       add(:comment, :text, null: false)
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

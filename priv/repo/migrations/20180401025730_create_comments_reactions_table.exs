@@ -7,7 +7,7 @@ defmodule StrawHat.Review.Repo.Migrations.CreateCommentsReactionsTable do
       add(:comment_id, references(:comments))
       add(:reaction_id, references(:reactions))
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
 
     create(index(:comments_reactions, [:comment_id, :user_id], unique: true))
