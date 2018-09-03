@@ -35,7 +35,7 @@
   "scrivener": {:hex, :scrivener, "2.5.0", "e1f78c62b6806d91cc9c4778deef1ea4e80aa9fadfce2c16831afe0468cc8a2c", [:mix], [], "hexpm"},
   "scrivener_ecto": {:hex, :scrivener_ecto, "1.3.0", "69698428e22810ac8a47abc12d1df5b2f5d8f6b36dc5d5bfe6dd93fde857c576", [:mix], [{:ecto, "~> 2.0", [hex: :ecto, repo: "hexpm", optional: false]}, {:postgrex, "~> 0.11.0 or ~> 0.12.0 or ~> 0.13.0", [hex: :postgrex, repo: "hexpm", optional: true]}, {:scrivener, "~> 2.4", [hex: :scrivener, repo: "hexpm", optional: false]}], "hexpm"},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.1", "28a4d65b7f59893bc2c7de786dec1e1555bd742d336043fe644ae956c3497fbe", [:make, :rebar], [], "hexpm"},
-  "straw_hat": {:hex, :straw_hat, "0.4.1", "d8996533134f84c21910188981d1915254f34a2700e7063f2624aeec447fe62b", [:mix], [{:ecto, "~> 2.2", [hex: :ecto, repo: "hexpm", optional: true]}, {:uuid, "~> 1.1", [hex: :uuid, repo: "hexpm", optional: false]}], "hexpm"},
+  "straw_hat": {:hex, :straw_hat, "0.4.2", "95111e3e42ce38e853248389262e119a58f82803eef24f7f8d10f3ec4fbdb467", [:mix], [{:ecto, "~> 2.2", [hex: :ecto, repo: "hexpm", optional: true]}, {:uuid, "~> 1.1", [hex: :uuid, repo: "hexpm", optional: false]}], "hexpm"},
   "unicode_util_compat": {:hex, :unicode_util_compat, "0.3.1", "a1f612a7b512638634a603c8f401892afbf99b8ce93a45041f8aaca99cadb85e", [:rebar3], [], "hexpm"},
   "uuid": {:hex, :uuid, "1.1.8", "e22fc04499de0de3ed1116b770c7737779f226ceefa0badb3592e64d5cfb4eb9", [:mix], [], "hexpm"},
 }
