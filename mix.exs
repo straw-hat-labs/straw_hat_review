@@ -50,10 +50,11 @@ defmodule StrawHat.Review.MixProject do
     [
       {:straw_hat, "~> 0.4"},
       {:postgrex, "~> 0.13"},
-      {:ecto, "~> 2.2"},
-      {:scrivener_ecto, "~> 1.2"},
-      {:arc, "~> 0.8.0"},
-      {:arc_ecto, "~> 0.8.0"},
+      {:ecto, "~> 3.0"},
+      {:ecto_sql, "~> 3.0"},
+      {:scrivener_ecto, "~> 2.0"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, "~> 0.11.1"},
       {:plug, "~> 1.5", optional: true},
 
       # Testing

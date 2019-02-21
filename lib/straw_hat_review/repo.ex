@@ -4,6 +4,6 @@ defmodule StrawHat.Review.Repo do
 
   Check `Ecto.Repo` documentation for learn more about this module.
   """
-  use Ecto.Repo, otp_app: :straw_hat_review
+  use Ecto.Repo, otp_app: :straw_hat_review, adapter: Ecto.Adapters.Postgres
   use Scrivener, page_size: 25
 end
