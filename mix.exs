@@ -4,10 +4,6 @@ defmodule StrawHat.Review.MixProject do
   @name :straw_hat_review
   @version "0.2.0"
   @elixir_version "~> 1.6"
-
-  @description """
-  Review System
-  """
   @source_url "https://github.com/straw-hat-team/straw_hat_review"
 
   def project do
@@ -15,22 +11,17 @@ defmodule StrawHat.Review.MixProject do
 
     [
       name: "StrawHat.Review",
-      description: @description,
+      description: "Review System",
       app: @name,
       version: @version,
+      deps: deps(),
       elixir: @elixir_version,
       elixirc_paths: elixirc_paths(Mix.env()),
-      deps: deps(),
-      aliases: aliases(),
       build_embedded: production?,
       start_permanent: production?,
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.html": :test
-      ],
-
-      # Extras
+      aliases: aliases(),
+      test_coverage: test_coverage(),
+      preferred_cli_env: cli_env(),
       package: package(),
       docs: docs()
     ]
@@ -70,9 +61,22 @@ defmodule StrawHat.Review.MixProject do
     ]
   end
 
+  defp test_coverage do
+    [tool: ExCoveralls]
+  end
+
+  defp cli_env do
+    [
+      "ecto.reset": :test,
+      "ecto.setup": :test,
+      "coveralls.html": :test,
+      "coveralls.json": :test
+    ]
+  end
+
   defp aliases do
     [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test --trace"]
     ]
@@ -105,7 +109,7 @@ defmodule StrawHat.Review.MixProject do
       source_url: @source_url,
       extras: ["README.md"],
       groups_for_modules: [
-        Interactors: [
+        "Use Cases": [
           StrawHat.Review.Reviews,
           StrawHat.Review.Aspects,
           StrawHat.Review.Medias,
@@ -114,7 +118,7 @@ defmodule StrawHat.Review.MixProject do
           StrawHat.Review.CommentReactions,
           StrawHat.Review.ReviewReactions
         ],
-        Schemas: [
+        Entities: [
           StrawHat.Review.Review,
           StrawHat.Review.Aspect,
           StrawHat.Review.Media,
@@ -127,7 +131,8 @@ defmodule StrawHat.Review.MixProject do
         Arc: [
           StrawHat.Review.MediaFile,
           StrawHat.Review.MediaFile.Type
-        ]
+        ],
+        Migrations: []
       ]
     ]
   end
