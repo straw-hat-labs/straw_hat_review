@@ -3,10 +3,11 @@ deps:
 	mix local.rebar --force
 	mix deps.get
 
-testing: deps
-	mix credo
+linter:
 	mix format --check-formatted
-	MIX_ENV=test mix coveralls.json
+	mix credo
 
-docs:
-	mix inch.report
+testing: deps
+	mix coveralls.json
+
+ci: deps linter testing
