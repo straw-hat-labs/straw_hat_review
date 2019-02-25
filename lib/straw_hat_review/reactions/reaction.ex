@@ -32,7 +32,6 @@ defmodule StrawHat.Review.Reaction do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Reaction.
   """
-  @since "1.0.0"
   @spec changeset(t, reaction_attrs) :: Ecto.Changeset.t()
   def changeset(reaction, reaction_attrs) do
     reaction

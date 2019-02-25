@@ -42,7 +42,6 @@ defmodule StrawHat.Review.Media do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Media.
   """
-  @since "1.0.0"
   @spec changeset(t, %Plug.Upload{}) :: Ecto.Changeset.t()
   def changeset(media, %Plug.Upload{} = file) do
     # credo:disable-for-next-line

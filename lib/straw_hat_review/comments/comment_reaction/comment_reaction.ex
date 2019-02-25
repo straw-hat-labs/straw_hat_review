@@ -43,7 +43,6 @@ defmodule StrawHat.Review.CommentReaction do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current CommentReaction.
   """
-  @since "1.0.0"
   @spec changeset(t, comment_reaction_attrs) :: Ecto.Changeset.t()
   def changeset(comment_reaction, comment_reaction_attrs) do
     comment_reaction

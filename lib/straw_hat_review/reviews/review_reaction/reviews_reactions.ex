@@ -9,7 +9,6 @@ defmodule StrawHat.Review.ReviewReactions do
   @doc """
   Creates a review reaction.
   """
-  @since "1.0.0"
   @spec create_review_reaction(ReviewReaction.review_reaction_attrs()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
   def create_review_reaction(review_reaction_attrs) do
@@ -21,7 +20,6 @@ defmodule StrawHat.Review.ReviewReactions do
   @doc """
   Updates a review reaction.
   """
-  @since "1.0.0"
   @spec update_review_reaction(ReviewReaction.t(), ReviewReaction.review_reaction_attrs()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
   def update_review_reaction(%ReviewReaction{} = review_reaction, review_reaction_attrs) do
@@ -33,7 +31,6 @@ defmodule StrawHat.Review.ReviewReactions do
   @doc """
   Destroys a review reaction.
   """
-  @since "1.0.0"
   @spec destroy_review_reaction(ReviewReaction.t()) ::
           {:ok, ReviewReaction.t()} | {:error, Ecto.Changeset.t()}
   def destroy_review_reaction(%ReviewReaction{} = review_reaction) do
@@ -43,7 +40,6 @@ defmodule StrawHat.Review.ReviewReactions do
   @doc """
   Finds a review reaction by `id`.
   """
-  @since "1.0.0"
   @spec find_review_reaction(Integer.t()) :: {:ok, ReviewReaction.t()} | {:error, Error.t()}
   def find_review_reaction(review_reaction_id) do
     review_reaction_id
@@ -59,7 +55,6 @@ defmodule StrawHat.Review.ReviewReactions do
   @doc """
   Gets a review reaction by `id`.
   """
-  @since "1.0.0"
   @spec get_review_reaction(Integer.t()) :: ReviewReaction.t() | nil | no_return
   def get_review_reaction(review_reaction_id) do
     Repo.get(ReviewReaction, review_reaction_id)

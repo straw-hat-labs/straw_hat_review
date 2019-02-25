@@ -53,7 +53,6 @@ defmodule StrawHat.Review.Aspect do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Aspect.
   """
-  @since "1.0.0"
   @spec changeset(t, aspect_attrs) :: Ecto.Changeset.t()
   def changeset(aspect, aspect_attrs) do
     aspect
@@ -62,7 +61,6 @@ defmodule StrawHat.Review.Aspect do
     |> validate_name()
   end
 
-  @since "1.0.0"
   @spec validate_name(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp validate_name(changeset) do
     changeset
@@ -71,7 +69,6 @@ defmodule StrawHat.Review.Aspect do
     |> unique_constraint(:name)
   end
 
-  @since "1.0.0"
   @spec cleanup_name(String.t()) :: String.t()
   defp cleanup_name(name) do
     name

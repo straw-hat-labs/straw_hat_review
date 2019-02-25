@@ -81,7 +81,6 @@ defmodule StrawHat.Review.Review do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Review.
   """
-  @since "1.0.0"
   @spec changeset(t, review_attrs) :: Ecto.Changeset.t()
   def changeset(review, review_attrs) do
     review

@@ -9,14 +9,12 @@ defmodule StrawHat.Review.CommentReactions do
   @doc """
   Gets a list of comment reactions.
   """
-  @since "1.0.0"
   @spec get_comment_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_comment_reactions(pagination \\ []), do: Repo.paginate(CommentReaction, pagination)
 
   @doc """
   Creates a comment reaction.
   """
-  @since "1.0.0"
   @spec create_comment_reaction(CommentReaction.comment_reaction_attrs()) ::
           {:ok, CommentReaction.t()} | {:error, Ecto.Changeset.t()}
   def create_comment_reaction(comment_reaction_attrs) do
@@ -28,7 +26,6 @@ defmodule StrawHat.Review.CommentReactions do
   @doc """
   Updates the comment reaction.
   """
-  @since "1.0.0"
   @spec update_comment_reaction(CommentReaction.t(), CommentReaction.comment_reaction_attrs()) ::
           {:ok, CommentReaction.t()} | {:error, Ecto.Changeset.t()}
   def update_comment_reaction(%CommentReaction{} = comment_reaction, comment_reaction_attrs) do
@@ -40,7 +37,6 @@ defmodule StrawHat.Review.CommentReactions do
   @doc """
   Destroys a comment reaction.
   """
-  @since "1.0.0"
   @spec destroy_comment_reaction(CommentReaction.t()) ::
           {:ok, CommentReaction.t()} | {:error, Ecto.Changeset.t()}
   def destroy_comment_reaction(%CommentReaction{} = comment_reaction) do
@@ -50,7 +46,6 @@ defmodule StrawHat.Review.CommentReactions do
   @doc """
   Finds a comment reaction by `id`.
   """
-  @since "1.0.0"
   @spec find_comment_reaction(Integer.t()) :: {:ok, CommentReaction.t()} | {:error, Error.t()}
   def find_comment_reaction(comment_reaction_id) do
     comment_reaction_id
@@ -66,7 +61,6 @@ defmodule StrawHat.Review.CommentReactions do
   @doc """
   Gets a comment reaction by `id`.
   """
-  @since "1.0.0"
   @spec get_comment_reaction(Integer.t()) :: CommentReaction.t() | nil | no_return
   def get_comment_reaction(comment_reaction_id) do
     Repo.get(CommentReaction, comment_reaction_id)

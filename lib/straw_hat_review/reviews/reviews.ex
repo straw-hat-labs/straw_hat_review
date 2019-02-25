@@ -9,14 +9,12 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Gets the list of reviews.
   """
-  @since "1.0.0"
   @spec get_reviews(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_reviews(pagination \\ []), do: Repo.paginate(Review, pagination)
 
   @doc """
   Creates a review.
   """
-  @since "1.0.0"
   @spec create_review(Review.review_attrs()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def create_review(review_attrs) do
     %Review{}
@@ -27,7 +25,6 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Updates a review.
   """
-  @since "1.0.0"
   @spec update_review(Review.t(), Review.review_attrs()) ::
           {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def update_review(%Review{} = review, review_attrs) do
@@ -39,14 +36,12 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Destroys a review.
   """
-  @since "1.0.0"
   @spec destroy_review(Review.t()) :: {:ok, Review.t()} | {:error, Ecto.Changeset.t()}
   def destroy_review(%Review{} = review), do: Repo.delete(review)
 
   @doc """
   Finds a review by `id`.
   """
-  @since "1.0.0"
   @spec find_review(Integer.t()) :: {:ok, Review.t()} | {:error, Error.t()}
   def find_review(review_id) do
     review_id
@@ -62,7 +57,6 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Gets a review by `id`.
   """
-  @since "1.0.0"
   @spec get_review(Integer.t()) :: Review.t() | nil | no_return
   def get_review(review_id) do
     query =
@@ -79,7 +73,6 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Gets a list of review by ids.
   """
-  @since "1.0.0"
   @spec get_review_by_ids([Integer.t()]) :: [Review.t()] | no_return
   def get_review_by_ids(review_ids) do
     query =
@@ -96,7 +89,6 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Gets a list of comments by review ids.
   """
-  @since "1.0.0"
   @spec get_comments([Integer.t()]) :: [Review.t()] | no_return
   def get_comments(review_ids) do
     query =
@@ -113,7 +105,6 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking review changes.
   """
-  @since "1.0.0"
   @spec change_review(Review.t()) :: Ecto.Changeset.t()
   def change_review(%Review{} = review) do
     Review.changeset(review, %{})

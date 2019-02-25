@@ -9,14 +9,12 @@ defmodule StrawHat.Review.Aspects do
   @doc """
   Gets the list of aspects.
   """
-  @since "1.0.0"
   @spec get_aspects(Scrivener.Config.t()) :: Scrivener.Page.t()
   def get_aspects(pagination \\ []), do: Repo.paginate(Aspect, pagination)
 
   @doc """
   Creates an aspect.
   """
-  @since "1.0.0"
   @spec create_aspect(Aspect.aspect_attrs()) :: {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
   def create_aspect(aspect_attrs) do
     %Aspect{}
@@ -27,7 +25,6 @@ defmodule StrawHat.Review.Aspects do
   @doc """
   Updates an aspect.
   """
-  @since "1.0.0"
   @spec update_aspect(Aspect.t(), Aspect.aspect_attrs()) ::
           {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
   def update_aspect(%Aspect{} = aspect, aspect_attrs) do
@@ -39,14 +36,12 @@ defmodule StrawHat.Review.Aspects do
   @doc """
   Destroys an aspect.
   """
-  @since "1.0.0"
   @spec destroy_aspect(Aspect.t()) :: {:ok, Aspect.t()} | {:error, Ecto.Changeset.t()}
   def destroy_aspect(%Aspect{} = aspect), do: Repo.delete(aspect)
 
   @doc """
   Finds an aspect by `id`.
   """
-  @since "1.0.0"
   @spec find_aspect(Integer.t()) :: {:ok, Aspect.t()} | {:error, Error.t()}
   def find_aspect(aspect_id) do
     aspect_id
@@ -62,14 +57,12 @@ defmodule StrawHat.Review.Aspects do
   @doc """
   Gets an aspect by `id`.
   """
-  @since "1.0.0"
   @spec get_aspect(Integer.t()) :: Aspect.t() | nil | no_return
   def get_aspect(aspect_id), do: Repo.get(Aspect, aspect_id)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking aspect changes.
   """
-  @since "1.0.0"
   @spec change_aspect(Aspect.t()) :: Ecto.Changeset.t()
   def change_aspect(%Aspect{} = aspect) do
     Aspect.changeset(aspect, %{})
