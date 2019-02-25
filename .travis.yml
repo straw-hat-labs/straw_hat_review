@@ -1,22 +1,22 @@
-language: elixir
 sudo: false
+notifications:
+  recipients:
+    - opensource@straw-hat-llc.com
 
-elixir:
-  - 1.6.4
-otp_release:
-  - 20.2
+language: elixir
+elixir: 1.8
+otp_release: 21.2
+cache:
+  directories:
+    - _build
+    - deps
+
 addons:
   postgresql: 9.6
 
 before_script:
   - psql -c 'create database straw_hat_review_test;' -U postgres
 script:
-  - make testing
-after_script:
-  - make docs
+  - make ci
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-
-notifications:
-  recipients:
-    - engineers@straw-hat-llc.com
