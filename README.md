@@ -5,7 +5,7 @@
 [![Inline docs](http://inch-ci.org/github/straw-hat-team/straw_hat_review.svg)](http://inch-ci.org/github/straw-hat-team/straw_hat_review)
 
 `StrawHat.Review` will help you to add reviews to your systems. We took
-inspiration from Amazon, Lyf, Google, Uber and Fiverr review systems. 
+inspiration from Amazon, Lyf, Google, Uber and Fiverr review systems.
 
 ## Installation
 
@@ -31,16 +31,16 @@ should be using.
 Let's create some aspects based on Fiverr Reviews.
 
 ```elixir
-  # id: 1  
+  # id: 1
   StrawHat.Review.Aspects.create_review(%{
     name: "seller_communication"
-  })  
-  
-  # id: 2  
+  })
+
+  # id: 2
   StrawHat.Review.Aspects.create_review(%{
     name: "service_as_described"
   })
-  
+
   # id: 3
   StrawHat.Review.Aspects.create_review(%{
     name: "would_recommend"
@@ -51,7 +51,7 @@ Let's create some aspects based on Fiverr Reviews.
 
 Now let's give some review to a user.
 
-Normally the reviewee and reviewer are just an string that your systems will 
+Normally the reviewee and reviewer are just an string that your systems will
 know how to do the aggregation with that data. For example, your system that
 uses `StrawHat.Review` knows that `"user:" <> user_id` is the way to read back
 the user id of the reviewee and reviewer.
@@ -66,7 +66,7 @@ the user id of the reviewee and reviewer.
       %{
         aspect_id: 1, # seller_communication
         score: 5
-      }, 
+      },
       %{
         aspect_id: 2, # service_as_described
         score: 5
@@ -109,7 +109,7 @@ on reviews and comments.
   StrawHat.Review.Reactions.create_reaction(%{
     name: "like"
   })
-  
+
   # id: 2
   StrawHat.Review.Reactions.create_reaction(%{
     name: "dislike"
@@ -124,7 +124,7 @@ Now we could react to the reviews and comments
     reaction_id: 1,
     user_id: "user:1"
   })
-  
+
   StrawHat.Review.CommentReactions.create_comment_reaction(%{
     review_id: 1,
     reaction_id: 1,
