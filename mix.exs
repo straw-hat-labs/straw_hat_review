@@ -22,6 +22,7 @@ defmodule StrawHat.Review.MixProject do
       aliases: aliases(),
       test_coverage: test_coverage(),
       preferred_cli_env: cli_env(),
+      dialyzer: dialyxir(),
       package: package(),
       docs: docs()
     ]
@@ -71,6 +72,14 @@ defmodule StrawHat.Review.MixProject do
       "ecto.setup": :test,
       "coveralls.html": :test,
       "coveralls.json": :test
+    ]
+  end
+
+  defp dialyxir do
+    [
+      plt_add_deps: :transitive,
+      plt_add_apps: [:mix],
+      flags: [:race_conditions, :no_opaque]
     ]
   end
 
