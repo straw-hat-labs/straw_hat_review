@@ -35,3 +35,9 @@ action "Check TypeSpec" {
   needs = "Get Deps"
   args = "dialyzer --halt-exit-status"
 }
+
+action "Report Coverage" {
+  uses = "Atrox/codecov-action@v0.1.2"
+  needs = "Run Tests"
+  secrets = ["CODECOV_TOKEN"]
+}
