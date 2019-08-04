@@ -8,24 +8,24 @@ workflow "Health Checking" {
 }
 
 action "Get Deps" {
-  uses = "yordis/action-mix/deps.get@withpostgres"
+  uses = "./action-mix/deps.get"
 }
 
 action "Run Tests" {
-  uses = "yordis/action-mix@withpostgres"
+  uses = "./action-mix/postgresql"
   needs = "Get Deps"
   args = "coveralls.json"
   env = {MIX_ENV = "test"}
 }
 
 action "Check Formatting" {
-  uses = "yordis/action-mix@withpostgres"
+  uses = "./action-mix"
   needs = "Get Deps"
   args = "format --check-formatted"
 }
 
 action "Check Linter" {
-  uses = "yordis/action-mix@withpostgres"
+  uses = "./action-mix"
   needs = "Get Deps"
   args = "credo"
 }
