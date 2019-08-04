@@ -28,9 +28,6 @@ RUN echo "local all all trust" > /etc/postgresql/9.6/main/pg_hba.conf
 RUN echo "host all all localhost trust" >> /etc/postgresql/9.6/main/pg_hba.conf
 COPY *.conf /etc/supervisor/conf.d/
 COPY entrypoint.sh /entrypoint.sh
-# USER postgres
-# USER postgres
-# ENV USER=postgres
 
 RUN mix local.rebar --force
 RUN mix local.hex --force
