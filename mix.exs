@@ -22,7 +22,7 @@ defmodule StrawHat.Review.MixProject do
       aliases: aliases(),
       test_coverage: test_coverage(),
       preferred_cli_env: cli_env(),
-      dialyzer: dialyxir(),
+      dialyzer: dialyzer(),
       package: package(),
       docs: docs()
     ]
@@ -75,7 +75,7 @@ defmodule StrawHat.Review.MixProject do
     ]
   end
 
-  defp dialyxir do
+  defp dialyzer do
     [
       plt_add_deps: :transitive,
       plt_add_apps: [:mix],
