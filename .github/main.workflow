@@ -27,5 +27,11 @@ action "Check Formatting" {
 action "Check Linter" {
   uses = "./action-mix"
   needs = "Get Deps"
-  args = "credo"
+  args = "credo --strict"
+}
+
+action "Check TypeSpec" {
+  uses = "./action-mix"
+  needs = "Get Deps"
+  args = "dialyzer --halt-exit-status"
 }
