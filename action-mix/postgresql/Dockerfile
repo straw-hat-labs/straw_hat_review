@@ -9,9 +9,6 @@ LABEL "com.github.actions.description"="An action for running Elixir mix command
 LABEL "com.github.actions.icon"="code"
 LABEL "com.github.actions.color"="orange"
 
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=postgres
-
 ARG MIX_HOME=/.mix
 ENV MIX_HOME=$MIX_HOME
 ARG MIX_ENV=dev
@@ -19,11 +16,8 @@ ENV MIX_ENV=$MIX_ENV
 
 RUN apt-get update
 
-# Install supervisor
 RUN apt-get install -y supervisor
-# Install postgresql
-RUN apt-get install -y postgresql
-RUN apt-get install -y postgresql-client
+RUN apt-get install -y postgresql postgresql-client
 RUN echo "local all all trust" > /etc/postgresql/9.6/main/pg_hba.conf
 RUN echo "host all all localhost trust" >> /etc/postgresql/9.6/main/pg_hba.conf
 COPY *.conf /etc/supervisor/conf.d/
