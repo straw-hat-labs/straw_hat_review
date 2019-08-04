@@ -3,7 +3,8 @@ workflow "Health Checking" {
   resolves = [
     "Run Tests",
     "Check Formatting",
-    "Check Linter"
+    "Check Linter",
+    "Report Coverage"
   ]
 }
 
