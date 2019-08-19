@@ -4,7 +4,6 @@ defmodule StrawHat.Review.Media do
   """
 
   use StrawHat.Review.Schema
-  use Arc.Ecto.Schema
   alias StrawHat.Review.Review
 
   @typedoc """
@@ -49,7 +48,7 @@ defmodule StrawHat.Review.Media do
     # replace Arc all at once from the application.
     media
     |> change()
-    |> cast_attachments(%{file: file}, [:file])
+    |> Arc.Ecto.Changeset.cast_attachments(%{file: file}, [:file])
     |> put_change(:content_type, file.content_type)
     |> put_change(:file_name, file.filename)
     |> assoc_constraint(:review)
