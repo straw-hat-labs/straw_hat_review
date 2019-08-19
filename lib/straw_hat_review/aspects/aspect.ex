@@ -36,7 +36,7 @@ defmodule StrawHat.Review.Aspect do
           id: String.t() | nil,
           name: String.t() | nil,
           inserted_at: DateTime.t() | nil,
-          updated_at: DateTime.t()| nil
+          updated_at: DateTime.t() | nil
         }
 
   @typedoc """

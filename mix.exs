@@ -78,7 +78,7 @@ defmodule StrawHat.Review.MixProject do
   defp dialyzer do
     [
       plt_add_deps: :project,
-      remove_defaults: [:unknown],
+      remove_defaults: [:unknown]
     ]
   end
 

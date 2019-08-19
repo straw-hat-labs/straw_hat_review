@@ -12,7 +12,7 @@ defmodule StrawHat.Review.Reaction do
           __meta__: Ecto.Schema.Metadata.t(),
           id: String.t() | nil,
           inserted_at: DateTime.t() | nil,
-          updated_at: DateTime.t()| nil,
+          updated_at: DateTime.t() | nil,
           name: String.t() | nil
         }
 

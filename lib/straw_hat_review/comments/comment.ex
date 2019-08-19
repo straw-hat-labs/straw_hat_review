@@ -16,7 +16,7 @@ defmodule StrawHat.Review.Comment do
           __meta__: Ecto.Schema.Metadata.t(),
           id: String.t() | nil,
           inserted_at: DateTime.t() | nil,
-          updated_at: DateTime.t()| nil,
+          updated_at: DateTime.t() | nil,
           comment: String.t() | nil,
           owner_id: String.t() | nil,
           review: Review.t() | Ecto.Association.NotLoaded.t(),
