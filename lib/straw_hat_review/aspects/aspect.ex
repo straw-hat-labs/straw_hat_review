@@ -32,7 +32,6 @@ defmodule StrawHat.Review.Aspect do
   - `name`: The name of the aspect.
   """
   @type t :: %__MODULE__{
-          # TODO: Ecto.Schema.Metadata.t(__MODULE__) once Ecto is fixed
           __meta__: Ecto.Schema.Metadata.t(),
           id: String.t() | nil,
           name: String.t() | nil,
