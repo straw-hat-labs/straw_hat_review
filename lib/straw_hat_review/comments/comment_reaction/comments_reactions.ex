@@ -9,7 +9,7 @@ defmodule StrawHat.Review.CommentReactions do
   @doc """
   Gets a list of comment reactions.
   """
-  @spec get_comment_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
+  @spec get_comment_reactions(Scrivener.Config.t() | keyword()) :: Scrivener.Page.t()
   def get_comment_reactions(pagination \\ []), do: Repo.paginate(CommentReaction, pagination)
 
   @doc """

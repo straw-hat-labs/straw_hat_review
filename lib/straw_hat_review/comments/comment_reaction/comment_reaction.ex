@@ -14,11 +14,15 @@ defmodule StrawHat.Review.CommentReaction do
   - `user_id`: The user that react to comment.
   """
   @type t :: %__MODULE__{
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t()| nil,
           comment: Comment.t() | Ecto.Association.NotLoaded.t(),
           comment_id: Integer.t(),
           reaction: Reaction.t() | Ecto.Association.NotLoaded.t(),
           reaction_id: Integer.t(),
-          user_id: String.t()
+          user_id: String.t() | nil
         }
 
   @typedoc """
@@ -43,7 +47,7 @@ defmodule StrawHat.Review.CommentReaction do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current CommentReaction.
   """
-  @spec changeset(t, comment_reaction_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, comment_reaction_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(comment_reaction, comment_reaction_attrs) do
     comment_reaction
     |> cast(comment_reaction_attrs, @required_fields)

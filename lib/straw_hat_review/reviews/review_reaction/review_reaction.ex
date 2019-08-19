@@ -14,11 +14,15 @@ defmodule StrawHat.Review.ReviewReaction do
   - `user_id`: The user that react to review.
   """
   @type t :: %__MODULE__{
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t()| nil,
           review: Review.t() | Ecto.Association.NotLoaded.t(),
-          review_id: Integer.t(),
+          review_id: Integer.t() | nil,
           reaction: Reaction.t() | Ecto.Association.NotLoaded.t(),
-          reaction_id: Integer.t(),
-          user_id: String.t()
+          reaction_id: Integer.t() | nil,
+          user_id: String.t() | nil
         }
 
   @typedoc """
@@ -43,7 +47,7 @@ defmodule StrawHat.Review.ReviewReaction do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current ReviewReaction.
   """
-  @spec changeset(t, review_reaction_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, review_reaction_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(review_reaction, review_reaction_attrs) do
     review_reaction
     |> cast(review_reaction_attrs, @required_fields)

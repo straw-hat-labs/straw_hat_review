@@ -9,7 +9,11 @@ defmodule StrawHat.Review.Reaction do
   - `name`: The reaction identificator above another reactions.
   """
   @type t :: %__MODULE__{
-          name: String.t()
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t()| nil,
+          name: String.t() | nil
         }
 
   @typedoc """
@@ -32,7 +36,7 @@ defmodule StrawHat.Review.Reaction do
   @doc """
   Validate the attributes and return a Ecto.Changeset for the current Reaction.
   """
-  @spec changeset(t, reaction_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, reaction_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(reaction, reaction_attrs) do
     reaction
     |> cast(reaction_attrs, @required_fields)

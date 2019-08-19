@@ -9,7 +9,7 @@ defmodule StrawHat.Review.Reactions do
   @doc """
   Gets the list of reactions.
   """
-  @spec get_reactions(Scrivener.Config.t()) :: Scrivener.Page.t()
+  @spec get_reactions(Scrivener.Config.t() | keyword()) :: Scrivener.Page.t()
   def get_reactions(pagination \\ []), do: Repo.paginate(Reaction, pagination)
 
   @doc """

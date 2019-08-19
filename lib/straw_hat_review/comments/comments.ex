@@ -9,7 +9,7 @@ defmodule StrawHat.Review.Comments do
   @doc """
   Gets the list of comments.
   """
-  @spec get_comments(Scrivener.Config.t()) :: Scrivener.Page.t()
+  @spec get_comments(Scrivener.Config.t() | keyword()) :: Scrivener.Page.t()
   def get_comments(pagination \\ []), do: Repo.paginate(Comment, pagination)
 
   @doc """

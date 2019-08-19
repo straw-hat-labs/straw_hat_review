@@ -9,7 +9,7 @@ defmodule StrawHat.Review.Reviews do
   @doc """
   Gets the list of reviews.
   """
-  @spec get_reviews(Scrivener.Config.t()) :: Scrivener.Page.t()
+  @spec get_reviews(Scrivener.Config.t() | keyword()) :: Scrivener.Page.t()
   def get_reviews(pagination \\ []), do: Repo.paginate(Review, pagination)
 
   @doc """

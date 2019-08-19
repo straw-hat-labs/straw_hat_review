@@ -14,6 +14,10 @@ defmodule StrawHat.Review.ReviewAspect do
   - `score`: The punctuation received for the reviewer in the range of 1 to 5 for the aspect.
   """
   @type t :: %__MODULE__{
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t()| nil,
           review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t(),
           aspect: Aspect.t() | Ecto.Association.NotLoaded.t(),
@@ -43,7 +47,7 @@ defmodule StrawHat.Review.ReviewAspect do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current ReviewAspect.
   """
-  @spec changeset(t, review_aspect_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, review_aspect_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(review_aspect, review_aspect_attrs) do
     review_aspect
     |> cast(review_aspect_attrs, @required_fields)
