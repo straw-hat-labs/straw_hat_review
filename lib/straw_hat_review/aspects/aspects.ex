@@ -9,7 +9,7 @@ defmodule StrawHat.Review.Aspects do
   @doc """
   Gets the list of aspects.
   """
-  @spec get_aspects(Scrivener.Config.t()) :: Scrivener.Page.t()
+  @spec get_aspects(Scrivener.Config.t() | keyword()) :: Scrivener.Page.t()
   def get_aspects(pagination \\ []), do: Repo.paginate(Aspect, pagination)
 
   @doc """

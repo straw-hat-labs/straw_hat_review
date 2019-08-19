@@ -32,7 +32,12 @@ defmodule StrawHat.Review.Aspect do
   - `name`: The name of the aspect.
   """
   @type t :: %__MODULE__{
-          name: String.t()
+          # TODO: Ecto.Schema.Metadata.t(__MODULE__) once Ecto is fixed
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          name: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t()| nil
         }
 
   @typedoc """
@@ -53,7 +58,7 @@ defmodule StrawHat.Review.Aspect do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Aspect.
   """
-  @spec changeset(t, aspect_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, aspect_attrs | map()) :: Ecto.Changeset.t()
   def changeset(aspect, aspect_attrs) do
     aspect
     |> cast(aspect_attrs, @required_fields)
