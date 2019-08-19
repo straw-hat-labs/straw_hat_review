@@ -13,10 +13,14 @@ defmodule StrawHat.Review.Comment do
   - `review_id`: The review used for the comment.
   """
   @type t :: %__MODULE__{
-          comment: String.t(),
-          owner_id: String.t(),
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t()| nil,
+          comment: String.t() | nil,
+          owner_id: String.t() | nil,
           review: Review.t() | Ecto.Association.NotLoaded.t(),
-          review_id: Integer.t()
+          review_id: Integer.t() | nil
         }
 
   @typedoc """
@@ -48,7 +52,7 @@ defmodule StrawHat.Review.Comment do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Comment.
   """
-  @spec changeset(t, comment_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, comment_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(comment, comment_attrs) do
     comment
     |> cast(comment_attrs, @required_fields)

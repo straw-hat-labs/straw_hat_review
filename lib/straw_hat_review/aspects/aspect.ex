@@ -57,7 +57,7 @@ defmodule StrawHat.Review.Aspect do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Aspect.
   """
-  @spec changeset(t, aspect_attrs | map()) :: Ecto.Changeset.t()
+  @spec changeset(t, aspect_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(aspect, aspect_attrs) do
     aspect
     |> cast(aspect_attrs, @required_fields)

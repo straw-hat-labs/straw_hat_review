@@ -20,9 +20,13 @@ defmodule StrawHat.Review.Review do
   associated with the current review.
   """
   @type t :: %__MODULE__{
-          reviewee_id: String.t(),
-          reviewer_id: String.t(),
-          comment: String.t(),
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: String.t() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t() | nil,
+          reviewee_id: String.t() | nil,
+          reviewer_id: String.t() | nil,
+          comment: String.t() | nil,
           comments: [Comment.t()] | Ecto.Association.NotLoaded.t(),
           medias: [Media.t()] | Ecto.Association.NotLoaded.t(),
           aspects: [ReviewAspect.t()] | Ecto.Association.NotLoaded.t(),
@@ -81,7 +85,7 @@ defmodule StrawHat.Review.Review do
   @doc """
   Validates the attributes and return a Ecto.Changeset for the current Review.
   """
-  @spec changeset(t, review_attrs) :: Ecto.Changeset.t()
+  @spec changeset(t, review_attrs | %{}) :: Ecto.Changeset.t()
   def changeset(review, review_attrs) do
     review
     |> cast(review_attrs, @required_fields)
