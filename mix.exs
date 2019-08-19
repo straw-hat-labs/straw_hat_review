@@ -77,9 +77,8 @@ defmodule StrawHat.Review.MixProject do
 
   defp dialyzer do
     [
-      plt_add_deps: :transitive,
-      plt_add_apps: [:mix],
-      flags: [:race_conditions, :no_opaque]
+      plt_add_deps: :project,
+      remove_defaults: [:unknown],
     ]
   end
 
