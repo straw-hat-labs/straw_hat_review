@@ -1,4 +1,6 @@
 defmodule Arc.Ecto.Changeset do
+  @moduledoc false
+
   @spec cast_attachments(
           Ecto.Schema.t() | Ecto.Changeset.t(),
           :invalid | map(),
@@ -21,35 +23,35 @@ defmodule Arc.Ecto.Changeset do
         end
       end)
 
-    arc_params =
-      case params do
-        :invalid ->
-          :invalid
-
-        %{} ->
-          params
-          |> Arc.Ecto.Changeset.Helpers.convert_params_to_binary()
-          |> Map.take(allowed_param_keys)
-          |> Enum.reduce([], fn
-            # Don't wrap nil casts in the scope object
-            {field, nil}, fields ->
-              [{field, nil} | fields]
-
-            # Allow casting Plug.Uploads
-            {field, upload = %{__struct__: Plug.Upload}}, fields ->
-              [{field, {upload, scope}} | fields]
-
-            # If casting a binary (path), ensure we've explicitly allowed paths
-            {field, path}, fields when is_binary(path) ->
-              if Keyword.get(options, :allow_paths, false) do
-                [{field, {path, scope}} | fields]
-              else
-                fields
-              end
-          end)
-          |> Enum.into(%{})
-      end
-
+    arc_params = with_valid_params(params, allowed_param_keys, options, scope)
     Ecto.Changeset.cast(changeset_or_data, arc_params, allowed)
+  end
+
+  defp with_valid_params(:invalid, _allowed_param_keys, _options, _scope) do
+    :invalid
+  end
+
+  defp with_valid_params(params, allowed_param_keys, options, scope) do
+    params
+    |> Arc.Ecto.Changeset.Helpers.convert_params_to_binary()
+    |> Map.take(allowed_param_keys)
+    |> Enum.reduce([], fn
+      # Don't wrap nil casts in the scope object
+      {field, nil}, fields ->
+        [{field, nil} | fields]
+
+      # Allow casting Plug.Uploads
+      {field, upload = %{__struct__: Plug.Upload}}, fields ->
+        [{field, {upload, scope}} | fields]
+
+      # If casting a binary (path), ensure we've explicitly allowed paths
+      {field, path}, fields when is_binary(path) ->
+        if Keyword.get(options, :allow_paths, false) do
+          [{field, {path, scope}} | fields]
+        else
+          fields
+        end
+    end)
+    |> Enum.into(%{})
   end
 end
