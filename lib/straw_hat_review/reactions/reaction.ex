@@ -44,7 +44,6 @@ defmodule StrawHat.Review.Reaction do
     |> validate_name()
   end
 
-  @spec validate_name(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp validate_name(changeset) do
     changeset
     |> update_change(:name, &cleanup_name/1)
@@ -52,7 +51,6 @@ defmodule StrawHat.Review.Reaction do
     |> unique_constraint(:name)
   end
 
-  @spec cleanup_name(String.t()) :: String.t()
   defp cleanup_name(name) do
     name
     |> String.trim()
