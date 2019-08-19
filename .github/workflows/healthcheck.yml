@@ -22,15 +22,22 @@ jobs:
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
+
       - name: Check Formatting
         run: mix format --check-formatted
+
       - name: Check Linter
         run: mix credo
+
       - name: Run Tests
         run: mix coveralls.json
+        env:
+          CI: true
+
       - name: Upload Coverage
         uses: codecov/codecov-action@v1.0.0
         with:
           token: ${{secrets.CODECOV_TOKEN}}
+
       - name: Check Typespec
         run: mix dialyzer --halt-exit-status
