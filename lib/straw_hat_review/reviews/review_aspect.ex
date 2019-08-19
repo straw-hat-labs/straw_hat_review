@@ -17,7 +17,7 @@ defmodule StrawHat.Review.ReviewAspect do
           __meta__: Ecto.Schema.Metadata.t(),
           id: String.t() | nil,
           inserted_at: DateTime.t() | nil,
-          updated_at: DateTime.t()| nil,
+          updated_at: DateTime.t() | nil,
           review: Review.t() | Ecto.Association.NotLoaded.t(),
           review_id: Integer.t(),
           aspect: Aspect.t() | Ecto.Association.NotLoaded.t(),

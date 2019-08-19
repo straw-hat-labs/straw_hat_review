@@ -17,7 +17,7 @@ defmodule StrawHat.Review.CommentReaction do
           __meta__: Ecto.Schema.Metadata.t(),
           id: String.t() | nil,
           inserted_at: DateTime.t() | nil,
-          updated_at: DateTime.t()| nil,
+          updated_at: DateTime.t() | nil,
           comment: Comment.t() | Ecto.Association.NotLoaded.t(),
           comment_id: Integer.t(),
           reaction: Reaction.t() | Ecto.Association.NotLoaded.t(),
