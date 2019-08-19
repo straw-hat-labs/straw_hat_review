@@ -21,7 +21,7 @@ defmodule StrawHat.Review.MixProject do
       start_permanent: production?,
       aliases: aliases(),
       test_coverage: test_coverage(),
-      preferred_cli_env: cli_env(),
+      preferred_cli_env: preferred_cli_env(),
       dialyzer: dialyzer(),
       package: package(),
       docs: docs()
@@ -66,7 +66,7 @@ defmodule StrawHat.Review.MixProject do
     [tool: ExCoveralls]
   end
 
-  defp cli_env do
+  defp preferred_cli_env do
     [
       "ecto.reset": :test,
       "ecto.setup": :test,
