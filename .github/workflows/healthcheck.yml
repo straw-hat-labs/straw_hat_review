@@ -32,7 +32,7 @@ jobs:
       - name: Run Tests
         run: mix coveralls.json
         env:
-          CI: true
+          CI_DB_HOSTNAME: db
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v1.0.0
