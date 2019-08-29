@@ -5,8 +5,8 @@ jobs:
     name: Elixir ${{matrix.elixir}} / OTP ${{matrix.otp}}
     strategy:
       matrix:
-        otp: [21.x, 22.x]
-        elixir: [1.8.x, 1.9.x]
+        otp: [22.x]
+        elixir: [1.9.x]
     runs-on: ubuntu-latest
     services:
       db:
