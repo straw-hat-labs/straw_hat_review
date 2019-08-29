@@ -2,14 +2,17 @@ name: Health Checking
 on: push
 jobs:
   build:
+    name: Elixir ${{matrix.elixir}} / OTP ${{matrix.otp}}
+    strategy:
+      matrix:
+        otp: [21.x, 22.x]
+        elixir: [1.8.x, 1.9.x]
     runs-on: ubuntu-latest
-    container:
-      image: elixir:1.9.1-slim
     services:
       db:
         image: postgres:11
         ports:
-        - 5432:5432
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -17,6 +20,12 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v1.0.0
+
+      - uses: actions/setup-elixir@v1.0.0
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
       - name: Install Dependencies
         run: |
           mix local.rebar --force
