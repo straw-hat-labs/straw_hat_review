@@ -1,8 +1,9 @@
 # StrawHat.Review
 
-[![Build Status](https://travis-ci.org/straw-hat-team/straw_hat_review.svg?branch=master)](https://travis-ci.org/straw-hat-team/straw_hat_review)
-[![codecov](https://codecov.io/gh/straw-hat-team/straw_hat_review/branch/master/graph/badge.svg)](https://codecov.io/gh/straw-hat-team/straw_hat_review)
-[![Inline docs](http://inch-ci.org/github/straw-hat-team/straw_hat_review.svg)](http://inch-ci.org/github/straw-hat-team/straw_hat_review)
+
+[![Health Checking](https://github.com/straw-hat-team/straw_hat_review/workflows/Health%20Checking/badge.svg)](https://github.com/straw-hat-team/straw_hat_review/actions)
+[![Code Coverage](https://codecov.io/gh/straw-hat-team/straw_hat_review/branch/master/graph/badge.svg)](https://codecov.io/gh/straw-hat-team/straw_hat_review)
+[![Docs Health](https://inch-ci.org/github/straw-hat-team/straw_hat_review.svg)](https://inch-ci.org/github/straw-hat-team/straw_hat_review)
 
 `StrawHat.Review` will help you to add reviews to your systems. We took
 inspiration from Amazon, Lyf, Google, Uber and Fiverr review systems.
