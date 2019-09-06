@@ -44,7 +44,6 @@ jobs:
       - name: Upload Coverage
         uses: codecov/codecov-action@v1.0.0
         with:
-          name: GitHub Actions
           token: ${{secrets.CODECOV_TOKEN}}
 
       - name: Check Typespec
